@@ -6,14 +6,14 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from 'recharts';
-import { HOLLAND_LABELS, type HollandType } from './data/questions';
+import { HOLLAND_LABELS, MAX_SCORE_PER_GROUP, type HollandType } from './data/questions';
 
 interface Props {
   scores: Record<HollandType, number>;
 }
 
 export function HollandRadarChart({ scores }: Props) {
-  const maxScore = 40; // 8 câu × 5 điểm
+  const maxScore = MAX_SCORE_PER_GROUP; // 4 câu × 5 điểm = 20
 
   const data = (Object.keys(HOLLAND_LABELS) as HollandType[]).map((code) => ({
     subject: `${HOLLAND_LABELS[code].emoji} ${HOLLAND_LABELS[code].name}`,

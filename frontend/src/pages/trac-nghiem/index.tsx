@@ -67,9 +67,14 @@ export function TracNghiemPage() {
           </h1>
 
           <p className="text-white/70 text-lg leading-relaxed">
-            48 câu hỏi ngắn, thang điểm Likert 5 mức độ.<br />
-            Kết quả: <strong className="text-white">Mã Holland 3 chữ cái</strong> + Biểu đồ mạng nhện + Danh sách nghề nghiệp STEM tương thích.
+            <strong className="text-white">24 câu hỏi</strong> ngắn, thang điểm Likert 5 mức độ (4 câu mỗi nhóm).<br />
+            Kết quả: <strong className="text-white">Mã Holland 3 chữ cái</strong> + Biểu đồ mạng nhện + Danh sách nghề nghiệp tương thích.
           </p>
+
+          <div className="bg-amber-500/10 border border-amber-500/25 rounded-xl p-3 text-left text-xs text-amber-200/70 leading-relaxed">
+            ⚠️ Bộ câu hỏi rút gọn do Tổ HĐTNHN – THPT Chuyên Biên Hòa biên soạn dựa trên mô hình RIASEC.
+            Kết quả <strong>chỉ mang tính tham khảo</strong>, không thay thế công cụ trắc nghiệm chuyên sâu đã chuẩn hóa.
+          </div>
 
           {/* 6 nhóm Holland */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-left">
@@ -98,7 +103,7 @@ export function TracNghiemPage() {
           >
             Bắt đầu Trắc nghiệm <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
-          <p className="text-white/40 text-sm">⏱ Khoảng 5–7 phút · Không cần đăng nhập</p>
+          <p className="text-white/40 text-sm">⏱ Khoảng 3–5 phút · Không cần đăng nhập</p>
         </div>
       </div>
     );
