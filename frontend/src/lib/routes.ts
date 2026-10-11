@@ -13,6 +13,12 @@ export const ROUTES = {
   COURSES: '/courses',
   COURSE_DETAIL: (id: string) => `/courses/${id}`,
 
+  // ── Bản đồ Hướng Nghiệp ────────────────────────
+  TRAC_NGHIEM: '/trac-nghiem',
+  XET_TUYEN: '/xet-tuyen',
+  BAN_TIN: '/ban-tin',
+  KY_NANG: '/ky-nang',
+
   // ── Classroom (Enrolled student) ───────────────
   CLASSROOM: (courseId: string) => `/courses/${courseId}/classroom`,
   LESSON: (courseId: string, lessonId: string) => `/courses/${courseId}/lessons/${lessonId}`,

@@ -24,7 +24,8 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (!axios.isAxiosError(error) || !error.response) {
-      toast.error('Không thể kết nối đến server.');
+      // Bỏ qua lỗi network khi backend chưa chạy (dev mode / offline)
+      // toast.error('Không thể kết nối đến server.');
       return Promise.reject(error);
     }
 

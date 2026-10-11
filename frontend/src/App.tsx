@@ -13,6 +13,12 @@ import { lazy, Suspense } from 'react';
 import { ROUTES } from '@/lib/routes';
 import { PERMISSION } from '@/lib/permissions';
 
+// ── Bản đồ Hướng Nghiệp – 4 trang chính ─────────────────────────────────────
+import { TracNghiemPage } from '@/pages/trac-nghiem';
+import { XetTuyenPage } from '@/pages/xet-tuyen';
+import { BanTinPage } from '@/pages/ban-tin';
+import { KyNangPage } from '@/pages/ky-nang';
+
 const EditorTestPage = lazy(() =>
   import('@/pages/editor-test').then((m) => ({ default: m.EditorTestPage })),
 );
@@ -20,13 +26,20 @@ const EditorTestPage = lazy(() =>
 function App() {
   return (
     <BrowserRouter>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
         <TooltipProvider>
           <AuthProvider>
             <Routes>
               {/* ── Public (với MainLayout) ────────────────── */}
               <Route element={<MainLayout />}>
                 <Route path={ROUTES.HOME} element={<LandingPage />} />
+
+                {/* ── Bản đồ Hướng Nghiệp ─────────────────── */}
+                <Route path={ROUTES.TRAC_NGHIEM} element={<TracNghiemPage />} />
+                <Route path={ROUTES.XET_TUYEN} element={<XetTuyenPage />} />
+                <Route path={ROUTES.BAN_TIN} element={<BanTinPage />} />
+                <Route path={ROUTES.KY_NANG} element={<KyNangPage />} />
+
                 <Route
                   path={ROUTES.COURSE_DETAIL(':id')}
                   element={
@@ -39,9 +52,6 @@ function App() {
                     </div>
                   }
                 />
-                {/* Thêm các trang public khác ở đây:
-                  <Route path={ROUTES.COURSES} element={<CourseListPage />} />
-              */}
               </Route>
 
               {/* ── Guest Only (redirect nếu đã đăng nhập) ── */}
@@ -53,10 +63,6 @@ function App() {
               <Route element={<ProtectedRoute />}>
                 <Route element={<MainLayout />}>
                   <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
-                  {/* Thêm các trang cần auth ở đây:
-                    <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
-                    <Route path={ROUTES.CLASSROOM(':id')} element={<ClassroomPage />} />
-                */}
                 </Route>
               </Route>
 
@@ -65,21 +71,14 @@ function App() {
                 element={<ProtectedRoute requiredPermission={PERMISSION.MANAGE_OWN_COURSES} />}
               >
                 <Route element={<MainLayout />}>
-                  {/* Thêm các trang instructor ở đây:
-                    <Route path={ROUTES.INSTRUCTOR_DASHBOARD} element={<InstructorDashboard />} />
-                    <Route path={ROUTES.INSTRUCTOR_COURSE_EDITOR(':id')} element={<CourseEditorPage />} />
-                    <Route path={ROUTES.QUESTION_BANK} element={<QuestionBankPage />} />
-                */}
+                  {/* Thêm các trang instructor ở đây */}
                 </Route>
               </Route>
 
               {/* ── Admin (cần quyền admin) ────────────────── */}
               <Route element={<ProtectedRoute requiredPermission={PERMISSION.ADMIN} />}>
                 <Route element={<MainLayout />}>
-                  {/* Thêm các trang admin ở đây:
-                    <Route path={ROUTES.ADMIN_DASHBOARD} element={<AdminDashboard />} />
-                    <Route path={ROUTES.ADMIN_USERS} element={<AdminUsersPage />} />
-                */}
+                  {/* Thêm các trang admin ở đây */}
                 </Route>
               </Route>
 
