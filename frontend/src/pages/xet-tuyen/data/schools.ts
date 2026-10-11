@@ -1,4 +1,4 @@
-import type { HollandType } from './data/questions';
+import type { HollandType } from '../../trac-nghiem/data/questions';
 
 export interface SchoolProgram {
   school: string;

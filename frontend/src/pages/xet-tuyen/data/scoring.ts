@@ -1,4 +1,4 @@
-import { SCHOOLS, PRIORITY_ZONES, SUBJECT_GROUPS, type SchoolProgram } from './schools';
+import { SCHOOLS, PRIORITY_ZONES, type SchoolProgram } from './schools';
 
 export interface StudentScores {
   // Điểm học tập / THPT (thang 10)
@@ -77,7 +77,7 @@ function getActionTip(
   diff: number,
   method: string,
   bestGroup: string,
-  program: SchoolProgram,
+  _program: SchoolProgram,
 ): string {
   if (diff >= 1.0) return `🎯 Bạn đang trong vùng an toàn với ${method}. Hãy duy trì và cân nhắc ngành tương tự làm backup.`;
   if (diff >= 0) return `⚡ Rất gần! Cần cải thiện thêm ${Math.abs(diff).toFixed(2)} điểm để chắc chắn đỗ qua ${method}.`;
@@ -89,7 +89,7 @@ function getActionTip(
 }
 
 // ── Xử lý IELTS → điểm Anh quy đổi ─────────────────────────────────────────
-function ieltsToEnglishScore(ielts: number, school: string): number {
+function ieltsToEnglishScore(ielts: number, _school: string): number {
   // Bảng quy đổi phổ biến (HUST, UET, v.v.)
   if (ielts >= 8.0) return 10;
   if (ielts >= 7.0) return 10;  // nhiều trường IELTS 7.0 = 10 điểm Anh

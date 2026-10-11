@@ -2,7 +2,7 @@ import type { Career } from './data/careers';
 import type { HollandType } from './data/questions';
 import { HOLLAND_LABELS } from './data/questions';
 import { Badge } from '@/components/ui/badge';
-import { ExternalLink, TrendingUp, DollarSign, Wrench } from 'lucide-react';
+import { TrendingUp, DollarSign, Wrench } from 'lucide-react';
 
 interface Props {
   careers: Career[];
