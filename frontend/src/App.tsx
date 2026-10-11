@@ -25,7 +25,7 @@ const EditorTestPage = lazy(() =>
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/webhuongnghiep/frontend">
       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
         <TooltipProvider>
           <AuthProvider>

@@ -13,6 +13,9 @@ async function enableMocking() {
   // once the Service Worker is up and ready to intercept requests.
   return worker.start({
     onUnhandledRequest: 'bypass',
+    serviceWorker: {
+      url: '/webhuongnghiep/frontend/mockServiceWorker.js',
+    },
   });
 }
 
