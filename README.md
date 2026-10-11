@@ -1,6 +1,44 @@
-# GocTriThuc
+# GocTriThuc · Bản đồ Hướng Nghiệp
 
-## Thành viên dự án
+> **THPT Chuyên Biên Hòa** – Hệ thống hướng nghiệp tích hợp: Trắc nghiệm Holland RIASEC, Tra cứu Xét tuyển, Bản tin và Bản đồ Kỹ năng STEM.
+
+---
+
+## 🚀 Chạy nhanh — Frontend Only (Bản đồ Hướng Nghiệp)
+
+> ✅ Không cần Backend, không cần Docker, không cần đăng nhập.  
+> Chỉ cần **Node.js v18+**. Kiểm tra: `node -v`
+
+**Bước 1 — Vào thư mục frontend:**
+```bash
+cd frontend
+```
+
+**Bước 2 — Cài thư viện** _(chỉ lần đầu)_:
+```bash
+npm install
+```
+
+**Bước 3 — Khởi chạy:**
+```bash
+npm run dev
+```
+
+**Bước 4 — Mở trình duyệt:** http://localhost:5173
+
+| Trang | URL |
+|---|---|
+| 🏠 Trang chủ | http://localhost:5173/ |
+| 🧠 Trắc nghiệm Holland | http://localhost:5173/trac-nghiem |
+| 📊 Tra cứu Xét tuyển | http://localhost:5173/xet-tuyen |
+| 📰 Bản tin | http://localhost:5173/ban-tin |
+| 🗺️ Bản đồ Kỹ năng | http://localhost:5173/ky-nang |
+
+> Để dừng: nhấn **Ctrl + C** trong terminal.
+
+---
+
+## 👥 Thành viên dự án
 
 | Vai trò               | Họ và tên        | Nơi công tác    | Email                             |
 | --------------------- | ---------------- | --------------- | --------------------------------- |
@@ -10,63 +48,53 @@
 | Thành viên phát triển | Vũ Hoàng Tuấn    | ĐH Bách Khoa HN | <tuan.vh2400080@sis.hust.edu.vn>  |
 | Chuyên viên Phân tích | Lê Thành Trung   | ĐH Bách Khoa HN | <trung.lt2400076@sis.hust.edu.vn> |
 
-## Cách cài đặt và phát triển local
+---
+
+## 🛠️ Cài đặt đầy đủ (Full-stack với Backend)
 
 ### Yêu cầu hệ thống
 
 - Java 21+
-- Node.js (v18+)
-- pnpm
-- Docker và Docker Compose
+- Node.js v18+
+- Docker & Docker Compose
 
-### 0. Cài đặt biến môi trường (.env)
-
-Trước khi chạy dự án, bạn cần tạo file cấu hình biến môi trường `.env` ở thư mục
-gốc của dự án. Bạn có thể copy file mẫu đã được cung cấp để bắt đầu:
+### Bước 0 – Cấu hình biến môi trường
 
 ```bash
+# Tạo file .env từ mẫu
 cp .env.example .env
+# Mở .env và điền thông tin: POSTGRES_PASSWORD, OAuth Google...
 ```
 
-Sau đó, hãy mở file `.env` vừa tạo ra và cập nhật các thông tin cài đặt (ví dụ:
-`POSTGRES_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, cấu hình OAuth cho
-Google...).
-
-### 1. Khởi chạy Database
-
-Dự án sử dụng PostgreSQL thông qua Docker (môi trường dev).
+### Bước 1 – Khởi chạy Database (PostgreSQL)
 
 ```bash
-# Đảm bảo đã setup file .env ở bước trên
 docker compose -f docker-compose.dev.yml up -d
 ```
 
-### 2. Chạy Backend (Spring Boot)
-
-Di chuyển vào thư mục `backend` và sử dụng Maven Wrapper:
+### Bước 2 – Chạy Backend (Spring Boot)
 
 ```bash
 cd backend
 ./mvnw spring-boot:run
+# Windows: mvnw.cmd spring-boot:run
 ```
 
-#### Tài liệu API (Swagger UI / OpenAPI)
-Dự án được tích hợp tự động tài liệu API phục vụ phát triển (nhất là cho team Frontend):
-- **Swagger UI**: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) (Giao diện tương tác chạy thử API trực quan).
-- **OpenAPI JSON**: [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs) (Đặc tả JSON dùng cho các công cụ Postman hoặc tự động sinh client code).
+Sau khi backend chạy:
+- **Swagger UI**: http://localhost:8080/swagger-ui/index.html
+- **OpenAPI JSON**: http://localhost:8080/v3/api-docs
 
-*Lưu ý bảo mật*: Tài liệu API này chỉ hoạt động ở môi trường phát triển local và sẽ **tự động bị vô hiệu hóa hoàn toàn trên môi trường Production** (thông qua cấu hình `application-prod.yaml`) để tránh rò rỉ cấu trúc hệ thống.
+> Tài liệu API chỉ hoạt động ở môi trường dev, tự động tắt trên Production.
 
-### 3. Chạy Frontend (Vite + React)
-
-Di chuyển vào thư mục `frontend`, cài đặt dependencies và khởi chạy môi trường
-phát triển:
+### Bước 3 – Chạy Frontend
 
 ```bash
 cd frontend
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
+
+Truy cập: **http://localhost:5173**
 
 ## CI/CD và Chạy Production
 
