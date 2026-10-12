@@ -5,7 +5,7 @@ import { HollandRadarChart } from './HollandRadarChart';
 import { CareerResults } from './CareerResults';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, ArrowRight, RotateCcw, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, RotateCcw, Sparkles, Brain } from 'lucide-react';
 
 type Answers = Record<number, number>; // questionId → 1..5
 
@@ -18,7 +18,6 @@ export function TracNghiemPage() {
   const question = HOLLAND_QUESTIONS[currentQ];
   const progress = Math.round((currentQ / total) * 100);
 
-  // ── Tính điểm ─────────────────────────────────────────────────────────────
   function calcScores(): Record<HollandType, number> {
     const scores: Record<HollandType, number> = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
     HOLLAND_QUESTIONS.forEach((q) => {
@@ -49,67 +48,70 @@ export function TracNghiemPage() {
     setStep('intro');
   }
 
-  // ── INTRO ──────────────────────────────────────────────────────────────────
+  // ── INTRO ────────────────────────────────────────────────────────────────────
   if (step === 'intro') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#001a3a] via-[#002d6b] to-[#003d8f] flex items-center justify-center px-4 py-16">
-        <div className="max-w-2xl w-full text-center space-y-8">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2 text-[#00e5ff] text-sm font-medium">
-            <Sparkles className="h-4 w-4" />
-            Trắc nghiệm Holland RIASEC
-          </div>
+      <div className="min-h-screen bg-gray-50 px-4 py-10">
+        <div className="max-w-2xl mx-auto space-y-6">
+          {/* Header card */}
+          <div className="bg-blue-50 border border-blue-100 rounded-2xl p-8 text-center space-y-4 shadow-sm">
+            <div className="inline-flex items-center gap-2 bg-blue-100 border border-blue-200 rounded-full px-4 py-2 text-blue-700 text-sm font-medium">
+              <Sparkles className="h-4 w-4" />
+              Trắc nghiệm Holland RIASEC
+            </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-            Khám phá<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00e5ff] to-[#7c3aed]">
-              Mã nghề nghiệp của bạn
-            </span>
-          </h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+              Khám phá<br />
+              <span className="text-blue-600">Mã nghề nghiệp của bạn</span>
+            </h1>
 
-          <p className="text-white/70 text-lg leading-relaxed">
-            <strong className="text-white">24 câu hỏi</strong> ngắn, thang điểm Likert 5 mức độ (4 câu mỗi nhóm).<br />
-            Kết quả: <strong className="text-white">Mã Holland 3 chữ cái</strong> + Biểu đồ mạng nhện + Danh sách nghề nghiệp tương thích.
-          </p>
+            <p className="text-gray-600 leading-relaxed">
+              <strong className="text-gray-800">24 câu hỏi</strong> ngắn, thang điểm Likert 5 mức độ (4 câu mỗi nhóm).<br />
+              Kết quả: <strong className="text-gray-800">Mã Holland 3 chữ cái</strong> + Biểu đồ mạng nhện + Danh sách nghề nghiệp tương thích.
+            </p>
 
-          <div className="bg-amber-500/10 border border-amber-500/25 rounded-xl p-3 text-left text-xs text-amber-200/70 leading-relaxed">
-            ⚠️ Bộ câu hỏi rút gọn do Tổ HĐTNHN – THPT Chuyên Biên Hòa biên soạn dựa trên mô hình RIASEC.
-            Kết quả <strong>chỉ mang tính tham khảo</strong>, không thay thế công cụ trắc nghiệm chuyên sâu đã chuẩn hóa.
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-left text-xs text-amber-700 leading-relaxed">
+              ⚠️ Bộ câu hỏi rút gọn do Tổ HĐTNHN – THPT Chuyên Biên Hòa biên soạn dựa trên mô hình RIASEC.
+              Kết quả <strong>chỉ mang tính tham khảo</strong>, không thay thế công cụ trắc nghiệm chuyên sâu đã chuẩn hóa.
+            </div>
           </div>
 
           {/* 6 nhóm Holland */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-left">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {(Object.entries(HOLLAND_LABELS) as [HollandType, typeof HOLLAND_LABELS.R][]).map(
               ([code, info]) => (
                 <div
                   key={code}
-                  className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-xl p-3 flex items-start gap-3"
+                  className="bg-white border border-gray-200 rounded-xl p-3 flex items-start gap-3 shadow-sm hover:shadow-md transition-shadow"
                 >
                   <span className="text-2xl">{info.emoji}</span>
                   <div>
-                    <p className="text-white font-semibold text-sm">
+                    <p className="text-gray-900 font-semibold text-sm">
                       {code} – {info.name}
                     </p>
-                    <p className="text-white/50 text-xs leading-snug mt-0.5">{info.desc}</p>
+                    <p className="text-gray-500 text-xs leading-snug mt-0.5">{info.desc}</p>
                   </div>
                 </div>
               ),
             )}
           </div>
 
-          <Button
-            size="lg"
-            onClick={() => setStep('quiz')}
-            className="rounded-full h-14 px-10 text-base font-semibold bg-gradient-to-r from-[#00e5ff] to-[#7c3aed] text-white border-0 hover:opacity-90 shadow-lg shadow-cyan-500/25"
-          >
-            Bắt đầu Trắc nghiệm <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-          <p className="text-white/40 text-sm">⏱ Khoảng 3–5 phút · Không cần đăng nhập</p>
+          <div className="text-center space-y-2">
+            <Button
+              size="lg"
+              onClick={() => setStep('quiz')}
+              className="rounded-full h-12 px-10 text-base font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-sm"
+            >
+              Bắt đầu Trắc nghiệm <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <p className="text-gray-400 text-sm">⏱ Khoảng 3–5 phút · Không cần đăng nhập</p>
+          </div>
         </div>
       </div>
     );
   }
 
-  // ── QUIZ ───────────────────────────────────────────────────────────────────
+  // ── QUIZ ─────────────────────────────────────────────────────────────────────
   if (step === 'quiz') {
     const label = HOLLAND_LABELS[question.type];
     const LIKERT = [
@@ -122,24 +124,22 @@ export function TracNghiemPage() {
     const selected = answers[question.id];
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#001a3a] via-[#002d6b] to-[#003d8f] flex flex-col">
+      <div className="min-h-screen bg-gray-50 flex flex-col">
         {/* Progress bar */}
-        <div className="h-1.5 bg-white/10">
+        <div className="h-1.5 bg-gray-200">
           <div
-            className="h-full bg-gradient-to-r from-[#00e5ff] to-[#7c3aed] transition-all duration-500"
+            className="h-full bg-blue-600 transition-all duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
 
-        <div className="flex-1 flex flex-col items-center justify-center px-4 py-12">
-          <div className="max-w-xl w-full space-y-8">
+        <div className="flex-1 flex flex-col items-center justify-center px-4 py-10">
+          <div className="max-w-xl w-full space-y-6">
             {/* Header */}
-            <div className="flex items-center justify-between text-white/60 text-sm">
-              <span>
-                Câu {currentQ + 1} / {total}
-              </span>
+            <div className="flex items-center justify-between text-gray-500 text-sm">
+              <span>Câu {currentQ + 1} / {total}</span>
               <Badge
-                style={{ backgroundColor: label.color + '30', color: label.color, borderColor: label.color + '50' }}
+                style={{ backgroundColor: label.color + '20', color: label.color, borderColor: label.color + '50' }}
                 className="border text-xs"
               >
                 {label.emoji} {label.name}
@@ -147,8 +147,8 @@ export function TracNghiemPage() {
             </div>
 
             {/* Question card */}
-            <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-8 shadow-2xl">
-              <p className="text-white text-xl md:text-2xl font-medium leading-relaxed text-center">
+            <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+              <p className="text-gray-900 text-xl md:text-2xl font-medium leading-relaxed text-center">
                 {question.text}
               </p>
             </div>
@@ -163,8 +163,8 @@ export function TracNghiemPage() {
                     flex flex-col items-center gap-2 p-3 rounded-xl border transition-all duration-150
                     ${
                       selected === val
-                        ? 'bg-[#00e5ff]/20 border-[#00e5ff] text-[#00e5ff] scale-105'
-                        : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10 hover:border-white/30 hover:text-white'
+                        ? 'bg-blue-600 border-blue-600 text-white scale-105 shadow-md'
+                        : 'bg-white border-gray-200 text-gray-600 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50'
                     }
                   `}
                 >
@@ -178,7 +178,7 @@ export function TracNghiemPage() {
             <div className="flex items-center justify-between">
               <Button
                 variant="ghost"
-                className="text-white/50 hover:text-white"
+                className="text-gray-500 hover:text-gray-900"
                 onClick={() => setCurrentQ((q) => Math.max(0, q - 1))}
                 disabled={currentQ === 0}
               >
@@ -186,7 +186,7 @@ export function TracNghiemPage() {
               </Button>
               <Button
                 variant="ghost"
-                className="text-white/50 hover:text-white"
+                className="text-gray-500 hover:text-gray-900"
                 onClick={() => {
                   if (!answers[question.id]) setAnswers((p) => ({ ...p, [question.id]: 3 }));
                   if (currentQ < total - 1) setCurrentQ((q) => q + 1);
@@ -202,23 +202,23 @@ export function TracNghiemPage() {
     );
   }
 
-  // ── RESULT ─────────────────────────────────────────────────────────────────
+  // ── RESULT ───────────────────────────────────────────────────────────────────
   const scores = calcScores();
   const topCodes = getTopCodes(scores);
   const careers = getCompatibleCareers(topCodes);
   const hollandCode = topCodes.join('');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#001a3a] via-[#002d6b] to-[#001a3a]">
+    <div className="min-h-screen bg-gray-50">
       {/* Result Hero */}
-      <div className="bg-gradient-to-br from-[#001a3a] to-[#002d6b] py-16 px-4 text-center border-b border-white/10">
+      <div className="bg-blue-700 py-12 px-4 text-center">
         <div className="max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 bg-[#00e5ff]/15 border border-[#00e5ff]/30 rounded-full px-5 py-2 text-[#00e5ff] text-sm">
-            <Sparkles className="h-4 w-4" /> Kết quả Trắc nghiệm Holland
+          <div className="inline-flex items-center gap-2 bg-white/20 border border-white/30 rounded-full px-5 py-2 text-white text-sm">
+            <Brain className="h-4 w-4" /> Kết quả Trắc nghiệm Holland
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white">
             Mã của bạn:{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00e5ff] to-[#7c3aed]">
+            <span className="bg-white text-blue-700 px-3 py-1 rounded-xl">
               {hollandCode}
             </span>
           </h2>
@@ -228,8 +228,7 @@ export function TracNghiemPage() {
               return (
                 <span
                   key={code}
-                  className="px-4 py-2 rounded-full text-sm font-semibold border"
-                  style={{ backgroundColor: info.color + '25', color: info.color, borderColor: info.color + '50' }}
+                  className="px-4 py-2 rounded-full text-sm font-semibold bg-white/20 text-white border border-white/30"
                 >
                   {info.emoji} {code} – {info.name}
                 </span>
@@ -240,7 +239,7 @@ export function TracNghiemPage() {
       </div>
 
       {/* Content */}
-      <div className="max-w-6xl mx-auto px-4 py-12 space-y-16">
+      <div className="max-w-6xl mx-auto px-4 py-10 space-y-10">
         <HollandRadarChart scores={scores} />
         <CareerResults careers={careers} topCodes={topCodes} />
 
@@ -248,7 +247,7 @@ export function TracNghiemPage() {
           <Button
             variant="outline"
             onClick={handleReset}
-            className="rounded-full border-white/20 text-white hover:bg-white/10"
+            className="rounded-full border-gray-300 text-gray-700 hover:bg-gray-100"
           >
             <RotateCcw className="mr-2 h-4 w-4" /> Làm lại Trắc nghiệm
           </Button>

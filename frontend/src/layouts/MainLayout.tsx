@@ -35,11 +35,11 @@ const UserButtonDropdown = ({
 }) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
-      <Button variant="ghost" className="px-2 py-5 text-gray-700 hover:text-blue-600 hover:bg-blue-50">
+      <Button variant="ghost" className="px-2 py-5 text-white/80 hover:text-white hover:bg-white/10">
         {user.displayName || user.username}
         <Avatar className="ml-2 h-7 w-7">
           <AvatarImage src={user.avatarUrl || undefined} alt={user.displayName || user.username} />
-          <AvatarFallback className="bg-blue-100 text-blue-700 text-xs">
+          <AvatarFallback className="bg-white/20 text-white text-xs">
             {(user.displayName || user.username || 'U').charAt(0).toUpperCase()}
           </AvatarFallback>
         </Avatar>
@@ -70,12 +70,11 @@ export function MainLayout() {
   return (
     <div className="flex min-h-screen flex-col bg-gray-50 text-gray-900 font-sans">
 
-      {/* ── Top header (trắng) ───────────────────────────────────────────── */}
-      <div className="bg-white border-b border-gray-100 py-3 px-4">
-        <div className="container mx-auto flex items-center justify-between gap-4">
-
+      {/* ── White top bar: Logo + Login ──────────────────────────────────── */}
+      <div className="bg-white border-b border-gray-100 py-2.5 px-4">
+        <div className="container mx-auto flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 flex-shrink-0 transition-opacity hover:opacity-80">
+          <Link to="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-80">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-sm">
               <GraduationCap className="h-5 w-5 text-white" />
             </div>
@@ -85,23 +84,37 @@ export function MainLayout() {
             </div>
           </Link>
 
-          {/* Quick-access pill buttons */}
-          <div className="hidden md:flex items-center gap-2 flex-wrap justify-center flex-1">
-            {NAV_LINKS.map(({ to, label, icon }) => (
-              <Link
-                key={to}
-                to={to}
-                className="flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-gray-300 text-sm text-gray-700 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all"
-              >
-                {icon} {label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Auth + mobile toggle */}
-          <div className="flex items-center gap-2 flex-shrink-0">
+          {/* Auth */}
+          <div className="flex items-center gap-2">
             {auth && auth.isAuthenticated ? (
-              <UserButtonDropdown user={auth.user} logout={auth.logout} />
+              /* User dropdown dùng màu tối vì nằm trên header trắng */
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="px-2 py-5 text-gray-700 hover:text-blue-600 hover:bg-blue-50">
+                    {auth.user.displayName || auth.user.username}
+                    <Avatar className="ml-2 h-7 w-7">
+                      <AvatarImage src={auth.user.avatarUrl || undefined} />
+                      <AvatarFallback className="bg-blue-100 text-blue-700 text-xs">
+                        {(auth.user.displayName || auth.user.username || 'U').charAt(0).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-white border-gray-200 text-gray-900 shadow-lg">
+                  <DropdownMenuGroup>
+                    <DropdownMenuLabel className="text-gray-400 font-normal">@{auth.user.username}</DropdownMenuLabel>
+                    <DropdownMenuItem className="hover:bg-blue-50 cursor-pointer">
+                      <Link to={ROUTES.DASHBOARD}>Trang cá nhân</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator className="bg-gray-100" />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem variant="destructive" onSelect={auth.logout} className="cursor-pointer">
+                      Đăng xuất
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <Button
                 asChild
@@ -111,6 +124,8 @@ export function MainLayout() {
                 <Link to={ROUTES.LOGIN}>Đăng nhập</Link>
               </Button>
             )}
+
+            {/* Mobile hamburger */}
             <button
               className="md:hidden text-gray-600 hover:text-gray-900 transition-colors p-1"
               onClick={() => setMobileOpen((v) => !v)}
@@ -121,9 +136,10 @@ export function MainLayout() {
         </div>
       </div>
 
-      {/* ── Blue nav bar ─────────────────────────────────────────────────── */}
+      {/* ── Blue sticky nav bar ──────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 bg-blue-700 shadow-md">
         <div className="container mx-auto px-4">
+          {/* Desktop nav */}
           <nav className="hidden md:flex items-center h-11">
             <Link
               to="/"
@@ -142,13 +158,13 @@ export function MainLayout() {
                 }`}
               >
                 {label}
-                <ChevronDown className="h-3 w-3 opacity-70" />
+                <ChevronDown className="h-3 w-3 opacity-60" />
               </Link>
             ))}
           </nav>
         </div>
 
-        {/* Mobile dropdown menu */}
+        {/* Mobile dropdown */}
         {mobileOpen && (
           <div className="md:hidden border-t border-white/10 bg-blue-700 px-4 pb-3 pt-2 space-y-0.5">
             <Link
@@ -172,7 +188,7 @@ export function MainLayout() {
               <Link
                 to={ROUTES.LOGIN}
                 onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2 text-sm text-white font-medium hover:bg-white/10 rounded mt-1 border-t border-white/10 pt-3"
+                className="block px-3 py-2 text-sm text-white font-semibold hover:bg-white/10 rounded border-t border-white/10 mt-1 pt-3"
               >
                 Đăng nhập
               </Link>

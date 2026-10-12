@@ -94,11 +94,11 @@ const NEWS_ITEMS: NewsItem[] = [
 const CATEGORIES = ['Tất cả', 'Tuyển sinh', 'Nghề nghiệp', 'Hướng nghiệp', 'Học bổng', 'Video'];
 
 const categoryColors: Record<string, string> = {
-  'Tuyển sinh': 'bg-blue-500/20 text-blue-300 border-blue-500/30',
-  'Nghề nghiệp': 'bg-purple-500/20 text-purple-300 border-purple-500/30',
-  'Hướng nghiệp': 'bg-green-500/20 text-green-300 border-green-500/30',
-  'Học bổng': 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
-  'Video': 'bg-red-500/20 text-red-300 border-red-500/30',
+  'Tuyển sinh':  'bg-blue-100 text-blue-700 border-blue-200',
+  'Nghề nghiệp': 'bg-purple-100 text-purple-700 border-purple-200',
+  'Hướng nghiệp':'bg-green-100 text-green-700 border-green-200',
+  'Học bổng':    'bg-yellow-100 text-yellow-700 border-yellow-200',
+  'Video':       'bg-red-100 text-red-700 border-red-200',
 };
 
 function NewsCard({ item }: { item: NewsItem }) {
@@ -107,42 +107,42 @@ function NewsCard({ item }: { item: NewsItem }) {
       href={item.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/25 rounded-2xl p-5 transition-all duration-300"
+      className="group block bg-white hover:shadow-md border border-gray-200 hover:border-blue-300 rounded-xl p-5 transition-all duration-200"
     >
       <div className="flex items-start gap-4">
         {/* Icon */}
         <div className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center ${
-          item.isVideo ? 'bg-red-500/20' : 'bg-blue-500/20'
+          item.isVideo ? 'bg-red-100' : 'bg-blue-100'
         }`}>
           {item.isVideo
-            ? <Video className="h-5 w-5 text-red-400" />
-            : <Newspaper className="h-5 w-5 text-blue-400" />
+            ? <Video className="h-5 w-5 text-red-600" />
+            : <Newspaper className="h-5 w-5 text-blue-600" />
           }
         </div>
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-2 flex-wrap">
-            <Badge className={`border text-xs ${categoryColors[item.category] ?? 'bg-white/10 text-white/60 border-white/10'}`}>
+            <Badge className={`border text-xs ${categoryColors[item.category] ?? 'bg-gray-100 text-gray-600 border-gray-200'}`}>
               {item.isVideo && <Play className="h-2.5 w-2.5 mr-1 fill-current" />}
               {item.category}
             </Badge>
-            <span className="text-white/30 text-xs">{item.source}</span>
-            <span className="text-white/25 text-xs flex items-center gap-1">
+            <span className="text-gray-400 text-xs">{item.source}</span>
+            <span className="text-gray-300 text-xs flex items-center gap-1">
               <Clock className="h-3 w-3" />
               {new Date(item.date).toLocaleDateString('vi-VN')}
             </span>
           </div>
 
-          <h4 className="text-white font-semibold group-hover:text-[#00e5ff] transition-colors line-clamp-2 leading-snug">
+          <h4 className="text-gray-900 font-semibold group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
             {item.title}
           </h4>
 
-          <p className="text-white/50 text-sm mt-2 line-clamp-2 leading-relaxed">
+          <p className="text-gray-500 text-sm mt-2 line-clamp-2 leading-relaxed">
             {item.summary}
           </p>
         </div>
 
-        <ExternalLink className="h-4 w-4 text-white/20 group-hover:text-[#00e5ff] transition-colors shrink-0 mt-1" />
+        <ExternalLink className="h-4 w-4 text-gray-300 group-hover:text-blue-500 transition-colors shrink-0 mt-1" />
       </div>
     </a>
   );
@@ -154,27 +154,26 @@ function VideoCard({ item }: { item: NewsItem }) {
       href={item.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block bg-white/5 hover:bg-white/10 border border-white/10 hover:border-red-500/30 rounded-2xl overflow-hidden transition-all duration-300"
+      className="group block bg-white hover:shadow-md border border-gray-200 hover:border-red-300 rounded-xl overflow-hidden transition-all duration-200"
     >
       {/* Thumbnail placeholder */}
-      <div className="relative h-44 bg-gradient-to-br from-[#1a0a2e] to-[#0d0d1a] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 to-red-900/20" />
-        <div className="relative z-10 w-14 h-14 rounded-full bg-red-500/80 flex items-center justify-center group-hover:scale-110 transition-transform">
+      <div className="relative h-44 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+        <div className="w-14 h-14 rounded-full bg-red-500 flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
           <Play className="h-6 w-6 text-white fill-white ml-1" />
         </div>
         <div className="absolute bottom-2 right-2">
-          <Badge className="bg-black/60 text-white border-0 text-xs">
-            <Video className="h-3 w-3 mr-1 text-red-400" /> Video
+          <Badge className="bg-white/90 text-red-600 border-0 text-xs shadow-sm">
+            <Video className="h-3 w-3 mr-1" /> Video
           </Badge>
         </div>
       </div>
 
       <div className="p-4">
-        <span className="text-white/40 text-xs">{item.source}</span>
-        <h4 className="text-white font-semibold mt-1 group-hover:text-red-300 transition-colors line-clamp-2 text-sm leading-snug">
+        <span className="text-gray-400 text-xs">{item.source}</span>
+        <h4 className="text-gray-900 font-semibold mt-1 group-hover:text-red-600 transition-colors line-clamp-2 text-sm leading-snug">
           {item.title}
         </h4>
-        <p className="text-white/40 text-xs mt-2 flex items-center gap-1">
+        <p className="text-gray-400 text-xs mt-2 flex items-center gap-1">
           <Clock className="h-3 w-3" />
           {new Date(item.date).toLocaleDateString('vi-VN')}
         </p>
@@ -195,24 +194,26 @@ export function BanTinPage() {
   const filteredVideos = filtered.filter((i) => i.isVideo);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#001a3a] via-[#002d6b] to-[#001a3a]">
-      <div className="max-w-5xl mx-auto px-4 py-12 space-y-10">
-        {/* Header */}
-        <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 bg-[#00e5ff]/15 border border-[#00e5ff]/30 rounded-full px-5 py-2 text-[#00e5ff] text-sm">
+    <div className="min-h-screen bg-gray-50">
+      {/* Page header */}
+      <div className="bg-blue-700 py-10 px-4 text-center">
+        <div className="max-w-3xl mx-auto space-y-2">
+          <div className="inline-flex items-center gap-2 bg-white/20 border border-white/30 rounded-full px-4 py-2 text-white text-sm">
             <BookOpen className="h-4 w-4" /> Bản tin Hướng nghiệp
           </div>
-          <h1 className="text-4xl font-bold text-white">Cập nhật mới nhất</h1>
-          <p className="text-white/60">
-            Tổng hợp thông tin tuyển sinh, nghề nghiệp và video từ Fanpage THPT Chuyên Biên Hòa
+          <h1 className="text-3xl font-bold text-white">Cập nhật mới nhất</h1>
+          <p className="text-white/70 text-sm">
+            Tổng hợp thông tin tuyển sinh, nghề nghiệp và video từ Fanpage THPT Chuyên Biên Hòa – Hà Nam
           </p>
         </div>
+      </div>
 
+      <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
         {/* Video section */}
         {(activeCategory === 'Tất cả' || activeCategory === 'Video') && (
           <div>
-            <h2 className="text-white font-semibold text-xl mb-4 flex items-center gap-2">
-              <Video className="h-5 w-5 text-red-400" /> Video từ Fanpage
+            <h2 className="text-gray-900 font-bold text-xl mb-4 flex items-center gap-2">
+              <Video className="h-5 w-5 text-red-500" /> Video từ Fanpage
             </h2>
             <div className="grid md:grid-cols-2 gap-4">
               {(activeCategory === 'Tất cả' ? videos : filteredVideos).map((item) => (
@@ -222,20 +223,22 @@ export function BanTinPage() {
           </div>
         )}
 
-        {/* Category filter */}
+        {/* Category filter + articles */}
         <div>
-          <h2 className="text-white font-semibold text-xl mb-4 flex items-center gap-2">
-            <Newspaper className="h-5 w-5 text-blue-400" /> Bài viết & Thông tin
+          <h2 className="text-gray-900 font-bold text-xl mb-4 flex items-center gap-2">
+            <Newspaper className="h-5 w-5 text-blue-600" /> Bài viết & Thông tin
           </h2>
-          <div className="flex gap-2 flex-wrap mb-6">
+
+          {/* Filter pills */}
+          <div className="flex gap-2 flex-wrap mb-5">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={`px-4 py-1.5 rounded-full text-sm border transition-all ${
                   activeCategory === cat
-                    ? 'bg-[#00e5ff]/20 border-[#00e5ff] text-[#00e5ff]'
-                    : 'bg-white/5 border-white/10 text-white/50 hover:text-white hover:bg-white/10'
+                    ? 'bg-blue-600 border-blue-600 text-white'
+                    : 'bg-white border-gray-300 text-gray-600 hover:border-blue-400 hover:text-blue-600'
                 }`}
               >
                 {cat}
@@ -245,7 +248,9 @@ export function BanTinPage() {
 
           <div className="space-y-3">
             {articles.length === 0 ? (
-              <div className="text-center py-12 text-white/40">Không có bài viết trong mục này</div>
+              <div className="text-center py-12 text-gray-400 bg-white rounded-xl border border-gray-200">
+                Không có bài viết trong mục này
+              </div>
             ) : (
               articles.map((item) => <NewsCard key={item.id} item={item} />)
             )}
