@@ -70,10 +70,7 @@ export function TracNghiemPage() {
               Kết quả: <strong className="text-gray-800">Mã Holland 3 chữ cái</strong> + Biểu đồ mạng nhện + Danh sách nghề nghiệp tương thích.
             </p>
 
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-left text-xs text-amber-700 leading-relaxed">
-              ⚠️ Bộ câu hỏi rút gọn do Tổ HĐTNHN – THPT Chuyên Biên Hòa biên soạn dựa trên mô hình RIASEC.
-              Kết quả <strong>chỉ mang tính tham khảo</strong>, không thay thế công cụ trắc nghiệm chuyên sâu đã chuẩn hóa.
-            </div>
+
           </div>
 
           {/* 6 nhóm Holland */}

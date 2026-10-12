@@ -11,21 +11,21 @@ interface Props {
 
 export function CareerResults({ careers, topCodes }: Props) {
   const categoryColors: Record<string, string> = {
-    STEM: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
-    Arts: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
-    Business: 'bg-orange-500/20 text-orange-300 border-orange-500/30',
-    Social: 'bg-green-500/20 text-green-300 border-green-500/30',
-    Health: 'bg-red-500/20 text-red-300 border-red-500/30',
+    STEM:     'bg-blue-100 text-blue-700 border-blue-200',
+    Arts:     'bg-purple-100 text-purple-700 border-purple-200',
+    Business: 'bg-orange-100 text-orange-700 border-orange-200',
+    Social:   'bg-green-100 text-green-700 border-green-200',
+    Health:   'bg-red-100 text-red-700 border-red-200',
   };
 
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h3 className="text-2xl font-bold text-white">
+        <h3 className="text-2xl font-bold text-gray-900">
           Nghề nghiệp tương thích với mã{' '}
-          <span className="text-[#00e5ff]">{topCodes.join('')}</span>
+          <span className="text-blue-600">{topCodes.join('')}</span>
         </h3>
-        <p className="text-white/50 mt-1">
+        <p className="text-gray-500 mt-1">
           Dựa trên cơ sở dữ liệu O*NET và xu hướng thị trường Việt Nam
         </p>
       </div>
@@ -34,25 +34,25 @@ export function CareerResults({ careers, topCodes }: Props) {
         {careers.map((career, idx) => (
           <div
             key={career.id}
-            className="group bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 hover:border-white/25 rounded-2xl p-5 transition-all duration-300"
+            className="group bg-white hover:shadow-md border border-gray-200 hover:border-blue-300 rounded-2xl p-5 transition-all duration-200"
           >
             {/* Header */}
             <div className="flex items-start justify-between gap-3 mb-3">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
                   {idx < 3 && (
-                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-gradient-to-r from-[#00e5ff] to-[#7c3aed] text-white">
+                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-600 text-white">
                       #{idx + 1}
                     </span>
                   )}
-                  <span className={`text-xs px-2 py-0.5 rounded-full border ${categoryColors[career.category]}`}>
+                  <span className={`text-xs px-2 py-0.5 rounded-full border ${categoryColors[career.category] ?? 'bg-gray-100 text-gray-600 border-gray-200'}`}>
                     {career.category}
                   </span>
                 </div>
-                <h4 className="text-white font-semibold text-base group-hover:text-[#00e5ff] transition-colors">
+                <h4 className="text-gray-900 font-semibold text-base group-hover:text-blue-600 transition-colors">
                   {career.nameVi}
                 </h4>
-                <p className="text-white/40 text-xs">{career.nameEn}</p>
+                <p className="text-gray-400 text-xs">{career.nameEn}</p>
               </div>
 
               {/* Holland codes match */}
@@ -65,8 +65,8 @@ export function CareerResults({ careers, topCodes }: Props) {
                       key={code}
                       className="text-xs px-1.5 py-0.5 rounded-md font-bold border"
                       style={{
-                        backgroundColor: isTop ? info.color + '30' : 'rgba(255,255,255,0.05)',
-                        color: isTop ? info.color : 'rgba(255,255,255,0.3)',
+                        backgroundColor: isTop ? info.color + '20' : '#f3f4f6',
+                        color: isTop ? info.color : '#9ca3af',
                         borderColor: isTop ? info.color + '50' : 'transparent',
                       }}
                     >
@@ -78,18 +78,18 @@ export function CareerResults({ careers, topCodes }: Props) {
             </div>
 
             {/* Description */}
-            <p className="text-white/60 text-sm leading-relaxed mb-4">{career.description}</p>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">{career.description}</p>
 
             {/* Skills */}
             <div className="mb-3">
-              <div className="flex items-center gap-1.5 text-white/40 text-xs mb-2">
+              <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-2">
                 <Wrench className="h-3 w-3" /> Kỹ năng chính
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {career.skills.map((skill) => (
                   <Badge
                     key={skill}
-                    className="bg-white/10 text-white/70 border-white/10 hover:bg-white/20 text-xs"
+                    className="bg-gray-100 text-gray-600 border-gray-200 hover:bg-blue-50 hover:text-blue-700 text-xs"
                   >
                     {skill}
                   </Badge>
@@ -98,18 +98,18 @@ export function CareerResults({ careers, topCodes }: Props) {
             </div>
 
             {/* Outlook + Salary */}
-            <div className="grid grid-cols-2 gap-3 pt-3 border-t border-white/10">
+            <div className="grid grid-cols-2 gap-3 pt-3 border-t border-gray-100">
               <div>
-                <div className="flex items-center gap-1 text-white/40 text-xs mb-1">
+                <div className="flex items-center gap-1 text-gray-400 text-xs mb-1">
                   <TrendingUp className="h-3 w-3" /> Triển vọng
                 </div>
-                <p className="text-white/70 text-xs">{career.outlook}</p>
+                <p className="text-gray-700 text-xs">{career.outlook}</p>
               </div>
               <div>
-                <div className="flex items-center gap-1 text-white/40 text-xs mb-1">
+                <div className="flex items-center gap-1 text-gray-400 text-xs mb-1">
                   <DollarSign className="h-3 w-3" /> Mức lương
                 </div>
-                <p className="text-[#00e5ff] text-xs font-semibold">{career.salaryRange}</p>
+                <p className="text-blue-600 text-xs font-semibold">{career.salaryRange}</p>
               </div>
             </div>
           </div>
