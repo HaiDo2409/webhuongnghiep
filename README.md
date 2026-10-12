@@ -1,4 +1,4 @@
-# GocTriThuc · Bản đồ Hướng Nghiệp
+# Bản đồ Hướng Nghiệp
 
 > **THPT Chuyên Biên Hòa** – Hệ thống hướng nghiệp tích hợp: Trắc nghiệm Holland RIASEC, Tra cứu Xét tuyển, Bản tin và Bản đồ Kỹ năng STEM.
 
