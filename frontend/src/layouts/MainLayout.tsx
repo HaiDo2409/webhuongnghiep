@@ -82,7 +82,7 @@ export function MainLayout() {
             </div>
             <div className="hidden sm:block">
               <p className="text-white font-bold text-sm leading-tight">Bản đồ Hướng Nghiệp</p>
-              <p className="text-white/40 text-xs leading-tight">THPT Chuyên Biên Hòa</p>
+              <p className="text-white/40 text-xs leading-tight">THPT Chuyên Biên Hòa – Hà Nam</p>
             </div>
           </Link>
 
@@ -168,7 +168,7 @@ export function MainLayout() {
             </div>
             <div>
               <p className="text-white font-semibold text-sm">Bản đồ Hướng Nghiệp</p>
-              <p className="text-white/40 text-xs">THPT Chuyên Biên Hòa – Đồng Nai</p>
+              <p className="text-white/40 text-xs">THPT Chuyên Biên Hòa – Hà Nam</p>
             </div>
           </div>
           <nav className="flex gap-5 flex-wrap justify-center">
@@ -179,7 +179,7 @@ export function MainLayout() {
             ))}
           </nav>
           <p className="text-white/25 text-xs">
-            © 2026 THPT Chuyên Biên Hòa. Hệ thống hướng nghiệp.
+            © 2026 THPT Chuyên Biên Hòa – Hà Nam. Hệ thống hướng nghiệp.
           </p>
         </div>
       </footer>

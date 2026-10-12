@@ -15,7 +15,7 @@ const FEATURES = [
     glow: 'group-hover:shadow-purple-500/25',
     title: 'Trắc nghiệm Nghề nghiệp',
     subtitle: 'Holland RIASEC',
-    desc: '48 câu hỏi · Biểu đồ mạng nhện 6 nhóm · Gợi ý nghề STEM từ O*NET',
+    desc: '24 câu hỏi · Biểu đồ mạng nhện 6 nhóm · Gợi ý nghề STEM từ O*NET',
     cta: 'Làm Trắc nghiệm',
     to: ROUTES.TRAC_NGHIEM,
   },
@@ -55,7 +55,7 @@ const FEATURES = [
 ];
 
 const STATS = [
-  { value: '48', label: 'Câu hỏi Holland', icon: '🧠' },
+  { value: '24', label: 'Câu hỏi Holland', icon: '🧠' },
   { value: '60+', label: 'Nghề nghiệp STEM', icon: '💼' },
   { value: '50+', label: 'Ngành xét tuyển', icon: '🎓' },
   { value: '4', label: 'Phương thức PT', icon: '📊' },
@@ -75,7 +75,7 @@ export function LandingPage() {
           {/* School badge */}
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2 text-[#00e5ff] text-sm font-medium">
             <GraduationCap className="h-4 w-4" />
-            THPT Chuyên Biên Hòa – Đồng Nai
+            THPT Chuyên Biên Hòa – Hà Nam
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] tracking-tight">
@@ -105,8 +105,7 @@ export function LandingPage() {
             <Button
               asChild
               size="lg"
-              variant="outline"
-              className="rounded-full h-14 px-10 text-base border-white/20 text-white hover:bg-white/10 hover:border-white/40 transition-all"
+              className="rounded-full h-14 px-10 text-base font-semibold bg-gradient-to-r from-[#00e5ff] to-[#7c3aed] text-white border-0 hover:opacity-90 shadow-xl shadow-cyan-500/20 transition-all"
             >
               <Link to={ROUTES.XET_TUYEN}>
                 Tra cứu Xét tuyển <ArrowRight className="ml-2 h-5 w-5" />
@@ -139,7 +138,7 @@ export function LandingPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">4 Công cụ Hướng nghiệp</h2>
-            <p className="text-white/50 text-lg">Được thiết kế riêng cho học sinh THPT Chuyên Biên Hòa</p>
+            <p className="text-white/50 text-lg">Được thiết kế riêng cho học sinh THPT Chuyên Biên Hòa – Hà Nam</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
