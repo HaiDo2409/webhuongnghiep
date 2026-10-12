@@ -12,12 +12,16 @@ export default defineConfig(({ mode }) => {
   const backendPort = env.APP_PORT || rootEnv.APP_PORT || '8080';
 
   return {
+    base: '/webhuongnghiep/frontend/',
+
     plugins: [react(), tailwindcss()],
+
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
+
     server: {
       port: port,
       proxy: {
@@ -25,6 +29,7 @@ export default defineConfig(({ mode }) => {
         '/oauth2': `http://localhost:${backendPort}`,
       },
     },
+
     optimizeDeps: {
       exclude: ['mathlive'],
     },
