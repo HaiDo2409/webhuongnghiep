@@ -1,0 +1,1260 @@
+{
+  "quizzes": [
+    {
+      "type": "HOLLAND",
+      "title": "Holland RIASEC",
+      "questions": [
+        {
+          "id": 1,
+          "type": "R",
+          "text": "Em thích sửa chữa, lắp ráp máy móc, đồ vật hoặc thiết bị điện tử."
+        },
+        {
+          "id": 2,
+          "type": "R",
+          "text": "Em thích làm việc ngoài trời hoặc với dụng cụ, máy móc hơn là ngồi bàn giấy."
+        },
+        {
+          "id": 3,
+          "type": "R",
+          "text": "Em thích các môn thực hành, thí nghiệm hơn là học lý thuyết suông."
+        },
+        {
+          "id": 4,
+          "type": "R",
+          "text": "Em thấy hứng thú khi lắp ráp, vận hành hoặc điều khiển một thiết bị kỹ thuật."
+        },
+        {
+          "id": 5,
+          "type": "I",
+          "text": "Em thích tìm hiểu vì sao mọi việc lại xảy ra như vậy, thích đặt câu hỏi \"tại sao\"."
+        },
+        {
+          "id": 6,
+          "type": "I",
+          "text": "Em thích giải các bài toán, câu đố logic hoặc phân tích số liệu."
+        },
+        {
+          "id": 7,
+          "type": "I",
+          "text": "Em thích đọc sách khoa học, xem chương trình khám phá, tìm hiểu hiện tượng tự nhiên."
+        },
+        {
+          "id": 8,
+          "type": "I",
+          "text": "Em thích tự nghiên cứu sâu một chủ đề trước khi đưa ra kết luận."
+        },
+        {
+          "id": 9,
+          "type": "A",
+          "text": "Em thích vẽ, viết, sáng tác nhạc hoặc thiết kế hình ảnh."
+        },
+        {
+          "id": 10,
+          "type": "A",
+          "text": "Em thích thể hiện ý tưởng của mình theo cách riêng, không rập khuôn."
+        },
+        {
+          "id": 11,
+          "type": "A",
+          "text": "Em thích tham gia các hoạt động văn nghệ, mỹ thuật, nhiếp ảnh hoặc viết lách."
+        },
+        {
+          "id": 12,
+          "type": "A",
+          "text": "Em cảm thấy gò bó khi phải làm việc theo một quy trình cố định, lặp lại."
+        },
+        {
+          "id": 13,
+          "type": "S",
+          "text": "Em thích giúp đỡ, lắng nghe hoặc hướng dẫn người khác."
+        },
+        {
+          "id": 14,
+          "type": "S",
+          "text": "Em thích làm việc nhóm, trò chuyện và kết nối với nhiều người."
+        },
+        {
+          "id": 15,
+          "type": "S",
+          "text": "Em quan tâm đến cảm xúc, khó khăn của bạn bè và muốn hỗ trợ họ."
+        },
+        {
+          "id": 16,
+          "type": "S",
+          "text": "Em thích tham gia hoạt động tình nguyện, cộng đồng."
+        },
+        {
+          "id": 17,
+          "type": "E",
+          "text": "Em thích đứng ra tổ chức, lãnh đạo hoặc điều phối một nhóm/sự kiện."
+        },
+        {
+          "id": 18,
+          "type": "E",
+          "text": "Em thích thuyết phục, đàm phán hoặc thuyết trình trước đám đông."
+        },
+        {
+          "id": 19,
+          "type": "E",
+          "text": "Em thích lên kế hoạch kinh doanh, bán hàng hoặc gây quỹ."
+        },
+        {
+          "id": 20,
+          "type": "E",
+          "text": "Em thích cạnh tranh và đặt mục tiêu để đạt thành tích cao hơn."
+        },
+        {
+          "id": 21,
+          "type": "C",
+          "text": "Em thích sắp xếp, phân loại số liệu, hồ sơ, giấy tờ một cách gọn gàng."
+        },
+        {
+          "id": 22,
+          "type": "C",
+          "text": "Em thích làm việc theo quy trình, quy định rõ ràng hơn là tuỳ hứng."
+        },
+        {
+          "id": 23,
+          "type": "C",
+          "text": "Em cẩn thận, tỉ mỉ khi kiểm tra lại số liệu hoặc văn bản."
+        },
+        {
+          "id": 24,
+          "type": "C",
+          "text": "Em thích sử dụng bảng tính, sổ sách để theo dõi công việc, chi tiêu."
+        }
+      ]
+    },
+    {
+      "type": "MI",
+      "title": "Đa trí tuệ",
+      "questions": [
+        {
+          "id": 1,
+          "type": "linguistic",
+          "text": "Em thích đọc sách, truyện hoặc bài báo hơn là xem phim."
+        },
+        {
+          "id": 2,
+          "type": "linguistic",
+          "text": "Em dễ dàng diễn đạt ý tưởng của mình bằng lời nói hoặc văn viết."
+        },
+        {
+          "id": 3,
+          "type": "linguistic",
+          "text": "Em hay để ý cách dùng từ và cấu trúc câu trong khi đọc."
+        },
+        {
+          "id": 4,
+          "type": "linguistic",
+          "text": "Em thích học ngoại ngữ hoặc tìm hiểu nguồn gốc các từ."
+        },
+        {
+          "id": 5,
+          "type": "linguistic",
+          "text": "Em có thể ghi nhớ câu nói, đoạn văn hay thơ một cách tự nhiên."
+        },
+        {
+          "id": 6,
+          "type": "logical",
+          "text": "Em thích giải câu đố, toán khó hoặc bài tập lập trình."
+        },
+        {
+          "id": 7,
+          "type": "logical",
+          "text": "Em tìm kiếm quy luật và mối liên hệ giữa các sự vật, sự việc."
+        },
+        {
+          "id": 8,
+          "type": "logical",
+          "text": "Em thích làm thí nghiệm và kiểm chứng các giả thuyết."
+        },
+        {
+          "id": 9,
+          "type": "logical",
+          "text": "Em dễ hiểu các khái niệm toán học, vật lý hơn so với bạn bè."
+        },
+        {
+          "id": 10,
+          "type": "logical",
+          "text": "Em thích phân tích nguyên nhân – kết quả khi giải quyết vấn đề."
+        },
+        {
+          "id": 11,
+          "type": "spatial",
+          "text": "Em dễ hình dung vật thể trong không gian 3 chiều khi nhìn bản vẽ kỹ thuật."
+        },
+        {
+          "id": 12,
+          "type": "spatial",
+          "text": "Em thích vẽ sơ đồ, bản đồ tư duy hoặc phác thảo để ghi nhớ."
+        },
+        {
+          "id": 13,
+          "type": "spatial",
+          "text": "Em ít khi bị lạc đường và có cảm giác định hướng tốt."
+        },
+        {
+          "id": 14,
+          "type": "spatial",
+          "text": "Em thích thiết kế, trang trí hoặc sắp xếp đồ vật gọn đẹp."
+        },
+        {
+          "id": 15,
+          "type": "spatial",
+          "text": "Em dễ nhớ mặt người, hình ảnh hơn là nhớ tên hay số."
+        },
+        {
+          "id": 16,
+          "type": "musical",
+          "text": "Em dễ nhận ra giai điệu hoặc nhịp điệu ngay cả khi nghe lần đầu."
+        },
+        {
+          "id": 17,
+          "type": "musical",
+          "text": "Em thường nghĩ bằng âm thanh, giai điệu hiện lên trong đầu khi học."
+        },
+        {
+          "id": 18,
+          "type": "musical",
+          "text": "Em chơi được một nhạc cụ hoặc rất muốn học nhạc."
+        },
+        {
+          "id": 19,
+          "type": "musical",
+          "text": "Em nhận ra khi một bản nhạc bị hát sai tông hoặc lạc nhịp."
+        },
+        {
+          "id": 20,
+          "type": "musical",
+          "text": "Em thích học thuộc bài hơn khi đặt nội dung vào điệu nhạc hoặc vần điệu."
+        },
+        {
+          "id": 21,
+          "type": "bodily",
+          "text": "Em học tốt hơn khi được tự tay thực hành thay vì nghe giảng lý thuyết."
+        },
+        {
+          "id": 22,
+          "type": "bodily",
+          "text": "Em thích thể thao, nhảy múa, võ thuật hoặc các hoạt động thể chất."
+        },
+        {
+          "id": 23,
+          "type": "bodily",
+          "text": "Em khéo léo trong việc lắp ráp, thủ công hoặc làm việc bằng tay."
+        },
+        {
+          "id": 24,
+          "type": "bodily",
+          "text": "Em dễ bắt chước động tác, điệu bộ của người khác."
+        },
+        {
+          "id": 25,
+          "type": "bodily",
+          "text": "Em khó ngồi yên trong thời gian dài và thích di chuyển khi suy nghĩ."
+        },
+        {
+          "id": 26,
+          "type": "interpersonal",
+          "text": "Em dễ cảm nhận cảm xúc và tâm trạng của người xung quanh."
+        },
+        {
+          "id": 27,
+          "type": "interpersonal",
+          "text": "Em thích làm việc nhóm và thường là người kết nối mọi người."
+        },
+        {
+          "id": 28,
+          "type": "interpersonal",
+          "text": "Em giỏi hòa giải khi có mâu thuẫn trong nhóm."
+        },
+        {
+          "id": 29,
+          "type": "interpersonal",
+          "text": "Em được bạn bè tìm đến để chia sẻ hoặc xin lời khuyên."
+        },
+        {
+          "id": 30,
+          "type": "interpersonal",
+          "text": "Em thích tổ chức sự kiện, hoạt động tập thể hơn là làm việc một mình."
+        },
+        {
+          "id": 31,
+          "type": "intrapersonal",
+          "text": "Em thường xuyên tự suy ngẫm về cảm xúc và hành động của mình."
+        },
+        {
+          "id": 32,
+          "type": "intrapersonal",
+          "text": "Em biết rõ điểm mạnh, điểm yếu của bản thân."
+        },
+        {
+          "id": 33,
+          "type": "intrapersonal",
+          "text": "Em thích làm việc một mình và tập trung cao hơn khi ở một mình."
+        },
+        {
+          "id": 34,
+          "type": "intrapersonal",
+          "text": "Em đặt mục tiêu dài hạn và theo đuổi chúng một cách kiên trì."
+        },
+        {
+          "id": 35,
+          "type": "intrapersonal",
+          "text": "Em có quan điểm, giá trị sống riêng và không dễ bị áp lực đám đông."
+        },
+        {
+          "id": 36,
+          "type": "naturalist",
+          "text": "Em yêu thích thiên nhiên: động vật, thực vật, môi trường sống."
+        },
+        {
+          "id": 37,
+          "type": "naturalist",
+          "text": "Em giỏi phân biệt và phân loại các loại cây, côn trùng hoặc đá khoáng."
+        },
+        {
+          "id": 38,
+          "type": "naturalist",
+          "text": "Em quan tâm đến biến đổi khí hậu và bảo vệ môi trường."
+        },
+        {
+          "id": 39,
+          "type": "naturalist",
+          "text": "Em thích quan sát và ghi chép về thế giới tự nhiên xung quanh."
+        },
+        {
+          "id": 40,
+          "type": "naturalist",
+          "text": "Em cảm thấy thoải mái và năng động hơn khi ở ngoài thiên nhiên."
+        }
+      ]
+    }
+  ],
+  "careers": [
+    {
+      "id": "mechanical-engineer",
+      "nameVi": "Kỹ sư Cơ khí",
+      "nameEn": "Mechanical Engineer",
+      "codes": [
+        "R",
+        "I",
+        "C"
+      ],
+      "description": "Thiết kế, phát triển và kiểm tra thiết bị cơ học, động cơ và máy móc công nghiệp.",
+      "skills": [
+        "Vẽ CAD/CAM",
+        "Cơ học vật liệu",
+        "Nhiệt động lực học",
+        "Lập trình CNC"
+      ],
+      "outlook": "⭐⭐⭐⭐ Rất cao — tự động hóa công nghiệp bùng nổ tại Việt Nam",
+      "salaryRange": "15 – 40 triệu",
+      "category": "STEM"
+    },
+    {
+      "id": "civil-engineer",
+      "nameVi": "Kỹ sư Xây dựng",
+      "nameEn": "Civil Engineer",
+      "codes": [
+        "R",
+        "I",
+        "E"
+      ],
+      "description": "Thiết kế và giám sát xây dựng công trình hạ tầng: cầu, đường, tòa nhà, hệ thống cấp thoát nước.",
+      "skills": [
+        "AutoCAD",
+        "Revit",
+        "Kết cấu công trình",
+        "Quản lý dự án"
+      ],
+      "outlook": "⭐⭐⭐⭐ Cao — hạ tầng Việt Nam đang phát triển mạnh",
+      "salaryRange": "12 – 35 triệu",
+      "category": "STEM"
+    },
+    {
+      "id": "electrician-engineer",
+      "nameVi": "Kỹ sư Điện – Điện tử",
+      "nameEn": "Electrical Engineer",
+      "codes": [
+        "R",
+        "I",
+        "C"
+      ],
+      "description": "Thiết kế hệ thống điện, mạch điện tử, năng lượng tái tạo và tự động hóa.",
+      "skills": [
+        "Mạch điện tử",
+        "PLC",
+        "MATLAB",
+        "Năng lượng mặt trời"
+      ],
+      "outlook": "⭐⭐⭐⭐⭐ Rất cao — chuyển đổi xanh & IoT",
+      "salaryRange": "15 – 45 triệu",
+      "category": "STEM"
+    },
+    {
+      "id": "mechatronics",
+      "nameVi": "Kỹ sư Cơ điện tử",
+      "nameEn": "Mechatronics Engineer",
+      "codes": [
+        "R",
+        "I",
+        "C"
+      ],
+      "description": "Tích hợp cơ khí, điện tử và lập trình để tạo robot, dây chuyền tự động.",
+      "skills": [
+        "Arduino/Raspberry Pi",
+        "Lập trình nhúng",
+        "Robotics",
+        "PLC Siemens"
+      ],
+      "outlook": "⭐⭐⭐⭐⭐ Tương lai tự động hóa — nhu cầu rất lớn",
+      "salaryRange": "18 – 50 triệu",
+      "category": "STEM"
+    },
+    {
+      "id": "software-engineer",
+      "nameVi": "Kỹ sư Phần mềm",
+      "nameEn": "Software Engineer",
+      "codes": [
+        "I",
+        "R",
+        "C"
+      ],
+      "description": "Thiết kế, xây dựng và bảo trì phần mềm ứng dụng, hệ thống và dịch vụ web.",
+      "skills": [
+        "Python / Java / JavaScript",
+        "Git",
+        "Cloud (AWS/GCP)",
+        "Agile"
+      ],
+      "outlook": "⭐⭐⭐⭐⭐ Nhu cầu cao nhất hiện tại — IT bùng nổ toàn cầu",
+      "salaryRange": "20 – 80 triệu",
+      "category": "STEM"
+    },
+    {
+      "id": "data-scientist",
+      "nameVi": "Nhà khoa học Dữ liệu",
+      "nameEn": "Data Scientist",
+      "codes": [
+        "I",
+        "R",
+        "C"
+      ],
+      "description": "Khai thác, phân tích dữ liệu lớn để ra quyết định kinh doanh và xây dựng mô hình AI.",
+      "skills": [
+        "Python",
+        "Machine Learning",
+        "SQL",
+        "Power BI / Tableau"
+      ],
+      "outlook": "⭐⭐⭐⭐⭐ Xu hướng AI — lương top đầu thị trường",
+      "salaryRange": "25 – 100 triệu",
+      "category": "STEM"
+    },
+    {
+      "id": "ai-engineer",
+      "nameVi": "Kỹ sư AI / Machine Learning",
+      "nameEn": "AI / ML Engineer",
+      "codes": [
+        "I",
+        "R",
+        "C"
+      ],
+      "description": "Nghiên cứu và triển khai các mô hình học máy, học sâu vào sản phẩm thực tế.",
+      "skills": [
+        "TensorFlow / PyTorch",
+        "Deep Learning",
+        "LLM Fine-tuning",
+        "MLOps"
+      ],
+      "outlook": "⭐⭐⭐⭐⭐ Ngành hot nhất 2024–2030",
+      "salaryRange": "30 – 120 triệu",
+      "category": "STEM"
+    },
+    {
+      "id": "biomedical-researcher",
+      "nameVi": "Nghiên cứu viên Y sinh",
+      "nameEn": "Biomedical Researcher",
+      "codes": [
+        "I",
+        "S",
+        "R"
+      ],
+      "description": "Nghiên cứu bệnh tật, phát triển thuốc và thiết bị y tế bằng phương pháp khoa học.",
+      "skills": [
+        "Sinh học phân tử",
+        "Thống kê y học",
+        "SPSS",
+        "Nghiên cứu lâm sàng"
+      ],
+      "outlook": "⭐⭐⭐⭐ Cao — đặc biệt sau đại dịch COVID-19",
+      "salaryRange": "12 – 30 triệu",
+      "category": "Health"
+    },
+    {
+      "id": "environmental-scientist",
+      "nameVi": "Nhà khoa học Môi trường",
+      "nameEn": "Environmental Scientist",
+      "codes": [
+        "I",
+        "R",
+        "S"
+      ],
+      "description": "Nghiên cứu tác động môi trường, biến đổi khí hậu và đề xuất giải pháp bền vững.",
+      "skills": [
+        "GIS / Remote Sensing",
+        "Đánh giá tác động môi trường (EIA)",
+        "Hóa phân tích",
+        "R / Python"
+      ],
+      "outlook": "⭐⭐⭐⭐ Tăng trưởng — kinh tế xanh và ESG",
+      "salaryRange": "10 – 25 triệu",
+      "category": "STEM"
+    },
+    {
+      "id": "cybersecurity",
+      "nameVi": "Chuyên gia An ninh mạng",
+      "nameEn": "Cybersecurity Specialist",
+      "codes": [
+        "I",
+        "R",
+        "C"
+      ],
+      "description": "Bảo vệ hệ thống mạng, dữ liệu và ứng dụng khỏi các cuộc tấn công mạng.",
+      "skills": [
+        "Penetration Testing",
+        "Network Security",
+        "SIEM",
+        "CEH / CISSP"
+      ],
+      "outlook": "⭐⭐⭐⭐⭐ Cực kỳ cấp bách — tội phạm mạng gia tăng",
+      "salaryRange": "20 – 70 triệu",
+      "category": "STEM"
+    },
+    {
+      "id": "ux-designer",
+      "nameVi": "Nhà thiết kế UX/UI",
+      "nameEn": "UX/UI Designer",
+      "codes": [
+        "A",
+        "I",
+        "C"
+      ],
+      "description": "Thiết kế trải nghiệm người dùng và giao diện thị giác cho ứng dụng và website.",
+      "skills": [
+        "Figma",
+        "User Research",
+        "Prototyping",
+        "Design System"
+      ],
+      "outlook": "⭐⭐⭐⭐⭐ Digital economy — mọi sản phẩm cần UX",
+      "salaryRange": "15 – 50 triệu",
+      "category": "Arts"
+    },
+    {
+      "id": "game-designer",
+      "nameVi": "Nhà thiết kế Game",
+      "nameEn": "Game Designer",
+      "codes": [
+        "A",
+        "I",
+        "R"
+      ],
+      "description": "Xây dựng cơ chế, cốt truyện và trải nghiệm chơi game cho nhiều nền tảng.",
+      "skills": [
+        "Unity / Unreal Engine",
+        "C# / C++",
+        "Game Mechanics",
+        "3D Modeling"
+      ],
+      "outlook": "⭐⭐⭐⭐ Ngành game Việt Nam đang bùng nổ",
+      "salaryRange": "15 – 60 triệu",
+      "category": "Arts"
+    },
+    {
+      "id": "architect",
+      "nameVi": "Kiến trúc sư",
+      "nameEn": "Architect",
+      "codes": [
+        "A",
+        "R",
+        "I"
+      ],
+      "description": "Thiết kế không gian kiến trúc, công trình dân dụng kết hợp thẩm mỹ và công năng.",
+      "skills": [
+        "AutoCAD",
+        "SketchUp",
+        "Revit",
+        "Thiết kế nội thất"
+      ],
+      "outlook": "⭐⭐⭐ Ổn định — bất động sản hồi phục",
+      "salaryRange": "12 – 40 triệu",
+      "category": "Arts"
+    },
+    {
+      "id": "teacher",
+      "nameVi": "Giáo viên / Giảng viên",
+      "nameEn": "Teacher / Lecturer",
+      "codes": [
+        "S",
+        "A",
+        "I"
+      ],
+      "description": "Giảng dạy kiến thức, kỹ năng và định hướng phát triển cho học sinh, sinh viên.",
+      "skills": [
+        "Thiết kế bài giảng",
+        "Quản lý lớp học",
+        "EdTech",
+        "Sư phạm"
+      ],
+      "outlook": "⭐⭐⭐⭐ Luôn cần — đặc biệt STEM và ngoại ngữ",
+      "salaryRange": "8 – 25 triệu",
+      "category": "Social"
+    },
+    {
+      "id": "psychologist",
+      "nameVi": "Nhà Tâm lý học",
+      "nameEn": "Psychologist",
+      "codes": [
+        "S",
+        "I",
+        "A"
+      ],
+      "description": "Đánh giá, tư vấn và trị liệu tâm lý cho cá nhân, gia đình và tổ chức.",
+      "skills": [
+        "Tư vấn tâm lý",
+        "Trắc nghiệm tâm lý",
+        "CBT",
+        "Nghiên cứu hành vi"
+      ],
+      "outlook": "⭐⭐⭐⭐ Tăng trưởng — nhận thức sức khỏe tâm thần tăng cao",
+      "salaryRange": "10 – 30 triệu",
+      "category": "Social"
+    },
+    {
+      "id": "social-worker",
+      "nameVi": "Nhân viên Công tác Xã hội",
+      "nameEn": "Social Worker",
+      "codes": [
+        "S",
+        "E",
+        "C"
+      ],
+      "description": "Hỗ trợ, bảo vệ và cải thiện chất lượng sống cho nhóm yếu thế trong xã hội.",
+      "skills": [
+        "Quản lý ca",
+        "Pháp luật bảo trợ xã hội",
+        "Truyền thông cộng đồng",
+        "Tư vấn"
+      ],
+      "outlook": "⭐⭐⭐ Ổn định — nhu cầu xã hội ngày càng tăng",
+      "salaryRange": "7 – 18 triệu",
+      "category": "Social"
+    },
+    {
+      "id": "nurse",
+      "nameVi": "Điều dưỡng viên",
+      "nameEn": "Nurse",
+      "codes": [
+        "S",
+        "R",
+        "I"
+      ],
+      "description": "Chăm sóc trực tiếp bệnh nhân, thực hiện y lệnh và hỗ trợ bác sĩ trong điều trị.",
+      "skills": [
+        "Kỹ thuật điều dưỡng",
+        "Chăm sóc lâm sàng",
+        "Giao tiếp y tế",
+        "Hồi sức cấp cứu"
+      ],
+      "outlook": "⭐⭐⭐⭐ Thiếu hụt toàn cầu — lương tốt khi đi xuất khẩu lao động",
+      "salaryRange": "8 – 20 triệu (VN) | 50–100 triệu (nước ngoài)",
+      "category": "Health"
+    },
+    {
+      "id": "product-manager",
+      "nameVi": "Quản lý Sản phẩm (Product Manager)",
+      "nameEn": "Product Manager",
+      "codes": [
+        "E",
+        "I",
+        "S"
+      ],
+      "description": "Định hướng phát triển sản phẩm số từ ý tưởng đến thị trường, phối hợp các bộ phận.",
+      "skills": [
+        "Product Roadmap",
+        "Agile/Scrum",
+        "Data Analysis",
+        "User Story"
+      ],
+      "outlook": "⭐⭐⭐⭐⭐ Startup và tech company — vị trí chiến lược",
+      "salaryRange": "25 – 80 triệu",
+      "category": "Business"
+    },
+    {
+      "id": "entrepreneur",
+      "nameVi": "Khởi nghiệp / Doanh nhân",
+      "nameEn": "Entrepreneur",
+      "codes": [
+        "E",
+        "I",
+        "S"
+      ],
+      "description": "Xây dựng và phát triển doanh nghiệp, đổi mới sáng tạo và tạo ra giá trị xã hội.",
+      "skills": [
+        "Business Model Canvas",
+        "Tài chính startup",
+        "Marketing",
+        "Leadership"
+      ],
+      "outlook": "⭐⭐⭐⭐⭐ Hệ sinh thái startup VN phát triển mạnh",
+      "salaryRange": "Không giới hạn",
+      "category": "Business"
+    },
+    {
+      "id": "marketing-manager",
+      "nameVi": "Giám đốc Marketing (CMO)",
+      "nameEn": "Marketing Manager",
+      "codes": [
+        "E",
+        "A",
+        "S"
+      ],
+      "description": "Lập chiến lược thương hiệu, marketing kỹ thuật số và phát triển thị phần.",
+      "skills": [
+        "Digital Marketing",
+        "SEO/SEM",
+        "Content Strategy",
+        "Analytics"
+      ],
+      "outlook": "⭐⭐⭐⭐ Cốt lõi doanh nghiệp — mọi quy mô đều cần",
+      "salaryRange": "20 – 60 triệu",
+      "category": "Business"
+    },
+    {
+      "id": "accountant",
+      "nameVi": "Kế toán / Kiểm toán",
+      "nameEn": "Accountant / Auditor",
+      "codes": [
+        "C",
+        "E",
+        "I"
+      ],
+      "description": "Quản lý sổ sách, lập báo cáo tài chính và kiểm tra tính tuân thủ quy định kế toán.",
+      "skills": [
+        "MISA / SAP",
+        "Thuế TNCN/TNDN",
+        "IFRS",
+        "Excel nâng cao"
+      ],
+      "outlook": "⭐⭐⭐ Ổn định — mọi doanh nghiệp đều cần",
+      "salaryRange": "10 – 30 triệu",
+      "category": "Business"
+    },
+    {
+      "id": "data-analyst",
+      "nameVi": "Chuyên viên Phân tích Dữ liệu",
+      "nameEn": "Data Analyst",
+      "codes": [
+        "C",
+        "I",
+        "E"
+      ],
+      "description": "Thu thập, làm sạch và phân tích dữ liệu để hỗ trợ ra quyết định kinh doanh.",
+      "skills": [
+        "SQL",
+        "Python / R",
+        "Power BI",
+        "Excel / Google Sheets"
+      ],
+      "outlook": "⭐⭐⭐⭐⭐ Thời đại dữ liệu — cầu vượt cung",
+      "salaryRange": "15 – 45 triệu",
+      "category": "STEM"
+    },
+    {
+      "id": "logistics",
+      "nameVi": "Chuyên viên Logistics & SCM",
+      "nameEn": "Logistics & Supply Chain Manager",
+      "codes": [
+        "C",
+        "E",
+        "R"
+      ],
+      "description": "Quản lý chuỗi cung ứng, kho bãi, vận chuyển hàng hóa trong và ngoài nước.",
+      "skills": [
+        "SAP SCM",
+        "Incoterms",
+        "Warehouse Management",
+        "ERP"
+      ],
+      "outlook": "⭐⭐⭐⭐ Thương mại điện tử bùng nổ — logistics lên ngôi",
+      "salaryRange": "12 – 35 triệu",
+      "category": "Business"
+    }
+  ],
+  "programs": [
+    {
+      "school": "Đại học Bách khoa Hà Nội",
+      "shortName": "HUST",
+      "major": "Công nghệ Thông tin",
+      "majorCode": "7480201",
+      "subjectGroups": [
+        {
+          "code": "A00",
+          "subjects": [
+            "toan",
+            "ly",
+            "hoa"
+          ]
+        },
+        {
+          "code": "A01",
+          "subjects": [
+            "toan",
+            "ly",
+            "anh"
+          ]
+        }
+      ],
+      "hollandProfile": {
+        "R": 75,
+        "I": 100,
+        "A": 0,
+        "S": 0,
+        "E": 0,
+        "C": 50
+      },
+      "benchmark": 28.8,
+      "benchmarkYear": 2026
+    },
+    {
+      "school": "Đại học Bách khoa Hà Nội",
+      "shortName": "HUST",
+      "major": "Kỹ thuật Điện – Điện tử",
+      "majorCode": "7520201",
+      "subjectGroups": [
+        {
+          "code": "A00",
+          "subjects": [
+            "toan",
+            "ly",
+            "hoa"
+          ]
+        },
+        {
+          "code": "A01",
+          "subjects": [
+            "toan",
+            "ly",
+            "anh"
+          ]
+        }
+      ],
+      "hollandProfile": {
+        "R": 100,
+        "I": 75,
+        "A": 0,
+        "S": 0,
+        "E": 0,
+        "C": 50
+      },
+      "benchmark": 27.25,
+      "benchmarkYear": 2026
+    },
+    {
+      "school": "Đại học Bách khoa Hà Nội",
+      "shortName": "HUST",
+      "major": "Cơ điện tử",
+      "majorCode": "7520114",
+      "subjectGroups": [
+        {
+          "code": "A00",
+          "subjects": [
+            "toan",
+            "ly",
+            "hoa"
+          ]
+        }
+      ],
+      "hollandProfile": {
+        "R": 100,
+        "I": 75,
+        "A": 0,
+        "S": 0,
+        "E": 0,
+        "C": 50
+      },
+      "benchmark": 26.75,
+      "benchmarkYear": 2026
+    },
+    {
+      "school": "Đại học Bách khoa Hà Nội",
+      "shortName": "HUST",
+      "major": "Kỹ thuật Hóa học",
+      "majorCode": "7520301",
+      "subjectGroups": [
+        {
+          "code": "A00",
+          "subjects": [
+            "toan",
+            "ly",
+            "hoa"
+          ]
+        },
+        {
+          "code": "B00",
+          "subjects": [
+            "toan",
+            "hoa",
+            "sinh"
+          ]
+        }
+      ],
+      "hollandProfile": {
+        "R": 75,
+        "I": 100,
+        "A": 0,
+        "S": 0,
+        "E": 0,
+        "C": 50
+      },
+      "benchmark": 25.7,
+      "benchmarkYear": 2026
+    },
+    {
+      "school": "ĐH Công nghệ – ĐHQGHN",
+      "shortName": "UET",
+      "major": "Khoa học Máy tính",
+      "majorCode": "7480101",
+      "subjectGroups": [
+        {
+          "code": "A00",
+          "subjects": [
+            "toan",
+            "ly",
+            "hoa"
+          ]
+        },
+        {
+          "code": "A01",
+          "subjects": [
+            "toan",
+            "ly",
+            "anh"
+          ]
+        }
+      ],
+      "hollandProfile": {
+        "R": 75,
+        "I": 100,
+        "A": 0,
+        "S": 0,
+        "E": 0,
+        "C": 50
+      },
+      "benchmark": 28.25,
+      "benchmarkYear": 2026
+    },
+    {
+      "school": "ĐH Công nghệ – ĐHQGHN",
+      "shortName": "UET",
+      "major": "Kỹ thuật Phần mềm",
+      "majorCode": "7480103",
+      "subjectGroups": [
+        {
+          "code": "A00",
+          "subjects": [
+            "toan",
+            "ly",
+            "hoa"
+          ]
+        },
+        {
+          "code": "A01",
+          "subjects": [
+            "toan",
+            "ly",
+            "anh"
+          ]
+        }
+      ],
+      "hollandProfile": {
+        "R": 75,
+        "I": 100,
+        "A": 0,
+        "S": 0,
+        "E": 0,
+        "C": 50
+      },
+      "benchmark": 27.85,
+      "benchmarkYear": 2026
+    },
+    {
+      "school": "ĐH Công nghệ – ĐHQGHN",
+      "shortName": "UET",
+      "major": "Điện tử Viễn thông",
+      "majorCode": "7520207",
+      "subjectGroups": [
+        {
+          "code": "A00",
+          "subjects": [
+            "toan",
+            "ly",
+            "hoa"
+          ]
+        },
+        {
+          "code": "A01",
+          "subjects": [
+            "toan",
+            "ly",
+            "anh"
+          ]
+        }
+      ],
+      "hollandProfile": {
+        "R": 100,
+        "I": 75,
+        "A": 0,
+        "S": 0,
+        "E": 0,
+        "C": 50
+      },
+      "benchmark": 26.2,
+      "benchmarkYear": 2026
+    },
+    {
+      "school": "ĐH Sư phạm Hà Nội",
+      "shortName": "HNUE",
+      "major": "Sư phạm Toán học",
+      "majorCode": "7140209",
+      "subjectGroups": [
+        {
+          "code": "A00",
+          "subjects": [
+            "toan",
+            "ly",
+            "hoa"
+          ]
+        },
+        {
+          "code": "A01",
+          "subjects": [
+            "toan",
+            "ly",
+            "anh"
+          ]
+        }
+      ],
+      "hollandProfile": {
+        "R": 0,
+        "I": 100,
+        "A": 0,
+        "S": 75,
+        "E": 0,
+        "C": 50
+      },
+      "benchmark": 28,
+      "benchmarkYear": 2026
+    },
+    {
+      "school": "ĐH Sư phạm Hà Nội",
+      "shortName": "HNUE",
+      "major": "Sư phạm Vật lý",
+      "majorCode": "7140211",
+      "subjectGroups": [
+        {
+          "code": "A00",
+          "subjects": [
+            "toan",
+            "ly",
+            "hoa"
+          ]
+        },
+        {
+          "code": "A01",
+          "subjects": [
+            "toan",
+            "ly",
+            "anh"
+          ]
+        }
+      ],
+      "hollandProfile": {
+        "R": 50,
+        "I": 100,
+        "A": 0,
+        "S": 75,
+        "E": 0,
+        "C": 0
+      },
+      "benchmark": 26.2,
+      "benchmarkYear": 2026
+    },
+    {
+      "school": "ĐH Sư phạm Kỹ thuật TP.HCM",
+      "shortName": "HCMUTE",
+      "major": "Công nghệ Thông tin",
+      "majorCode": "7480201",
+      "subjectGroups": [
+        {
+          "code": "A00",
+          "subjects": [
+            "toan",
+            "ly",
+            "hoa"
+          ]
+        },
+        {
+          "code": "A01",
+          "subjects": [
+            "toan",
+            "ly",
+            "anh"
+          ]
+        },
+        {
+          "code": "D07",
+          "subjects": [
+            "toan",
+            "hoa",
+            "anh"
+          ]
+        }
+      ],
+      "hollandProfile": {
+        "R": 75,
+        "I": 100,
+        "A": 0,
+        "S": 0,
+        "E": 0,
+        "C": 50
+      },
+      "benchmark": 25.25,
+      "benchmarkYear": 2026
+    },
+    {
+      "school": "ĐH Sư phạm Kỹ thuật TP.HCM",
+      "shortName": "HCMUTE",
+      "major": "Kỹ thuật Cơ khí",
+      "majorCode": "7520103",
+      "subjectGroups": [
+        {
+          "code": "A00",
+          "subjects": [
+            "toan",
+            "ly",
+            "hoa"
+          ]
+        }
+      ],
+      "hollandProfile": {
+        "R": 100,
+        "I": 75,
+        "A": 0,
+        "S": 0,
+        "E": 0,
+        "C": 50
+      },
+      "benchmark": 22.7,
+      "benchmarkYear": 2026
+    },
+    {
+      "school": "ĐH Y Hà Nội",
+      "shortName": "HMU",
+      "major": "Y khoa",
+      "majorCode": "7720101",
+      "subjectGroups": [
+        {
+          "code": "B00",
+          "subjects": [
+            "toan",
+            "hoa",
+            "sinh"
+          ]
+        }
+      ],
+      "hollandProfile": {
+        "R": 50,
+        "I": 100,
+        "A": 0,
+        "S": 75,
+        "E": 0,
+        "C": 0
+      },
+      "benchmark": 28.6,
+      "benchmarkYear": 2026
+    },
+    {
+      "school": "ĐH Y Hà Nội",
+      "shortName": "HMU",
+      "major": "Điều dưỡng",
+      "majorCode": "7720301",
+      "subjectGroups": [
+        {
+          "code": "B00",
+          "subjects": [
+            "toan",
+            "hoa",
+            "sinh"
+          ]
+        }
+      ],
+      "hollandProfile": {
+        "R": 75,
+        "I": 50,
+        "A": 0,
+        "S": 100,
+        "E": 0,
+        "C": 0
+      },
+      "benchmark": 23.2,
+      "benchmarkYear": 2026
+    },
+    {
+      "school": "Học viện Tài chính",
+      "shortName": "AOF",
+      "major": "Kế toán",
+      "majorCode": "7340301",
+      "subjectGroups": [
+        {
+          "code": "A00",
+          "subjects": [
+            "toan",
+            "ly",
+            "hoa"
+          ]
+        },
+        {
+          "code": "A01",
+          "subjects": [
+            "toan",
+            "ly",
+            "anh"
+          ]
+        },
+        {
+          "code": "D01",
+          "subjects": [
+            "toan",
+            "van",
+            "anh"
+          ]
+        }
+      ],
+      "hollandProfile": {
+        "R": 0,
+        "I": 50,
+        "A": 0,
+        "S": 0,
+        "E": 75,
+        "C": 100
+      },
+      "benchmark": 24.7,
+      "benchmarkYear": 2026
+    }
+  ]
+}

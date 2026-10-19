@@ -15,7 +15,7 @@ const FEATURES = [
     accentBorder: 'border-l-purple-500',
     title: 'Trắc nghiệm Nghề nghiệp',
     subtitle: 'Holland RIASEC',
-    desc: '24 câu hỏi · Biểu đồ mạng nhện 6 nhóm · Gợi ý nghề STEM từ O*NET',
+    desc: 'Khám phá 6 nhóm sở thích · Xem kết quả và các nghề tham khảo',
     cta: 'Làm Trắc nghiệm',
     to: ROUTES.TRAC_NGHIEM,
   },
@@ -25,8 +25,8 @@ const FEATURES = [
     iconBg: 'bg-blue-100 text-blue-600',
     accentBorder: 'border-l-blue-500',
     title: 'Tra cứu Xét tuyển',
-    subtitle: 'PT1 · PT2 · PT3 · PT4',
-    desc: 'Nhập điểm → Dự báo điểm chuẩn 3 năm → Phân loại cơ hội 🔴🟡🟢',
+    subtitle: 'Điểm môn học và sở thích',
+    desc: 'Nhập điểm → Đối chiếu mốc tham khảo → Gợi ý theo Holland',
     cta: 'Tra cứu ngay',
     to: ROUTES.XET_TUYEN,
   },
@@ -36,7 +36,7 @@ const FEATURES = [
     iconBg: 'bg-green-100 text-green-600',
     accentBorder: 'border-l-green-500',
     title: 'Bản tin Hướng nghiệp',
-    subtitle: 'Cập nhật liên tục',
+    subtitle: 'Thông tin tham khảo',
     desc: 'Video Fanpage · Bài viết tuyển sinh · Thông tin học bổng & nghề nghiệp',
     cta: 'Đọc Bản tin',
     to: ROUTES.BAN_TIN,
@@ -55,22 +55,22 @@ const FEATURES = [
 ];
 
 const STATS = [
-  { value: '24', label: 'Câu hỏi Holland', icon: '🧠' },
-  { value: '60+', label: 'Nghề nghiệp STEM', icon: '💼' },
-  { value: '50+', label: 'Ngành xét tuyển', icon: '🎓' },
-  { value: '4', label: 'Phương thức PT', icon: '📊' },
+  { value: 'RIASEC', label: 'Khám phá sở thích', icon: '🧠' },
+  { value: 'MI', label: 'Đa trí tuệ', icon: '💡' },
+  { value: 'Ngành', label: 'Tìm hiểu lựa chọn', icon: '🎓' },
+  { value: 'Điểm', label: 'Đối chiếu tham khảo', icon: '📊' },
 ];
 
 const BENEFITS = [
   'Hiểu rõ bản thân: Nhận ra điểm mạnh, điểm yếu và sở thích tự nhiên.',
   'Định hướng nghề nghiệp: Chọn ngành học và công việc phù hợp năng lực.',
-  'Tra cứu chính xác: Dự báo điểm chuẩn 3 năm để chọn trường phù hợp.',
+  'Đối chiếu thông tin: Xem điểm môn học, mốc tham khảo và độ phù hợp ngành.',
   'Khám phá lộ trình: Kỹ năng theo ngành từ các khóa học uy tín toàn cầu.',
 ];
 
 const STEPS = [
-  { step: '01', title: 'Làm trắc nghiệm Holland', desc: 'Trả lời 24 câu hỏi ngắn để xác định nhóm tính cách RIASEC của bạn.' },
-  { step: '02', title: 'Xem kết quả & nghề phù hợp', desc: 'Biểu đồ mạng nhện 6 nhóm và gợi ý nghề nghiệp STEM từ O*NET.' },
+  { step: '01', title: 'Làm trắc nghiệm Holland', desc: 'Trả lời bộ câu hỏi để khám phá nhóm sở thích RIASEC của bạn.' },
+  { step: '02', title: 'Xem kết quả & nghề phù hợp', desc: 'Xem điểm sáu nhóm và tìm hiểu các nghề liên quan.' },
   { step: '03', title: 'Tra cứu & lên kế hoạch', desc: 'Kiểm tra điểm chuẩn, khám phá lộ trình kỹ năng và đọc bản tin hướng nghiệp.' },
 ];
 

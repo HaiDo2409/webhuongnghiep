@@ -4,6 +4,7 @@ import { CurrentUser, type CurrentUserResponse } from '@/types';
 import { api } from '@/lib/api';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useBackend } from '@/lib/runtime';
 
 const login = (provider: string) => {
   window.location.href = `/oauth2/authorization/${provider}`;
@@ -15,10 +16,13 @@ const unauthenticatedAuthValue: AuthContextType = {
 };
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [authValue, setAuthValue] = useState<AuthContextType | null>(null);
+  const [authValue, setAuthValue] = useState<AuthContextType | null>(
+    !useBackend && import.meta.env.MODE !== 'development' ? unauthenticatedAuthValue : null,
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!useBackend && import.meta.env.MODE !== 'development') return;
     async function fetchCurrentUser() {
       try {
         const response = await api.get<CurrentUserResponse>('/api/users/me', {
@@ -47,6 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             user,
             logout: async () => {
               await api.post('/api/logout');
+              sessionStorage.removeItem('hn_active_holland_result');
               setAuthValue(unauthenticatedAuthValue);
               navigate('/');
             },

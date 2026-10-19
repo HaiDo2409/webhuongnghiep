@@ -23,6 +23,7 @@ export default defineConfig(({ mode }) => {
       proxy: {
         '/api': `http://localhost:${backendPort}`,
         '/oauth2': `http://localhost:${backendPort}`,
+        '/login/oauth2': `http://localhost:${backendPort}`,
       },
     },
     optimizeDeps: {

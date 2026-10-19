@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { toast } from 'sonner';
 import { ROUTES } from './routes';
+import { useBackend } from './runtime';
 
 /**
  * Axios instance dùng chung cho toàn app.
@@ -17,6 +18,15 @@ const api = axios.create({
   withCredentials: true,
   xsrfCookieName: 'XSRF-TOKEN',
   xsrfHeaderName: 'X-XSRF-TOKEN',
+});
+
+// Refresh before each mutation: login/logout rotates the server's session CSRF token.
+api.interceptors.request.use(async (config) => {
+  if (useBackend && !['get', 'head', 'options'].includes(config.method ?? 'get')) {
+    const { data } = await axios.get<{ token: string; headerName: string }>('/api/auth/csrf', { withCredentials: true });
+    config.headers.set(data.headerName, data.token);
+  }
+  return config;
 });
 
 // ── Response Interceptor ─────────────────────────────────────

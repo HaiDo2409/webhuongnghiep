@@ -29,7 +29,7 @@ export function CareerResults({ careers, topCodes }: Props) {
           <span className="text-blue-600">{topCodes.join('')}</span>
         </h3>
         <p className="text-gray-500 mt-1">
-          Dựa trên cơ sở dữ liệu O*NET và xu hướng thị trường Việt Nam
+          Gợi ý từ danh mục nghề tham khảo; cần tiếp tục tìm hiểu thông tin đào tạo và công việc
         </p>
       </div>
 

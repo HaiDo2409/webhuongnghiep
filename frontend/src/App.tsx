@@ -19,6 +19,11 @@ import { XetTuyenPage } from '@/pages/xet-tuyen';
 import { BanTinPage } from '@/pages/ban-tin';
 import { KyNangPage } from '@/pages/ky-nang';
 import { BookmarksPage } from '@/pages/bookmarks';
+import { useBackend } from '@/lib/runtime';
+import { BackendQuizPage } from '@/features/guidance/BackendQuizPage';
+import { BackendAdmissionsPage } from '@/features/guidance/BackendAdmissionsPage';
+import { ProfileDashboard } from '@/features/profile/ProfileDashboard';
+import { AdminPage } from '@/features/admin/AdminPage';
 
 const EditorTestPage = lazy(() =>
   import('@/pages/editor-test').then((m) => ({ default: m.EditorTestPage })),
@@ -36,8 +41,8 @@ function App() {
                 <Route path={ROUTES.HOME} element={<LandingPage />} />
 
                 {/* ── Bản đồ Hướng Nghiệp ─────────────────── */}
-                <Route path={ROUTES.TRAC_NGHIEM} element={<TracNghiemPage />} />
-                <Route path={ROUTES.XET_TUYEN} element={<XetTuyenPage />} />
+                <Route path={ROUTES.TRAC_NGHIEM} element={useBackend ? <BackendQuizPage /> : <TracNghiemPage />} />
+                <Route path={ROUTES.XET_TUYEN} element={useBackend ? <BackendAdmissionsPage /> : <XetTuyenPage />} />
                 <Route path={ROUTES.BAN_TIN} element={<BanTinPage />} />
                 <Route path={ROUTES.KY_NANG} element={<KyNangPage />} />
                 <Route path={ROUTES.BOOKMARKS} element={<BookmarksPage />} />
@@ -64,7 +69,7 @@ function App() {
               {/* ── Protected (cần đăng nhập) ─────────────── */}
               <Route element={<ProtectedRoute />}>
                 <Route element={<MainLayout />}>
-                  <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
+                  <Route path={ROUTES.DASHBOARD} element={useBackend ? <ProfileDashboard /> : <Dashboard />} />
                 </Route>
               </Route>
 
@@ -80,7 +85,7 @@ function App() {
               {/* ── Admin (cần quyền admin) ────────────────── */}
               <Route element={<ProtectedRoute requiredPermission={PERMISSION.ADMIN} />}>
                 <Route element={<MainLayout />}>
-                  {/* Thêm các trang admin ở đây */}
+                  <Route path={ROUTES.ADMIN_DASHBOARD} element={<AdminPage />} />
                 </Route>
               </Route>
 

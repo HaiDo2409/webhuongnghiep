@@ -47,7 +47,7 @@ export function HollandRadarChart({ scores }: Props) {
                   color: '#111827',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                 }}
-                formatter={(value: number) => [`${value} điểm (${Math.round((value / maxScore) * 100)}%)`, 'Điểm']}
+                formatter={(value) => [`${value} điểm (${Math.round((Number(value) / maxScore) * 100)}%)`, 'Điểm']}
               />
               <Radar
                 name="Điểm"

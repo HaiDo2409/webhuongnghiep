@@ -11,6 +11,39 @@ import { ArrowLeft, ArrowRight, RotateCcw, Sparkles, Brain, Lightbulb } from 'lu
 type Answers = Record<number, number>; // questionId → 1..5
 type ActiveTab = 'holland' | 'mi';
 
+function TabBar({ activeTab, setActiveTab }: { activeTab: ActiveTab; setActiveTab: (tab: ActiveTab) => void }) {
+  return (
+    <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="flex gap-1 py-2">
+          <button
+            onClick={() => setActiveTab('holland')}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
+              activeTab === 'holland'
+                ? 'bg-blue-600 text-white shadow-sm'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+            }`}
+          >
+            <Brain className="h-4 w-4" />
+            Mật mã Holland RIASEC
+          </button>
+          <button
+            onClick={() => setActiveTab('mi')}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
+              activeTab === 'mi'
+                ? 'bg-purple-600 text-white shadow-sm'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+            }`}
+          >
+            <Lightbulb className="h-4 w-4" />
+            Đa trí tuệ (MI)
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function TracNghiemPage() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('holland');
 
@@ -54,42 +87,13 @@ export function TracNghiemPage() {
   }
 
   // ── TAB SWITCHER ────────────────────────────────────────────────────────────
-  const TabBar = () => (
-    <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="flex gap-1 py-2">
-          <button
-            onClick={() => setActiveTab('holland')}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
-              activeTab === 'holland'
-                ? 'bg-blue-600 text-white shadow-sm'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-            }`}
-          >
-            <Brain className="h-4 w-4" />
-            Mật mã Holland RIASEC
-          </button>
-          <button
-            onClick={() => setActiveTab('mi')}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
-              activeTab === 'mi'
-                ? 'bg-purple-600 text-white shadow-sm'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-            }`}
-          >
-            <Lightbulb className="h-4 w-4" />
-            Đa trí tuệ (MI)
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+
 
   // ── MI TAB ──────────────────────────────────────────────────────────────────
   if (activeTab === 'mi') {
     return (
       <div className="min-h-screen bg-gray-50">
-        <TabBar />
+        <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
         <div className="max-w-3xl mx-auto px-4 py-8">
           <MIQuiz />
         </div>
@@ -101,7 +105,7 @@ export function TracNghiemPage() {
   if (step === 'intro') {
     return (
       <div className="min-h-screen bg-gray-50">
-        <TabBar />
+        <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
         <div className="px-4 py-10">
           <div className="max-w-2xl mx-auto space-y-6">
             {/* Header card */}
@@ -172,7 +176,7 @@ export function TracNghiemPage() {
 
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col">
-        <TabBar />
+        <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
         {/* Progress bar */}
         <div className="h-1.5 bg-gray-200">
           <div
@@ -258,7 +262,7 @@ export function TracNghiemPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <TabBar />
+      <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
       {/* Result Hero */}
       <div className="bg-blue-700 py-12 px-4 text-center">
         <div className="max-w-3xl mx-auto space-y-4">

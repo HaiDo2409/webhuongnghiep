@@ -1,7 +1,6 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
-import type { CurrentUser } from '@/types';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +17,7 @@ import {
   Menu, X, ChevronDown, Heart,
 } from 'lucide-react';
 import { useState } from 'react';
+import { useBackend } from '@/lib/runtime';
 
 const NAV_LINKS = [
   { to: ROUTES.TRAC_NGHIEM, label: 'Trắc nghiệm',    icon: <Brain className="h-4 w-4" /> },
@@ -27,42 +27,6 @@ const NAV_LINKS = [
   { to: ROUTES.BOOKMARKS,   label: 'Yêu thích',       icon: <Heart className="h-4 w-4" /> },
 ];
 
-const UserButtonDropdown = ({
-  user,
-  logout,
-}: {
-  user: CurrentUser;
-  logout: () => Promise<void>;
-}) => (
-  <DropdownMenu>
-    <DropdownMenuTrigger asChild>
-      <Button variant="ghost" className="px-2 py-5 text-white/80 hover:text-white hover:bg-white/10">
-        {user.displayName || user.username}
-        <Avatar className="ml-2 h-7 w-7">
-          <AvatarImage src={user.avatarUrl || undefined} alt={user.displayName || user.username} />
-          <AvatarFallback className="bg-white/20 text-white text-xs">
-            {(user.displayName || user.username || 'U').charAt(0).toUpperCase()}
-          </AvatarFallback>
-        </Avatar>
-      </Button>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent className="bg-white border-gray-200 text-gray-900 shadow-lg">
-      <DropdownMenuGroup>
-        <DropdownMenuLabel className="text-gray-400 font-normal">@{user.username}</DropdownMenuLabel>
-        <DropdownMenuItem className="hover:bg-blue-50 cursor-pointer">
-          <Link to={ROUTES.DASHBOARD}>Trang cá nhân</Link>
-        </DropdownMenuItem>
-      </DropdownMenuGroup>
-      <DropdownMenuSeparator className="bg-gray-100" />
-      <DropdownMenuGroup>
-        <DropdownMenuItem variant="destructive" onSelect={logout} className="cursor-pointer">
-          Đăng xuất
-        </DropdownMenuItem>
-      </DropdownMenuGroup>
-    </DropdownMenuContent>
-  </DropdownMenu>
-);
-
 export function MainLayout() {
   const auth = useAuth();
   const location = useLocation();
@@ -71,6 +35,7 @@ export function MainLayout() {
   return (
     <div className="flex min-h-screen flex-col bg-gray-50 text-gray-900 font-sans">
 
+      {!useBackend && <p className="bg-amber-50 text-amber-900 text-center text-sm px-4 py-2">Chế độ demo · Dữ liệu minh họa, kết quả xét tuyển chưa được xác minh · Tài khoản và quản trị sẽ dùng khi kết nối backend.</p>}
       {/* ── White top bar: Logo + Login ──────────────────────────────────── */}
       <div className="bg-white border-b border-gray-100 py-2.5 px-4">
         <div className="container mx-auto flex items-center justify-between">
@@ -107,6 +72,7 @@ export function MainLayout() {
                     <DropdownMenuItem className="hover:bg-blue-50 cursor-pointer">
                       <Link to={ROUTES.DASHBOARD}>Trang cá nhân</Link>
                     </DropdownMenuItem>
+                    {(auth.user.permissions & 1n) === 1n && <DropdownMenuItem><Link to={ROUTES.ADMIN_DASHBOARD}>Quản trị nội dung</Link></DropdownMenuItem>}
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator className="bg-gray-100" />
                   <DropdownMenuGroup>

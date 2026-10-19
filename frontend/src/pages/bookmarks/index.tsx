@@ -1,7 +1,7 @@
 import { useBookmarks } from '@/hooks/useBookmarks';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Bookmark, Trash2, GraduationCap, Briefcase, ExternalLink } from 'lucide-react';
+import { Bookmark, Trash2, GraduationCap, Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '@/lib/routes';
 

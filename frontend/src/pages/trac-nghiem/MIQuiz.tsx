@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MI_QUESTIONS, MI_LABELS, type MIType, MI_QUESTIONS_PER_TYPE, MI_MAX_SCORE } from './data/mi-questions';
+import { MI_QUESTIONS, MI_LABELS, type MIType, MI_MAX_SCORE } from './data/mi-questions';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, ArrowRight, RotateCcw, Sparkles } from 'lucide-react';
