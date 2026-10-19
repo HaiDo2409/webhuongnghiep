@@ -17,4 +17,5 @@ public class QuizResultEntity {
     @JdbcTypeCode(SqlTypes.JSON) public JsonNode scores;
     @JdbcTypeCode(SqlTypes.JSON) public JsonNode normalizedScores;
     public Instant createdAt;
+    public Instant deletedAt;
 }

@@ -24,6 +24,7 @@ class LocalPostgresTest {
     @Autowired MockMvc mvc;
     @Autowired UserRepository users;
     @Autowired QuizVersionRepository quizzes;
+    @Autowired jakarta.persistence.EntityManager entityManager;
     @Autowired ObjectMapper mapper;
     @Autowired vn.edu.huongnghiep.modules.auth.LocalAccountService accounts;
     @Autowired org.springframework.security.crypto.password.PasswordEncoder encoder;
@@ -115,5 +116,98 @@ class LocalPostgresTest {
         var user=users.findByLocalUsername(username).orElseThrow();
         org.assertj.core.api.Assertions.assertThat(user.role).isEqualTo("STUDENT");
         org.assertj.core.api.Assertions.assertThat(encoder.matches("Student-test-password",user.passwordHash)).isTrue();
+    }
+    @Test void historyDetailDeleteAndRestoreArePrivateAndDeletedResultsCannotBeReused() throws Exception {
+        var quiz=quizzes.findByStatusOrderByQuizType("PUBLISHED").stream().filter(q->q.quizType.equals("HOLLAND")).findFirst().orElseThrow();
+        var answers=new LinkedHashMap<Integer,Integer>();
+        quiz.questions.forEach(q->answers.put(q.path("id").asInt(),4));
+        var session=new org.springframework.mock.web.MockHttpSession();
+        var submitBody=mapper.writeValueAsString(Map.of("quizVersionId",quiz.id,"answers",answers));
+        var response=mvc.perform(post("/api/quiz-results").session(session).with(oidcLogin().idToken(t->t.subject(subject))).with(csrf()).contentType("application/json").content(submitBody))
+            .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        var id=mapper.readTree(response).path("id").asText();
+        var path="/api/me/quiz-results/"+id;
+        mvc.perform(get(path).with(oidcLogin().idToken(t->t.subject(subject)))).andExpect(status().isOk()).andExpect(jsonPath("$.id").value(id));
+        var other=new UserEntity();other.id=UUID.randomUUID();other.googleSubject="other-"+UUID.randomUUID();other.email="other@example.invalid";other.displayName="Other student";other.role="STUDENT";other.active=true;other.createdAt=Instant.now();users.saveAndFlush(other);
+        mvc.perform(get(path).with(oidcLogin().idToken(t->t.subject(other.googleSubject)))).andExpect(status().isNotFound());
+        mvc.perform(delete(path).with(oidcLogin().idToken(t->t.subject(other.googleSubject))).with(csrf())).andExpect(status().isNotFound());
+        mvc.perform(post(path+"/restore").with(oidcLogin().idToken(t->t.subject(other.googleSubject))).with(csrf())).andExpect(status().isNotFound());
+        mvc.perform(delete(path).with(oidcLogin().idToken(t->t.subject(subject)))).andExpect(status().isForbidden());
+        mvc.perform(delete(path).with(oidcLogin().idToken(t->t.subject(subject))).with(csrf())).andExpect(status().isOk());
+        mvc.perform(get(path).with(oidcLogin().idToken(t->t.subject(subject)))).andExpect(status().isNotFound());
+        mvc.perform(get("/api/me/quiz-results").with(oidcLogin().idToken(t->t.subject(subject)))).andExpect(status().isOk()).andExpect(jsonPath("$.length()").value(0));
+        mvc.perform(post("/api/recommendations").session(session).with(oidcLogin().idToken(t->t.subject(subject))).with(csrf()).contentType("application/json")
+            .content(mapper.writeValueAsString(Map.of("year",2026,"mode","INTEREST","scores",Map.of(),"quizResultId",id))))
+            .andExpect(status().isNotFound());
+        mvc.perform(post("/api/quiz-results").session(session).with(oidcLogin().idToken(t->t.subject(subject))).with(csrf()).contentType("application/json").content(submitBody))
+            .andExpect(status().isOk()).andExpect(jsonPath("$.id").value(org.hamcrest.Matchers.not(id)));
+        mvc.perform(post(path+"/restore").with(oidcLogin().idToken(t->t.subject(subject))).with(csrf())).andExpect(status().isOk());
+        mvc.perform(get(path).with(oidcLogin().idToken(t->t.subject(subject)))).andExpect(status().isOk());
+    }
+    @Test void savedProfileReturnsSubjectScoresAndAdmissionYear() throws Exception {
+        var body="{\"schoolName\":\"Trường thử\",\"grade\":\"12\",\"targetYear\":2027,\"scores\":{\"toan\":8.25,\"ly\":7.5},\"revision\":0}";
+        mvc.perform(put("/api/me/profile").with(oidcLogin().idToken(t->t.subject(subject))).with(csrf()).contentType("application/json").content(body)).andExpect(status().isOk());
+        mvc.perform(get("/api/me/profile").with(oidcLogin().idToken(t->t.subject(subject))))
+            .andExpect(status().isOk()).andExpect(jsonPath("$.data.targetYear").value(2027)).andExpect(jsonPath("$.data.scores.toan").value(8.25)).andExpect(jsonPath("$.data.scores.ly").value(7.5));
+    }
+    @Test void quizDeletionPreservesBothTypesAndHistoricalResults() throws Exception {
+        for (var type:List.of("HOLLAND","MI")) {
+            var original=quizzes.findByStatusOrderByQuizType("PUBLISHED").stream().filter(q->q.quizType.equals(type)).findFirst().orElseThrow();
+            var originalId=original.id;
+            mvc.perform(delete("/api/admin/quizzes/"+originalId).param("revision",Long.toString(original.revision)).with(oidcLogin().idToken(t->t.subject(subject))).with(csrf()))
+                .andExpect(status().isUnprocessableEntity());
+            var answers=new LinkedHashMap<Integer,Integer>();original.questions.forEach(q->answers.put(q.path("id").asInt(),3));
+            var resultBody=mvc.perform(post("/api/quiz-results").with(oidcLogin().idToken(t->t.subject(subject))).with(csrf()).contentType("application/json").content(mapper.writeValueAsString(Map.of("quizVersionId",originalId,"answers",answers))))
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+            var draftBody=mvc.perform(post("/api/admin/quizzes").with(oidcLogin().idToken(t->t.subject(subject))).with(csrf()).contentType("application/json").content(mapper.writeValueAsString(Map.of("type",type,"title","Bản thay thế","questions",original.questions))))
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+            var draft=mapper.readTree(draftBody);var draftId=draft.path("id").asText();
+            mvc.perform(delete("/api/admin/quizzes/"+originalId).param("revision",Long.toString(original.revision)).with(oidcLogin().idToken(t->t.subject(subject))).with(csrf()))
+                .andExpect(status().isUnprocessableEntity()).andExpect(jsonPath("$.message").value(org.hamcrest.Matchers.containsString("đang được sử dụng")));
+            mvc.perform(post("/api/admin/quizzes/"+draftId+"/publish").with(oidcLogin().idToken(t->t.subject(subject))).with(csrf()).contentType("application/json").content("{\"revision\":0}"))
+                .andExpect(status().isOk());
+            entityManager.clear();
+            var archived=quizzes.findById(originalId).orElseThrow();var revision=archived.revision;
+            var deletePath="/api/admin/quizzes/"+originalId;
+            mvc.perform(delete(deletePath).param("revision",Long.toString(revision-1)).with(oidcLogin().idToken(t->t.subject(subject))).with(csrf())).andExpect(status().isConflict());
+            mvc.perform(delete(deletePath).param("revision",Long.toString(revision)).with(oidcLogin().idToken(t->t.subject(subject)))).andExpect(status().isForbidden());
+            mvc.perform(delete(deletePath).param("revision",Long.toString(revision)).with(oidcLogin().idToken(t->t.subject(subject))).with(csrf())).andExpect(status().isOk());
+            entityManager.clear();
+            var adminList=mvc.perform(get("/api/admin/quizzes").with(oidcLogin().idToken(t->t.subject(subject)))).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+            org.assertj.core.api.Assertions.assertThat(mapper.readTree(adminList).findValuesAsText("id")).doesNotContain(originalId.toString());
+            var resultId=mapper.readTree(resultBody).path("id").asText();
+            mvc.perform(get("/api/me/quiz-results/"+resultId).with(oidcLogin().idToken(t->t.subject(subject))))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.quizVersionId").value(originalId.toString()));
+            mvc.perform(post("/api/admin/quizzes/"+originalId+"/publish").with(oidcLogin().idToken(t->t.subject(subject))).with(csrf()).contentType("application/json").content("{\"revision\":0}"))
+                .andExpect(status().isNotFound());
+            mvc.perform(post(deletePath+"/restore").with(oidcLogin().idToken(t->t.subject(subject))).with(csrf())).andExpect(status().isOk());
+        }
+        mvc.perform(get("/api/quizzes")).andExpect(status().isOk()).andExpect(jsonPath("$.length()").value(2));
+    }
+    @Test void studentCannotDeleteOrRestoreQuestionSets() throws Exception {
+        var q=quizzes.findByStatusOrderByQuizType("PUBLISHED").getFirst();
+        var user=users.findByGoogleSubject(subject).orElseThrow();user.role="STUDENT";users.saveAndFlush(user);
+        mvc.perform(delete("/api/admin/quizzes/"+q.id).param("revision",Long.toString(q.revision)).with(oidcLogin().idToken(t->t.subject(subject))).with(csrf())).andExpect(status().isForbidden());
+        mvc.perform(post("/api/admin/quizzes/"+q.id+"/restore").with(oidcLogin().idToken(t->t.subject(subject))).with(csrf())).andExpect(status().isForbidden());
+        mvc.perform(post("/api/admin/quizzes/"+q.id+"/publish").with(oidcLogin().idToken(t->t.subject(subject))).with(csrf()).contentType("application/json").content("{\"revision\":0}")).andExpect(status().isForbidden());
+    }
+    @Test void adminCanSelectAnArchivedQuestionSetAgainWithoutCreatingAnotherVersion() throws Exception {
+        var original=quizzes.findByStatusOrderByQuizType("PUBLISHED").stream().filter(q->q.quizType.equals("HOLLAND")).findFirst().orElseThrow();
+        var originalId=original.id;
+        var draftBody=mvc.perform(post("/api/admin/quizzes").with(oidcLogin().idToken(t->t.subject(subject))).with(csrf()).contentType("application/json").content(mapper.writeValueAsString(Map.of("type","HOLLAND","title","Bộ thay thế","questions",original.questions))))
+            .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        var draft=mapper.readTree(draftBody);var draftId=draft.path("id").asText();var count=quizzes.count();
+        mvc.perform(post("/api/admin/quizzes/"+draftId+"/publish").with(oidcLogin().idToken(t->t.subject(subject))).with(csrf()).contentType("application/json").content("{\"revision\":0}"))
+            .andExpect(status().isOk());
+        entityManager.clear();
+        var archived=quizzes.findById(originalId).orElseThrow();
+        mvc.perform(post("/api/admin/quizzes/"+originalId+"/publish").with(oidcLogin().idToken(t->t.subject(subject))).with(csrf()).contentType("application/json").content("{\"revision\":0}"))
+            .andExpect(status().isConflict());
+        mvc.perform(post("/api/admin/quizzes/"+originalId+"/publish").with(oidcLogin().idToken(t->t.subject(subject))).with(csrf()).contentType("application/json").content("{\"revision\":"+archived.revision+"}"))
+            .andExpect(status().isOk()).andExpect(jsonPath("$.id").value(originalId.toString())).andExpect(jsonPath("$.status").value("PUBLISHED"));
+        entityManager.clear();
+        org.assertj.core.api.Assertions.assertThat(quizzes.count()).isEqualTo(count);
+        org.assertj.core.api.Assertions.assertThat(quizzes.findById(UUID.fromString(draftId)).orElseThrow().status).isEqualTo("ARCHIVED");
+        mvc.perform(get("/api/quizzes")).andExpect(status().isOk()).andExpect(jsonPath("$.length()").value(2));
     }
 }

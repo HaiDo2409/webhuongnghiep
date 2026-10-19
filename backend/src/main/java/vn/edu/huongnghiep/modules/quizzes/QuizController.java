@@ -14,9 +14,14 @@ public class QuizController {
     }
     @PostMapping("/api/quiz-results") Object submit(@Valid @RequestBody QuizService.SubmitRequest request, HttpSession session) { return service.submit(request,session); }
     @GetMapping("/api/me/quiz-results") Object history() { return service.history(); }
+    @GetMapping("/api/me/quiz-results/{id}") Object detail(@PathVariable UUID id) { return service.detail(id); }
+    @DeleteMapping("/api/me/quiz-results/{id}") void delete(@PathVariable UUID id) { service.delete(id); }
+    @PostMapping("/api/me/quiz-results/{id}/restore") Object restore(@PathVariable UUID id) { return service.restore(id); }
     @PostMapping("/api/me/quiz-results/claim") void claim(HttpSession session) { service.claim(session); }
     @GetMapping("/api/admin/quizzes") Object adminList() { return service.adminList(); }
     @PostMapping("/api/admin/quizzes") Object draft(@Valid @RequestBody QuizService.DraftRequest request) { return service.draft(request); }
+    @DeleteMapping("/api/admin/quizzes/{id}") void deleteVersion(@PathVariable UUID id,@RequestParam long revision) { service.deleteVersion(id,revision); }
+    @PostMapping("/api/admin/quizzes/{id}/restore") Object restoreVersion(@PathVariable UUID id) { return service.restoreVersion(id); }
     public record PublishRequest(long revision) {}
     @PostMapping("/api/admin/quizzes/{id}/publish") Object publish(@PathVariable UUID id,@RequestBody PublishRequest request) { return service.publish(id,request.revision()); }
 }

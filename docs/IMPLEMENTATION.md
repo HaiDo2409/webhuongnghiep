@@ -8,7 +8,7 @@
 - Bootstrap admin cục bộ bằng cấu hình riêng, không có mật khẩu mặc định hoặc nâng quyền tài khoản có sẵn; đã kiểm tra đăng nhập và vào giao diện admin thật.
 - Role học sinh/admin, kiểm tra tài khoản còn hoạt động và quyền ở backend; dữ liệu cá nhân lấy theo tài khoản hiện hành.
 - Holland và Đa trí tuệ dưới dạng strategy, kiểm tra đủ câu/nhóm, chuẩn hóa theo số câu từng nhóm; domain chấm điểm không phụ thuộc Spring/JPA.
-- Tạo bản nháp mới, xuất bản quiz, lưu trữ bản trước; kết quả trỏ đúng phiên bản, không sửa nội dung bản đã công khai.
+- Tạo bản nháp mới, chọn bộ quiz đang dùng hoặc chọn lại bản lưu trữ, tự lưu trữ bộ trước cùng loại; kết quả trỏ đúng phiên bản, không sửa nội dung bản đã công khai.
 - Chấm và lưu bài; nhận bài khách gần nhất vào tài khoản; lịch sử, hồ sơ điểm và yêu thích.
 - Admin thêm/sửa chương trình/ngành tại trường, tổ hợp ba môn, hồ sơ Holland, mốc tham khảo và nguồn. Có optimistic locking và nhật ký.
 - Cá nhân hóa từ **kết quả quiz phía server đã kiểm tra quyền sở hữu**, không nhận điểm Holland tùy ý từ trình duyệt.
@@ -19,7 +19,7 @@
 - Dữ liệu phát triển: 24 câu Holland, 40 câu MI, 23 nghề, 14 chương trình. Điểm và hồ sơ phù hợp ngành đều chưa xác minh.
 - Migration/schema đã chạy trên PostgreSQL cục bộ. Có test dùng PostgreSQL riêng và tùy chọn Testcontainers.
 
-Kiểm tra tại máy phát triển: 22 test Java đã qua (14 test không cần database và 8 test với PostgreSQL thật), 1 test Docker được bỏ qua do chưa có Docker; frontend lint/build đã qua. Đã chạy thử trên trình duyệt đủ 24 câu Holland rồi chuyển sang tra cứu, đăng nhập admin bằng mật khẩu, mở trang quản trị và tra cứu không áp dụng quiz. Các kiểm tra này không thay cho kiểm định dữ liệu tuyển sinh hay nghiệm thu production.
+Kiểm tra tại máy phát triển: 27 test Java đã qua (14 test không cần database và 13 test với PostgreSQL thật), 1 test Docker được bỏ qua do chưa có Docker. Bản sửa lịch sử/hồ sơ/phiên bản quiz đã build frontend thành công; các kiểm tra lint ở đợt trước đã qua. Kiểm thử mới bao gồm quyền xem/xóa/khôi phục bài làm, chặn dùng bài đã xóa để tra cứu và trả lại điểm học tập đã lưu. Đã kiểm tra trình duyệt mở lại bài trong lịch sử, tự điền điểm/năm dự tuyển và tạo bản nháp Holland phiên bản 2 từ bộ 24 câu đang có. Các kiểm tra này không thay cho kiểm định dữ liệu tuyển sinh hay nghiệm thu production.
 
 ## Cấu trúc OOP hiện tại
 

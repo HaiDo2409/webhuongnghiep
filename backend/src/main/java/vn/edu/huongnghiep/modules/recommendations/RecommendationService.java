@@ -40,6 +40,7 @@ public class RecommendationService {
         var user=actor.optional(); Map<String,Double> profile=null;
         if(request.quizResultId()!=null) {
             var result=results.findById(request.quizResultId()).orElseThrow(ApiException::missing);
+            if(result.deletedAt!=null) throw ApiException.missing();
             boolean owned=user!=null && user.id.equals(result.userId);
             boolean guest=result.userId==null && result.id.toString().equals(session.getAttribute("quiz-result-HOLLAND"));
             if(!owned && !guest) throw ApiException.missing();

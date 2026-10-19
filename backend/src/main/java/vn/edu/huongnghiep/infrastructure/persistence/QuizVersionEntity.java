@@ -18,4 +18,5 @@ public class QuizVersionEntity {
     @JdbcTypeCode(SqlTypes.JSON) public JsonNode questions;
     @Version public long revision;
     public Instant createdAt;
+    public Instant deletedAt;
 }

@@ -23,6 +23,7 @@ import { useBackend } from '@/lib/runtime';
 import { BackendQuizPage } from '@/features/guidance/BackendQuizPage';
 import { BackendAdmissionsPage } from '@/features/guidance/BackendAdmissionsPage';
 import { ProfileDashboard } from '@/features/profile/ProfileDashboard';
+import { QuizHistoryDetail } from '@/features/profile/QuizHistoryDetail';
 import { AdminPage } from '@/features/admin/AdminPage';
 
 const EditorTestPage = lazy(() =>
@@ -70,6 +71,7 @@ function App() {
               <Route element={<ProtectedRoute />}>
                 <Route element={<MainLayout />}>
                   <Route path={ROUTES.DASHBOARD} element={useBackend ? <ProfileDashboard /> : <Dashboard />} />
+                  <Route path="/dashboard/results/:id" element={<QuizHistoryDetail />} />
                 </Route>
               </Route>
 

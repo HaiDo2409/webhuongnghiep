@@ -31,7 +31,7 @@ Yêu cầu: Java 21, PostgreSQL và kết nối mạng lần đầu để Maven 
 ./scripts/backend.ps1 -Task run
 ```
 
-Backend chạy tại `http://localhost:8080`. Flyway áp dụng migration trước khi Hibernate kiểm tra schema. Không sửa migration đã chạy; hiện có V1 (nền tảng) và V2 (tài khoản mật khẩu), tạo `V3__...sql` cho thay đổi tiếp theo. Không dùng `ddl-auto=update` trên database này.
+Backend chạy tại `http://localhost:8080`. Flyway áp dụng migration trước khi Hibernate kiểm tra schema. Không sửa migration đã chạy; hiện có V1 (nền tảng), V2 (tài khoản mật khẩu), V3 (xóa mềm lịch sử) và V4 (xóa mềm bộ câu hỏi), tạo `V5__...sql` cho thay đổi tiếp theo. Không dùng `ddl-auto=update` trên database này.
 
 Với máy hiện tại, database `huongnghiep` và database kiểm thử `huongnghiep_test` đã được khởi tạo bằng role riêng. Thông tin kết nối nằm trong `backend/.env`, được Git bỏ qua. Không chép mật khẩu vào README hoặc source code.
 
@@ -119,6 +119,9 @@ Test Flyway có thể tạo schema và dữ liệu phát triển trong database 
 | `GET /api/quizzes` | Bộ quiz xuất bản, cố định phiên bản vào phiên trình duyệt |
 | `POST /api/quiz-results` | Kiểm tra đầy đủ đáp án và chấm ở backend |
 | `GET /api/me/quiz-results` | Lịch sử của mình, tối đa 50 bài gần nhất |
+| `GET /api/me/quiz-results/{id}` | Xem lại kết quả thuộc tài khoản hiện tại |
+| `DELETE /api/me/quiz-results/{id}` | Xóa mềm kết quả của mình khỏi lịch sử và tra cứu |
+| `POST /api/me/quiz-results/{id}/restore` | Hoàn tác xóa kết quả của mình |
 | `POST /api/me/quiz-results/claim` | Nhận kết quả tạm gần nhất vào tài khoản |
 | `GET /api/careers`, `GET /api/programs` | Danh mục nghề/chương trình công khai |
 | `POST /api/recommendations` | Xếp hạng theo Holland và tổng ba môn |
@@ -127,6 +130,8 @@ Test Flyway có thể tạo schema và dữ liệu phát triển trong database 
 | `GET/POST/DELETE /api/me/bookmarks` | Xem, lưu hoặc xóa toàn bộ yêu thích của mình |
 | `DELETE /api/me/bookmarks/{id}` | Xóa một yêu thích |
 | `GET/POST /api/admin/quizzes` | Danh sách và tạo bản nháp quiz |
+| `DELETE /api/admin/quizzes/{id}?revision=...` | Xóa mềm bản nháp/bản lưu trữ, giữ ít nhất một bộ mỗi loại |
+| `POST /api/admin/quizzes/{id}/restore` | Hoàn tác xóa bộ câu hỏi, cần quyền admin |
 | `POST /api/admin/quizzes/{id}/publish` | Xuất bản, lưu trữ phiên bản công khai trước đó |
 | `GET/POST /api/admin/programs` | Danh sách và tạo chương trình |
 | `PUT /api/admin/programs/{id}` | Sửa chương trình, cần revision đúng |
@@ -137,6 +142,19 @@ Test Flyway có thể tạo schema và dữ liệu phát triển trong database 
 Các POST/PUT/DELETE phải lấy CSRF token và gửi lại bằng header do `/api/auth/csrf` trả về. Frontend đã tự xử lý việc này và dùng cookie phiên HttpOnly. Không lưu token đăng nhập trong localStorage.
 
 ### Tra cứu có hoặc không dùng quiz
+
+Điểm và năm dự tuyển đã lưu trong **Hồ sơ → Thông tin học tập** được tự điền khi tài khoản mở trang tra cứu. Người dùng có thể sửa cho lần tra cứu hiện tại; thay đổi này không tự ghi đè hồ sơ. Nếu người dùng đang nhập khi yêu cầu tải hồ sơ trả về, phần đang nhập được giữ nguyên.
+
+### Xem lại lịch sử và tạo phiên bản quiz
+
+- Tại `/dashboard`, chọn tên bài hoặc **Xem kết quả** để mở kết quả chi tiết; URL có thể tải lại hoặc mở trực tiếp khi đăng nhập đúng tài khoản.
+- **Xóa kết quả** ẩn bài khỏi lịch sử và ngăn sử dụng để tra cứu. Có nút **Hoàn tác** trên trang ngay sau khi xóa. API khôi phục kiểm tra quyền sở hữu; dữ liệu chưa bị xóa vật lý.
+- Tại **Quản trị nội dung → Bộ trắc nghiệm**, chọn **Dùng làm mẫu** hoặc **Sao chép phiên bản** để tạo nội dung cho bản mới. Hoặc chọn **Tạo khung đủ nhóm** và nhập nội dung.
+- Holland cần đủ 6 nhóm, Đa trí tuệ cần đủ 8 nhóm, mỗi nhóm ít nhất một câu có nội dung. Giao diện liệt kê nhóm còn thiếu và số câu chưa nhập trước khi lưu. **Lưu bản nháp** tạo phiên bản mới; chọn **Dùng bộ này** ở danh sách để học sinh sử dụng. Có thể chọn bản nháp hợp lệ hoặc chọn lại bản đã lưu trữ; bộ đang dùng trước đó của cùng loại tự chuyển sang lưu trữ. Mỗi loại chỉ có một bộ đang dùng.
+- **Xóa bộ câu hỏi** áp dụng cho bản nháp hoặc bản đã lưu trữ; luôn giữ ít nhất một bộ Holland và một bộ Đa trí tuệ. Với bộ đang công khai, cần chọn **Dùng bộ này** ở một bộ thay thế cùng loại trước, rồi xóa bản cũ. Backend kiểm tra quyền admin, revision và khóa các phiên bản cùng loại khi xóa/xuất bản để tránh hai quản trị viên xóa đồng thời làm mất bộ cuối cùng.
+- Có **Hoàn tác xóa bộ câu hỏi** ngay trên trang. Xóa mềm giữ nội dung gốc cho lịch sử bài làm và đề xuất; số phiên bản tiếp theo không dùng lại số của bản đã xóa.
+
+### Lựa chọn kết quả khi tra cứu
 
 Trên `/xet-tuyen`, công tắc **Dùng kết quả trắc nghiệm Holland** thể hiện lựa chọn trực tiếp. Khi tắt, bộ chọn kết quả bị vô hiệu hóa, sắp xếp theo tổng điểm, request gửi `quizResultId=null` và mức phù hợp hiển thị chưa đánh giá. Khi bật và đã chọn kết quả, có thể sắp xếp theo hướng nghiệp/kết hợp. Bật nhưng chưa có bài thì vẫn tra cứu theo điểm, kèm hướng dẫn làm hoặc chọn bài đã lưu. Đổi công tắc xóa kết quả hiển thị cũ để tránh nhầm chế độ; tổng điểm môn học không thay đổi.
 

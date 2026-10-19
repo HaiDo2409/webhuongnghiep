@@ -29,8 +29,28 @@ export function BackendAdmissionsPage() {
   const [response, setResponse] = useState<RecommendationResponse | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [profileStatus, setProfileStatus] = useState('');
+  const [profileLoading, setProfileLoading] = useState(false);
+  const editedScores = useRef(false);
+  const editedYear = useRef(false);
   const resultAnchor = useRef<HTMLElement>(null);
   const usingQuiz = useQuiz && quizId !== null;
+  useEffect(() => {
+    let live = true;
+    if (auth?.isAuthenticated) {
+      setProfileLoading(true);
+      setProfileStatus('Đang lấy điểm học tập đã lưu…');
+      guidance.profile().then(({ data }) => {
+        if (!live) return;
+        const hasScores = data.scores && Object.keys(data.scores).length > 0;
+        if (hasScores && !editedScores.current) setScores({ ...data.scores });
+        if (data.targetYear && !editedYear.current) setYear(data.targetYear);
+        setProfileStatus(hasScores ? 'Đã lấy điểm và năm dự tuyển từ hồ sơ. Bạn có thể điều chỉnh cho lần tra cứu này.' : 'Bạn có thể lưu điểm tại hồ sơ để lần sau tự điền.');
+      }).catch(() => { if (live) setProfileStatus('Chưa tải được điểm trong hồ sơ. Bạn vẫn có thể nhập điểm bên dưới.'); })
+        .finally(() => { if (live) setProfileLoading(false); });
+    }
+    return () => { live = false; };
+  }, [auth?.isAuthenticated]);
   useEffect(() => {
     let live = true;
     if (auth?.isAuthenticated) guidance.history().then(data => { if (live) setHistory(data.filter(r => r.type === 'HOLLAND')); }).catch(() => {});
@@ -47,13 +67,14 @@ export function BackendAdmissionsPage() {
   }
   return <main className="page-width admissions-page page-enter">
     <header className="page-intro"><div className="intro-topline"><p className="eyebrow"><span className="status-dot" />TỪ SỞ THÍCH ĐẾN LỰA CHỌN</p><Link className="subtle-link" to="/yeu-thich"><Heart size={13} />Những ngành đã lưu<ArrowUpRight size={12} /></Link></div><h1>Ngành bạn thích.<br /><em>Trường bạn muốn đến.</em></h1><p className="intro-description">Thêm điểm số, kết nối sở thích. Mình cùng tìm những lựa chọn<br className="desktop-break" /> để bạn hiểu hơn và tự tin bước tiếp.</p></header>
+    {profileStatus && <p className="text-sm text-muted-foreground mb-5" role="status">{profileStatus}</p>}
     <div className="admissions-layout">
       <form onSubmit={search} className="soft-panel score-form">
         <div className="panel-heading"><span className="panel-icon"><Calculator size={18} strokeWidth={1.5} /></span><div><h2>Bắt đầu từ điểm của bạn</h2><p>Thang điểm 10 · Môn chưa có điểm có thể để trống</p></div><span className="form-step">01 / 02</span></div>
         <div className="score-grid">{Object.entries(subjectLabels).map(([key, label]) => <label className="form-field" key={key}>{label}<input disabled={busy} type="number" inputMode="decimal" min={0} max={10} step="0.01" placeholder="Chưa nhập" value={scores[key] ?? ''} onChange={e => {
-          const value = e.target.value; setResponse(null); setScores(old => { const next = { ...old }; if (value === '') delete next[key]; else next[key] = Number(value); return next; });
+          const value = e.target.value; editedScores.current = true; setResponse(null); setScores(old => { const next = { ...old }; if (value === '') delete next[key]; else next[key] = Number(value); return next; });
         }} /></label>)}</div>
-        <div className="score-bottom"><label className="form-field">Năm tuyển sinh<input disabled={busy} type="number" required min={2000} max={2100} value={year} onChange={e => { setYear(Number(e.target.value)); setResponse(null); }} /></label><button className="action-primary" disabled={busy}>{busy ? 'Đang tìm hướng đi…' : 'Khám phá gợi ý'}<ArrowRight size={17} /></button></div>
+        <div className="score-bottom"><label className="form-field">Năm tuyển sinh<input disabled={busy} type="number" required min={2000} max={2100} value={year} onChange={e => { editedYear.current = true; setYear(Number(e.target.value)); setResponse(null); }} /></label><button className="action-primary" disabled={busy || profileLoading}>{busy ? 'Đang tìm hướng đi…' : 'Khám phá gợi ý'}<ArrowRight size={17} /></button></div>
       </form>
       <aside className="admissions-sidebar"><section className="personalize-panel" aria-labelledby="personalize-title"><div className="personalize-top"><span className="panel-icon"><FingerprintIcon /></span><label className="switch-control"><input type="checkbox" disabled={busy} checked={useQuiz} aria-label="Dùng kết quả trắc nghiệm Holland" aria-describedby="quiz-choice-help" onChange={e => { setUseQuiz(e.target.checked); setResponse(null); setError(''); }} /><span className="switch-track" /></label></div><h2 id="personalize-title">Thêm một chút<br />cá tính của bạn.</h2><p id="quiz-choice-help">{!useQuiz ? 'Đang tra cứu theo điểm. Bật lên nếu bạn muốn kết hợp thêm kết quả Holland.' : !quizId ? 'Chọn kết quả đã lưu hoặc làm bài Holland nhé. Khi chưa có kết quả, mình vẫn tìm theo điểm.' : 'Sở thích giúp sắp xếp gợi ý gần với bạn hơn. Điểm môn học vẫn được giữ nguyên.'}</p>
         <label className="form-field">Kết quả khám phá<select disabled={!useQuiz || busy} value={quizId ?? ''} onChange={e => { setQuizId(e.target.value || null); setResponse(null); }}><option value="">Chưa chọn kết quả</option>{quizId && !history.some(h => h.id === quizId) && <option value={quizId}>Kết quả vừa khám phá</option>}{history.map(h => <option key={h.id} value={h.id}>{h.topCodes.join('')} · {new Date(h.createdAt).toLocaleDateString('vi-VN')}</option>)}</select></label>

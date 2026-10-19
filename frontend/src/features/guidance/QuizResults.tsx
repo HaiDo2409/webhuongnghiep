@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight, Check, RotateCcw, Sparkles } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
-import { guidance, type QuizResult, type RecommendationItem } from '@/services/guidance';
+import { guidance, setActiveResult, type QuizResult, type RecommendationItem } from '@/services/guidance';
 import { HOLLAND_LABELS, type HollandType } from '@/pages/trac-nghiem/data/questions';
 import { MI_LABELS, type MIType } from '@/pages/trac-nghiem/data/mi-questions';
 import { SKILL_MAP } from '@/pages/ky-nang/data/skills';
@@ -19,7 +19,7 @@ function dimensionName(key: string) { return HOLLAND_LABELS[key as HollandType]?
 const shortNames: Record<string, string> = { R: 'Thực tế', I: 'Nghiên cứu', A: 'Sáng tạo', S: 'Kết nối', E: 'Dẫn dắt', C: 'Tổ chức' };
 const pathForDimension: Record<string, string> = { R: 'ky-thuat', I: 'lap-trinh-ai', A: 'ngoai-ngu', S: 'ngoai-ngu', E: 'ngoai-ngu', C: 'toan-khoa-hoc', logical: 'toan-khoa-hoc', spatial: 'ky-thuat', naturalist: 'toan-khoa-hoc', bodily: 'ky-thuat' };
 
-export function QuizResults({ result, onReset }: { result: QuizResult; onReset: () => void }) {
+export function QuizResults({ result, onReset, resetLabel = 'Khám phá lại' }: { result: QuizResult; onReset: () => void; resetLabel?: string }) {
   const auth = useAuth();
   const [items, setItems] = useState<RecommendationItem[]>([]);
   const [loading, setLoading] = useState(result.type === 'HOLLAND');
@@ -27,9 +27,10 @@ export function QuizResults({ result, onReset }: { result: QuizResult; onReset: 
   const [retry, setRetry] = useState(0);
   const title = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
+    if (result.type === 'HOLLAND') setActiveResult(result.id);
     title.current?.focus({ preventScroll: true });
     window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-  }, [result.id]);
+  }, [result.id, result.type]);
   useEffect(() => {
     if (result.type !== 'HOLLAND') return;
     let live = true;
@@ -55,7 +56,7 @@ export function QuizResults({ result, onReset }: { result: QuizResult; onReset: 
   const roadmap = field.children?.slice(0, 3) ?? [];
   return <main className="page-width result-page page-enter">
     <header className="result-intro"><p className="eyebrow"><Check size={12} />BẠN VỪA HIỂU MÌNH THÊM MỘT CHÚT</p><h1 ref={title} tabIndex={-1} className="outline-none">Một bức tranh về bạn.<br />Và nhiều cánh cửa phía trước.</h1><p>Đây là điểm khởi đầu để khám phá, không phải một chiếc khuôn dành cho bạn.</p></header>
-    <div className="result-toolbar"><span>{result.title} · {new Date(result.createdAt).toLocaleDateString('vi-VN')}</span><button className="subtle-link" onClick={onReset}><RotateCcw size={12} />Khám phá lại</button></div>
+    <div className="result-toolbar"><span>{result.title} · {new Date(result.createdAt).toLocaleDateString('vi-VN')}</span><button className="subtle-link" onClick={onReset}><RotateCcw size={12} />{resetLabel}</button></div>
     <div className="bento-grid">
       <section className="bento-card personality-card"><p className="eyebrow">{result.type === 'HOLLAND' ? 'NHÓM SỞ THÍCH CỦA BẠN' : 'NHỮNG KHẢ NĂNG NỔI BẬT'}</p><h2>{result.type === 'HOLLAND' ? (nearTie ? 'Bạn có nhiều điều muốn khám phá.' : profile?.name) : 'Bạn có cách tỏa sáng của riêng mình.'}</h2><p>{result.type === 'HOLLAND' ? (nearTie ? 'Một vài nhóm sở thích đang khá gần nhau. Cứ cho mình cơ hội trải nghiệm nhiều hướng nhé.' : profile?.description) : 'Mỗi khả năng có thể phát triển bằng trải nghiệm và luyện tập. Hãy bắt đầu từ điều khiến bạn thấy hứng thú.'}</p>
         <div className="personality-decoration" aria-hidden="true">✳</div>
