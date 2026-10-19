@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ROUTES } from '@/lib/routes';
 import {
   GraduationCap, Brain, Search, Newspaper, Map,
-  Menu, X, ChevronDown,
+  Menu, X, ChevronDown, Heart,
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -24,6 +24,7 @@ const NAV_LINKS = [
   { to: ROUTES.XET_TUYEN,   label: 'Tra cứu XTS',    icon: <Search className="h-4 w-4" /> },
   { to: ROUTES.BAN_TIN,     label: 'Bản tin',         icon: <Newspaper className="h-4 w-4" /> },
   { to: ROUTES.KY_NANG,     label: 'Bản đồ Kỹ năng', icon: <Map className="h-4 w-4" /> },
+  { to: ROUTES.BOOKMARKS,   label: 'Yêu thích',       icon: <Heart className="h-4 w-4" /> },
 ];
 
 const UserButtonDropdown = ({

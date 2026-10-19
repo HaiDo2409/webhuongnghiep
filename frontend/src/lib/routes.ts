@@ -18,6 +18,7 @@ export const ROUTES = {
   XET_TUYEN: '/xet-tuyen',
   BAN_TIN: '/ban-tin',
   KY_NANG: '/ky-nang',
+  BOOKMARKS: '/yeu-thich',
 
   // ── Classroom (Enrolled student) ───────────────
   CLASSROOM: (courseId: string) => `/courses/${courseId}/classroom`,

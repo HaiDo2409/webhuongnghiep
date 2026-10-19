@@ -18,6 +18,7 @@ import { TracNghiemPage } from '@/pages/trac-nghiem';
 import { XetTuyenPage } from '@/pages/xet-tuyen';
 import { BanTinPage } from '@/pages/ban-tin';
 import { KyNangPage } from '@/pages/ky-nang';
+import { BookmarksPage } from '@/pages/bookmarks';
 
 const EditorTestPage = lazy(() =>
   import('@/pages/editor-test').then((m) => ({ default: m.EditorTestPage })),
@@ -39,6 +40,7 @@ function App() {
                 <Route path={ROUTES.XET_TUYEN} element={<XetTuyenPage />} />
                 <Route path={ROUTES.BAN_TIN} element={<BanTinPage />} />
                 <Route path={ROUTES.KY_NANG} element={<KyNangPage />} />
+                <Route path={ROUTES.BOOKMARKS} element={<BookmarksPage />} />
 
                 <Route
                   path={ROUTES.COURSE_DETAIL(':id')}

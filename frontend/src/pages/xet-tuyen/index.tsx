@@ -12,7 +12,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Search, TrendingUp, TrendingDown, Minus, Info, ChevronDown, ChevronUp } from 'lucide-react';
+import { Search, TrendingUp, TrendingDown, Minus, Info, ChevronDown, ChevronUp, Heart, ExternalLink } from 'lucide-react';
+import { useBookmarks } from '@/hooks/useBookmarks';
 
 const DEFAULT_SCORES: StudentScores = {
   toan: 0, ly: 0, hoa: 0, sinh: 0, tin: 0, van: 0, anh: 0, su: 0, dia: 0,
@@ -45,6 +46,9 @@ function ScoreField({
 
 function ResultCard({ result }: { result: AdmissionResult }) {
   const [open, setOpen] = useState(false);
+  const { isBookmarked, toggle } = useBookmarks();
+  const bookmarkId = `school-${result.program.school}-${result.program.major}`.replace(/\s+/g, '-').toLowerCase();
+  const saved = isBookmarked(bookmarkId);
 
   const chanceConfig = {
     high: {
@@ -78,35 +82,54 @@ function ResultCard({ result }: { result: AdmissionResult }) {
   return (
     <div className={`${cfg.bg} border ${cfg.border} rounded-xl overflow-hidden transition-all duration-300`}>
       {/* Header */}
-      <button
-        className="w-full p-4 flex items-start gap-4 text-left hover:bg-black/5 transition-colors"
-        onClick={() => setOpen((o) => !o)}
-      >
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1 flex-wrap">
-            <Badge className={`${cfg.badge} border text-xs`}>{cfg.label}</Badge>
-            <Badge className="bg-gray-100 text-gray-600 border-gray-200 text-xs">
-              {result.program.shortName}
-            </Badge>
-            <Badge className="bg-blue-100 text-blue-700 border-blue-200 text-xs">
-              {result.methodLabel}
-            </Badge>
+      <div className="w-full p-4 flex items-start gap-4">
+        <button
+          className="flex-1 flex items-start gap-4 text-left hover:bg-black/5 transition-colors rounded-lg -m-1 p-1"
+          onClick={() => setOpen((o) => !o)}
+        >
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1 flex-wrap">
+              <Badge className={`${cfg.badge} border text-xs`}>{cfg.label}</Badge>
+              <Badge className="bg-gray-100 text-gray-600 border-gray-200 text-xs">
+                {result.program.shortName}
+              </Badge>
+              <Badge className="bg-blue-100 text-blue-700 border-blue-200 text-xs">
+                {result.methodLabel}
+              </Badge>
+            </div>
+            <h4 className="text-gray-900 font-semibold">{result.program.major}</h4>
+            <p className="text-gray-500 text-sm">{result.program.school}</p>
           </div>
-          <h4 className="text-gray-900 font-semibold">{result.program.major}</h4>
-          <p className="text-gray-500 text-sm">{result.program.school}</p>
-        </div>
 
-        {/* Score comparison */}
-        <div className="text-right shrink-0">
-          <p className="text-gray-900 text-lg font-bold">{result.studentScore.toFixed(2)}</p>
-          <p className="text-gray-400 text-xs">/ Chuẩn: {result.predictedBenchmark}</p>
-          <p className={`text-xs font-semibold ${result.diff >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-            {result.diff >= 0 ? '+' : ''}{result.diff.toFixed(2)}
-          </p>
-        </div>
+          {/* Score comparison */}
+          <div className="text-right shrink-0">
+            <p className="text-gray-900 text-lg font-bold">{result.studentScore.toFixed(2)}</p>
+            <p className="text-gray-400 text-xs">/ Chuẩn: {result.predictedBenchmark}</p>
+            <p className={`text-xs font-semibold ${result.diff >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+              {result.diff >= 0 ? '+' : ''}{result.diff.toFixed(2)}
+            </p>
+          </div>
 
-        {open ? <ChevronUp className="h-4 w-4 text-gray-400 mt-1 shrink-0" /> : <ChevronDown className="h-4 w-4 text-gray-400 mt-1 shrink-0" />}
-      </button>
+          {open ? <ChevronUp className="h-4 w-4 text-gray-400 mt-1 shrink-0" /> : <ChevronDown className="h-4 w-4 text-gray-400 mt-1 shrink-0" />}
+        </button>
+
+        {/* Bookmark button */}
+        <button
+          onClick={() => toggle({
+            id: bookmarkId,
+            type: 'school',
+            name: result.program.major,
+            subtitle: result.program.school,
+            tag: result.program.shortName,
+          })}
+          className={`shrink-0 p-1.5 rounded-full transition-all mt-1 ${
+            saved ? 'text-red-500 bg-red-100' : 'text-gray-400 hover:text-red-400 hover:bg-red-50'
+          }`}
+          title={saved ? 'Xóa khỏi yêu thích' : 'Lưu vào yêu thích'}
+        >
+          <Heart className={`h-4 w-4 ${saved ? 'fill-current' : ''}`} />
+        </button>
+      </div>
 
       {/* Progress bar */}
       <div className="px-4 pb-1">
@@ -147,6 +170,17 @@ function ResultCard({ result }: { result: AdmissionResult }) {
             <Info className="h-4 w-4 text-blue-600 mt-0.5 shrink-0" />
             <p className="text-gray-700 text-sm leading-relaxed">{result.actionTip}</p>
           </div>
+
+          {/* Link tuyển sinh chính thức */}
+          <a
+            href="https://thisinh.thitotnghiepquocgia.edu.vn"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-blue-600 hover:text-blue-700 text-sm font-medium hover:underline"
+          >
+            <ExternalLink className="h-4 w-4" />
+            Cổng tuyển sinh Bộ GD&ĐT chính thức
+          </a>
         </div>
       )}
     </div>
