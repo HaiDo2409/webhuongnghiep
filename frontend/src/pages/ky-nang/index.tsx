@@ -13,14 +13,14 @@ function SkillNodeCard({ node, depth = 0 }: { node: SkillNode; depth?: number })
   const hasResources = node.resources && node.resources.length > 0;
 
   const depthStyles: Record<number, string> = {
-    0: 'bg-blue-50 border-blue-200 text-blue-800',
+    0: 'bg-secondary border-border text-blue-800',
     1: 'bg-white border-gray-200 text-gray-900',
-    2: 'bg-gray-50 border-gray-100 text-gray-800',
+    2: 'bg-background border-gray-100 text-gray-800',
     3: 'bg-transparent border-gray-100 text-gray-700',
   };
 
   const platformBadge: Record<string, string> = {
-    Coursera:     'bg-blue-100 text-blue-700 border-blue-200',
+    Coursera:     'bg-secondary text-primary border-border',
     edX:          'bg-red-100 text-red-700 border-red-200',
     YouTube:      'bg-red-100 text-red-600 border-red-200',
     Udemy:        'bg-purple-100 text-purple-700 border-purple-200',
@@ -30,7 +30,7 @@ function SkillNodeCard({ node, depth = 0 }: { node: SkillNode; depth?: number })
   };
 
   return (
-    <div className={`border rounded-xl overflow-hidden transition-all duration-200 ${depthStyles[depth] ?? depthStyles[3]}`}>
+    <div id={depth === 0 ? node.id : undefined} className={`border rounded-xl overflow-hidden transition-all duration-200 ${depthStyles[depth] ?? depthStyles[3]}`}>
       <button
         className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-black/5 transition-colors"
         onClick={() => setOpen((o) => !o)}
@@ -67,10 +67,10 @@ function SkillNodeCard({ node, depth = 0 }: { node: SkillNode; depth?: number })
                   href={res.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-2.5 bg-white hover:bg-blue-50 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors group"
+                  className="flex items-center gap-3 p-2.5 bg-white hover:bg-secondary rounded-lg border border-gray-200 hover:border-blue-300 transition-colors group"
                 >
-                  <Play className="h-3.5 w-3.5 text-gray-400 group-hover:text-blue-600 shrink-0" />
-                  <span className="text-gray-700 group-hover:text-blue-700 text-sm flex-1">{res.title}</span>
+                  <Play className="h-3.5 w-3.5 text-gray-400 group-hover:text-primary shrink-0" />
+                  <span className="text-gray-700 group-hover:text-primary text-sm flex-1">{res.title}</span>
                   <Badge className={`text-xs border ${platformBadge[res.platform] ?? 'bg-gray-100 text-gray-600'}`}>
                     {res.platform}
                   </Badge>
@@ -100,7 +100,7 @@ function SkillNodeCard({ node, depth = 0 }: { node: SkillNode; depth?: number })
 // ── Link Card ───────────────────────────────────────────────────────────────────
 function LinkCard({ link }: { link: OfficialLink }) {
   const categoryIcon: Record<string, React.ReactNode> = {
-    'tuyen-sinh':         <GraduationCap className="h-5 w-5 text-blue-600" />,
+    'tuyen-sinh':         <GraduationCap className="h-5 w-5 text-primary" />,
     'truong-dai-hoc':     <BookOpen className="h-5 w-5 text-purple-600" />,
     'hoc-bong':           <Award className="h-5 w-5 text-yellow-500" />,
     'khoa-hoc-truc-tuyen':<Play className="h-5 w-5 text-green-600" />,
@@ -124,7 +124,7 @@ function LinkCard({ link }: { link: OfficialLink }) {
         {categoryIcon[link.category]}
       </div>
       <div className="flex-1 min-w-0">
-        <h4 className="text-gray-900 font-semibold text-sm group-hover:text-blue-600 transition-colors">
+        <h4 className="text-gray-900 font-semibold text-sm group-hover:text-primary transition-colors">
           {link.name}
         </h4>
         <p className="text-gray-500 text-xs leading-relaxed mt-1">{link.description}</p>
@@ -147,9 +147,9 @@ export function KyNangPage() {
   ] as const;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Page header */}
-      <div className="bg-blue-700 py-10 px-4 text-center">
+      <div className="legacy-page-header">
         <div className="max-w-3xl mx-auto space-y-2">
           <div className="inline-flex items-center gap-2 bg-white/20 border border-white/30 rounded-full px-4 py-2 text-white text-sm">
             <Map className="h-4 w-4" /> Bản đồ Kỹ năng
@@ -173,8 +173,8 @@ export function KyNangPage() {
               onClick={() => setActiveTab(id as typeof activeTab)}
               className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium border transition-all ${
                 activeTab === id
-                  ? 'bg-blue-600 border-blue-600 text-white'
-                  : 'bg-white border-gray-300 text-gray-600 hover:text-blue-600 hover:border-blue-400'
+                  ? 'bg-primary border-primary text-white'
+                  : 'bg-white border-gray-300 text-gray-600 hover:text-primary hover:border-blue-400'
               }`}
             >
               {icon} {label}

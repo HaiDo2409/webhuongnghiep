@@ -45,7 +45,7 @@ api.interceptors.response.use(
       case 401:
         // Chưa đăng nhập → redirect về login
         // (chỉ redirect nếu không phải đang ở trang login)
-        if (!window.location.pathname.startsWith(ROUTES.LOGIN)) {
+        if (!window.location.pathname.startsWith(ROUTES.LOGIN) && !error.config?.url?.startsWith('/api/auth/')) {
           const redirectUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
           window.location.href = `${ROUTES.LOGIN}?redirect=${encodeURIComponent(redirectUrl)}`;
         }

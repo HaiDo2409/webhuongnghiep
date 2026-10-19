@@ -46,7 +46,7 @@ export function AdminPage() {
     <div className="flex gap-3"><Button variant={tab === 'programs' ? 'default' : 'outline'} onClick={() => setTab('programs')}>Ngành và trường</Button><Button variant={tab === 'quizzes' ? 'default' : 'outline'} onClick={() => setTab('quizzes')}>Bộ trắc nghiệm</Button></div>
     {tab === 'programs' ? <div className="grid lg:grid-cols-[1fr_2fr] gap-6">
       <section className="space-y-2"><Button variant="outline" onClick={() => setProgram(blankProgram())}>Thêm chương trình</Button>
-        {programs.map(p => <button className={`block w-full text-left border rounded-xl p-3 ${p.id === program.id ? 'bg-blue-50' : 'bg-white'}`} key={p.id} onClick={() => setProgram({ ...p, sourceUrl: p.sourceUrl ?? '' })}><strong>{p.major}</strong><p>{p.shortName} · {p.admissionYear} · {p.published ? 'Công khai' : 'Nháp'}</p></button>)}
+        {programs.map(p => <button className={`block w-full text-left border rounded-xl p-3 ${p.id === program.id ? 'bg-secondary' : 'bg-white'}`} key={p.id} onClick={() => setProgram({ ...p, sourceUrl: p.sourceUrl ?? '' })}><strong>{p.major}</strong><p>{p.shortName} · {p.admissionYear} · {p.published ? 'Công khai' : 'Nháp'}</p></button>)}
       </section>
       <form className="bg-white border rounded-2xl p-6 space-y-4" onSubmit={e => {
         e.preventDefault(); void action(async () => {

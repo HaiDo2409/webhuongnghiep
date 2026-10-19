@@ -31,15 +31,32 @@ Yêu cầu: Java 21, PostgreSQL và kết nối mạng lần đầu để Maven 
 ./scripts/backend.ps1 -Task run
 ```
 
-Backend chạy tại `http://localhost:8080`. Flyway áp dụng migration trước khi Hibernate kiểm tra schema. Không sửa migration đã chạy; tạo file `V2__...sql` cho thay đổi tiếp theo. Không dùng `ddl-auto=update` trên database này.
+Backend chạy tại `http://localhost:8080`. Flyway áp dụng migration trước khi Hibernate kiểm tra schema. Không sửa migration đã chạy; hiện có V1 (nền tảng) và V2 (tài khoản mật khẩu), tạo `V3__...sql` cho thay đổi tiếp theo. Không dùng `ddl-auto=update` trên database này.
 
 Với máy hiện tại, database `huongnghiep` và database kiểm thử `huongnghiep_test` đã được khởi tạo bằng role riêng. Thông tin kết nối nằm trong `backend/.env`, được Git bỏ qua. Không chép mật khẩu vào README hoặc source code.
 
 Tùy chọn Docker: sau khi đặt biến `SPRING_DATASOURCE_PASSWORD`, có thể dùng `docker compose up -d postgres` thay cho PostgreSQL cài trực tiếp. Không chạy hai PostgreSQL trên cùng cổng 5432.
 
-## 3. Kích hoạt đăng nhập Google
+## 3. Đăng nhập tài khoản/mật khẩu và Google
 
-Khung dùng Spring Security OAuth2 Login, Authorization Code Flow và OpenID Connect. Không có tài khoản admin/mật khẩu demo hay API bỏ qua đăng nhập.
+### 3.1. Tài khoản và mật khẩu
+
+Mở `/login`, chọn **Đăng ký** để nhập họ tên, tài khoản, mật khẩu và xác nhận mật khẩu. Đăng ký thành công chuyển về form đăng nhập. Không cần cấu hình Google để dùng chức năng này.
+
+- Tài khoản dài 3–40 ký tự: chữ không dấu, số, dấu chấm, gạch dưới/gạch ngang; lưu dưới dạng chữ thường, đăng nhập không phân biệt hoa/thường.
+- Mật khẩu ít nhất 8 ký tự, tối đa 72 byte UTF-8; lưu bằng BCrypt, không lưu mật khẩu rõ trong database hoặc phiên đăng nhập.
+- Đăng ký công khai luôn là `STUDENT`; không nhận quyền admin từ nội dung request. Tên `admin` và `administrator` dành cho quản trị.
+- Spring Security xác thực mật khẩu, đổi session ID, làm mới CSRF và lưu SecurityContext vào Spring Session JDBC. Sau tải lại trang vẫn dùng phiên đã xác thực.
+- Đăng nhập sai hoặc tài khoản khóa trả lỗi chung; có giới hạn 10 lần thử/15 phút cho mỗi cặp IP/tài khoản. Đăng ký giới hạn 10 lần/15 phút theo IP. Bộ đếm hiện trong bộ nhớ một backend; triển khai nhiều server cần kho dùng chung.
+- Chưa có quên mật khẩu, xác minh email hoặc tự liên kết tài khoản Google với tài khoản mật khẩu.
+
+**Admin cục bộ trên máy hiện tại:** tài khoản `admin`; thông tin đăng nhập riêng nằm trong `.cache/admin-login.txt` (file bị loại khỏi Git). Truy cập `/login`, đăng nhập rồi mở `/admin`, hoặc chọn **Quản trị nội dung** từ trang cá nhân/menu tài khoản.
+
+Để tạo admin trên môi trường mới: tự đặt `LOCAL_ADMIN_ENABLED=true`, `LOCAL_ADMIN_USERNAME` và `LOCAL_ADMIN_PASSWORD` trong cấu hình riêng trước khi khởi động backend. Không có mật khẩu mặc định trong mã. Bootstrap chỉ tạo tài khoản chưa tồn tại, không đổi mật khẩu hoặc nâng quyền tài khoản cũ. Sau khi tạo xong, tắt `LOCAL_ADMIN_ENABLED`. Đây là tài khoản database thật của ứng dụng, không phải cơ chế bỏ qua xác thực.
+
+### 3.2. Google (tùy chọn)
+
+Khung dùng Spring Security OAuth2 Login, Authorization Code Flow và OpenID Connect; hoạt động song song với tài khoản/mật khẩu.
 
 1. Tạo OAuth client loại Web application trong dự án Google của đơn vị.
 2. Cấu hình consent screen và tài khoản thử nghiệm nếu ứng dụng đang ở chế độ testing.
@@ -51,9 +68,9 @@ Khung dùng Spring Security OAuth2 Login, Authorization Code Flow và OpenID Con
 
 Proxy Vite đã chuyển tiếp `/api`, `/oauth2`, `/login/oauth2`. Production cần chuyển tiếp cùng các đường dẫn, HTTPS, `COOKIE_SECURE=true`, origin/callback phù hợp và cấu hình forwarded headers cho proxy đáng tin cậy. Chưa có cấu hình triển khai production tự động trong khung.
 
-Nếu không điền Google client, backend vẫn chạy và các tính năng công khai vẫn dùng được; nút Google hiển thị chưa sẵn sàng. Không tạo client giả để làm đăng nhập trông như đã hoạt động.
+Nếu không điền Google client, backend và đăng nhập mật khẩu vẫn hoạt động; nút Google được ẩn cho đến khi cấu hình đủ. Không tạo client giả để làm đăng nhập trông như đã hoạt động.
 
-### Cấp admin đầu tiên
+### Cấp admin qua Google
 
 - Đặt `BOOTSTRAP_ADMIN_GOOGLE_SUB` bằng đúng định danh `sub` của tài khoản Google trước lần đăng nhập đầu tiên của tài khoản đó. Không đặt bằng email.
 - Nếu tài khoản đã đăng nhập với quyền học sinh, người vận hành database có thể cấp quyền bằng thao tác quản trị có kiểm soát. Ví dụ chạy câu lệnh tham số hóa theo **UUID đã xác định**: `UPDATE app_users SET role = 'ADMIN' WHERE id = :user_id;`.
@@ -92,6 +109,8 @@ Test Flyway có thể tạo schema và dữ liệu phát triển trong database 
 | API | Chức năng |
 |---|---|
 | `GET /api/auth/config` | Kiểm tra Google đã được cấu hình |
+| `POST /api/auth/register` | Tạo tài khoản học sinh với mật khẩu băm, cần CSRF |
+| `POST /api/auth/login` | Đăng nhập tài khoản/mật khẩu, tạo phiên và đổi session ID, cần CSRF |
 | `GET /api/auth/csrf` | Token/header CSRF của phiên |
 | `GET /api/users/me` | Tài khoản và quyền hiện hành |
 | `GET /oauth2/authorization/google` | Bắt đầu đăng nhập |
@@ -116,6 +135,10 @@ Test Flyway có thể tạo schema và dữ liệu phát triển trong database 
 | `GET /api/admin/audit-logs` | 100 sự kiện quản trị gần nhất |
 
 Các POST/PUT/DELETE phải lấy CSRF token và gửi lại bằng header do `/api/auth/csrf` trả về. Frontend đã tự xử lý việc này và dùng cookie phiên HttpOnly. Không lưu token đăng nhập trong localStorage.
+
+### Tra cứu có hoặc không dùng quiz
+
+Trên `/xet-tuyen`, công tắc **Dùng kết quả trắc nghiệm Holland** thể hiện lựa chọn trực tiếp. Khi tắt, bộ chọn kết quả bị vô hiệu hóa, sắp xếp theo tổng điểm, request gửi `quizResultId=null` và mức phù hợp hiển thị chưa đánh giá. Khi bật và đã chọn kết quả, có thể sắp xếp theo hướng nghiệp/kết hợp. Bật nhưng chưa có bài thì vẫn tra cứu theo điểm, kèm hướng dẫn làm hoặc chọn bài đã lưu. Đổi công tắc xóa kết quả hiển thị cũ để tránh nhầm chế độ; tổng điểm môn học không thay đổi.
 
 ## 6. Lỗi thường gặp
 

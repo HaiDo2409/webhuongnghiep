@@ -39,6 +39,7 @@ export type CurrentUserResponse =
     }
   | {
       authenticated: true;
+      id?: string;
       displayName: string | null;
       email: string;
       avatarUrl: string | null;
@@ -48,6 +49,7 @@ export type CurrentUserResponse =
     };
 
 export class CurrentUser {
+  id: string;
   displayName: string | null;
   email: string;
   avatarUrl: string | null;
@@ -62,7 +64,9 @@ export class CurrentUser {
     username: string | undefined,
     roles: string[] | undefined,
     permissions: string | undefined,
+    id?: string,
   ) {
+    this.id = id ?? username ?? '';
     this.displayName = displayName ?? null;
     this.email = email || '';
     this.avatarUrl = avatarUrl ?? null;

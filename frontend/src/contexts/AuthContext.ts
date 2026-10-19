@@ -1,7 +1,7 @@
 import { CurrentUser } from '@/types';
 import { createContext, useContext } from 'react';
 
-export type AuthContextType =
+export type AuthState =
   | {
       isAuthenticated: false;
       login: (provider: string) => void;
@@ -11,6 +11,8 @@ export type AuthContextType =
       user: CurrentUser;
       logout: () => Promise<void>;
     };
+
+export type AuthContextType = AuthState & { refresh: () => Promise<void> };
 
 const AuthContext = createContext<AuthContextType | null | undefined>(undefined);
 

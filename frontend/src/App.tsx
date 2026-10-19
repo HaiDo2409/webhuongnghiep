@@ -32,7 +32,7 @@ const EditorTestPage = lazy(() =>
 function App() {
   return (
     <BrowserRouter>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+      <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
         <TooltipProvider>
           <AuthProvider>
             <Routes>

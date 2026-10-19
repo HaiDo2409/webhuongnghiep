@@ -42,7 +42,7 @@ export function ProfileDashboard() {
       <Button disabled={busy}>{busy ? 'Đang lưu…' : 'Lưu hồ sơ'}</Button>
     </form>
     <section className="space-y-3"><h2 className="text-2xl font-semibold">Lịch sử trắc nghiệm</h2>
-      {!history.length && <p>Chưa có kết quả. <Link className="text-blue-600 underline" to="/trac-nghiem">Bắt đầu làm bài</Link></p>}
+      {!history.length && <p>Chưa có kết quả. <Link className="text-primary underline" to="/trac-nghiem">Bắt đầu làm bài</Link></p>}
       {history.map(h => <article key={h.id} className="bg-white border rounded-xl p-4 space-y-2"><h3 className="font-semibold">{h.title} · Phiên bản {h.version}</h3><p>{new Date(h.createdAt).toLocaleString('vi-VN')} · {h.topCodes.join(' – ')}</p>
         <p className="text-sm text-gray-500">{Object.entries(h.normalizedScores).map(([key, value]) => `${key}: ${value.toFixed(1)}`).join(' · ')}</p>
         {h.type === 'HOLLAND' && <Button asChild variant="outline"><Link to="/xet-tuyen" onClick={() => setActiveResult(h.id)}>Dùng kết quả này để tra cứu</Link></Button>}

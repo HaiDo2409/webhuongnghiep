@@ -11,7 +11,9 @@ import java.math.BigDecimal;
 @Table(name="app_users")
 public class UserEntity {
     @Id public UUID id;
-    @Column(nullable=false, unique=true) public String googleSubject;
+    @Column(unique=true) public String googleSubject;
+    public String localUsername;
+    public String passwordHash;
     public String email;
     public String displayName;
     public String avatarUrl;

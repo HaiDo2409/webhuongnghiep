@@ -1,72 +1,29 @@
-import type { AuthContextType } from '@/contexts/AuthContext';
+import type { AuthState } from '@/contexts/AuthContext';
 import AuthContext from '@/contexts/AuthContext';
 import { CurrentUser, type CurrentUserResponse } from '@/types';
 import { api } from '@/lib/api';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBackend } from '@/lib/runtime';
 
-const login = (provider: string) => {
-  window.location.href = `/oauth2/authorization/${provider}`;
-};
-
-const unauthenticatedAuthValue: AuthContextType = {
-  isAuthenticated: false,
-  login,
-};
-
+const guest: AuthState = { isAuthenticated: false, login: provider => { window.location.href = `/oauth2/authorization/${provider}`; } };
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [authValue, setAuthValue] = useState<AuthContextType | null>(
-    !useBackend && import.meta.env.MODE !== 'development' ? unauthenticatedAuthValue : null,
-  );
+  const [state, setState] = useState<AuthState | null>(!useBackend && import.meta.env.MODE !== 'development' ? guest : null);
   const navigate = useNavigate();
-
+  const readState = useCallback(async (): Promise<AuthState> => {
+    const { data } = await api.get<CurrentUserResponse>('/api/users/me');
+    if (!data.authenticated) return guest;
+    const user = new CurrentUser(data.displayName, data.email, data.avatarUrl, data.username, data.roles, data.permissions, data.id);
+    return { isAuthenticated: true, user, logout: async () => {
+      await api.post('/api/logout'); sessionStorage.removeItem('hn_active_holland_result'); setState(guest); navigate('/');
+    } };
+  }, [navigate]);
+  const refresh = useCallback(async () => { setState(await readState()); }, [readState]);
   useEffect(() => {
     if (!useBackend && import.meta.env.MODE !== 'development') return;
-    async function fetchCurrentUser() {
-      try {
-        const response = await api.get<CurrentUserResponse>('/api/users/me', {
-          validateStatus: (status) => status >= 200 && status < 500,
-        });
-
-        if (response.status >= 400) {
-          setAuthValue(unauthenticatedAuthValue);
-          return;
-        }
-
-        const data = response.data;
-
-        if (data.authenticated === true) {
-          const user = new CurrentUser(
-            data.displayName,
-            data.email,
-            data.avatarUrl,
-            data.username,
-            data.roles,
-            data.permissions,
-          );
-
-          setAuthValue({
-            isAuthenticated: true,
-            user,
-            logout: async () => {
-              await api.post('/api/logout');
-              sessionStorage.removeItem('hn_active_holland_result');
-              setAuthValue(unauthenticatedAuthValue);
-              navigate('/');
-            },
-          });
-        } else {
-          setAuthValue(unauthenticatedAuthValue);
-        }
-      } catch (error) {
-        console.error('Failed to fetch user data', error);
-        setAuthValue(unauthenticatedAuthValue);
-      }
-    }
-
-    fetchCurrentUser();
-  }, [navigate]);
-
-  return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;
+    let live = true;
+    readState().then(value => { if (live) setState(value); }).catch(() => { if (live) setState(guest); });
+    return () => { live = false; };
+  }, [readState]);
+  return <AuthContext.Provider value={state === null ? null : { ...state, refresh }}>{children}</AuthContext.Provider>;
 };

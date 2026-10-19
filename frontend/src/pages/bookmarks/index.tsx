@@ -12,9 +12,9 @@ export function BookmarksPage() {
   const schools = bookmarks.filter((b) => b.type === 'school');
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Page header */}
-      <div className="bg-blue-700 py-10 px-4 text-center">
+      <div className="legacy-page-header">
         <div className="max-w-3xl mx-auto space-y-2">
           <div className="inline-flex items-center gap-2 bg-white/20 border border-white/30 rounded-full px-4 py-2 text-white text-sm">
             <Bookmark className="h-4 w-4" /> Yêu thích của tôi
@@ -36,12 +36,12 @@ export function BookmarksPage() {
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
               <Link to={ROUTES.TRAC_NGHIEM}>
-                <Button className="rounded-full bg-blue-600 hover:bg-blue-700 text-white">
+                <Button className="rounded-full bg-primary hover:bg-primary/90 text-white">
                   Làm trắc nghiệm Holland
                 </Button>
               </Link>
               <Link to={ROUTES.XET_TUYEN}>
-                <Button variant="outline" className="rounded-full border-gray-300 text-gray-700 hover:bg-gray-50">
+                <Button variant="outline" className="rounded-full border-gray-300 text-gray-700 hover:bg-background">
                   Tra cứu xét tuyển
                 </Button>
               </Link>
@@ -64,7 +64,7 @@ export function BookmarksPage() {
             {careers.length > 0 && (
               <section>
                 <h2 className="text-gray-900 font-semibold text-lg mb-4 flex items-center gap-2">
-                  <Briefcase className="h-5 w-5 text-blue-600" />
+                  <Briefcase className="h-5 w-5 text-primary" />
                   Nghề nghiệp yêu thích ({careers.length})
                 </h2>
                 <div className="grid md:grid-cols-2 gap-4">
@@ -109,7 +109,7 @@ export function BookmarksPage() {
             {schools.length > 0 && (
               <section>
                 <h2 className="text-gray-900 font-semibold text-lg mb-4 flex items-center gap-2">
-                  <GraduationCap className="h-5 w-5 text-blue-600" />
+                  <GraduationCap className="h-5 w-5 text-primary" />
                   Trường Đại học theo dõi ({schools.length})
                 </h2>
                 <div className="grid md:grid-cols-2 gap-4">
@@ -120,7 +120,7 @@ export function BookmarksPage() {
                     >
                       <div className="flex-1 min-w-0">
                         {item.tag && (
-                          <Badge className="mb-2 bg-blue-100 text-blue-700 border-blue-200 text-xs">
+                          <Badge className="mb-2 bg-secondary text-primary border-border text-xs">
                             {item.tag}
                           </Badge>
                         )}

@@ -1,16 +1,6 @@
+import { Link } from 'react-router-dom';
+import { Compass, Heart } from 'lucide-react';
 import { OAuthLogin } from '@/pages/login/_components/OAuthLogin';
-
 export function LoginPage() {
-  return (
-    <div className="min-h-screen grid place-items-center bg-background overflow-hidden relative font-sans text-foreground">
-      {/* Decorative blurry blobs behind */}
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/20 blur-[120px] pointer-events-none mix-blend-normal dark:mix-blend-screen" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-secondary/20 blur-[120px] pointer-events-none mix-blend-normal dark:mix-blend-screen" />
-
-      {/* The main form container */}
-      <div className="relative z-10 p-4 w-full max-w-md">
-        <OAuthLogin />
-      </div>
-    </div>
-  );
+  return <main className="auth-page"><aside className="auth-story"><Link to="/" className="brand"><span className="brand-symbol"><Compass size={25} strokeWidth={1.6} /></span><span>hướng nghiệp<span className="brand-dot">.</span><small>CHUYÊN BIÊN HÒA</small></span></Link><div className="auth-story-copy"><div className="auth-decoration" aria-hidden="true">✳</div><h2>Cứ là chính mình.<br /><span>Rồi bạn sẽ tìm<br />thấy hướng đi.</span></h2><p>Lưu những điều bạn thích, những ngành bạn tò mò và những bước nhỏ trên hành trình của mình.</p></div><div className="micro-copy"><Heart size={13} />Không cần đi thật nhanh. Chỉ cần bắt đầu.</div></aside><div className="auth-form-wrap"><OAuthLogin /></div></main>;
 }

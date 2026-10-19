@@ -21,6 +21,7 @@ class ApiSecurityTest {
     @Autowired MockMvc mvc;
     @MockitoBean CurrentActor actor;
     @MockitoBean GoogleUserService google;
+    @MockitoBean LocalUserDetailsService localUsers;
     @MockitoBean ProgramService programs;
     @Test void publicAuthConfigWorksWithoutGoogleCredentials() throws Exception {
         mvc.perform(get("/api/auth/config")).andExpect(status().isOk()).andExpect(jsonPath("$.googleEnabled").value(false));

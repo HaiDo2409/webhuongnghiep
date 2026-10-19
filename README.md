@@ -2,7 +2,7 @@
 
 > Hệ thống hướng nghiệp STEM tích hợp: Trắc nghiệm Holland RIASEC + Đa trí tuệ, Tra cứu Xét tuyển Đại học, Bản tin, Bản đồ Kỹ năng và Bookmark yêu thích.
 
-> **Trạng thái 19/10/2026:** Đã có khung backend **Java 21 + Spring Boot + PostgreSQL**, migration Flyway, quiz có phiên bản, API quản trị, hồ sơ/yêu thích và luồng Holland → đề xuất ngành. Frontend hỗ trợ chế độ demo và kết nối backend. Đăng nhập Google đã có luồng xử lý, cần cấu hình Client ID/Secret để sử dụng thực tế. **Excel được hoãn sang đợt sau.** Đây là nền tảng phát triển, chưa phải bản phát hành production hoàn chỉnh.
+> **Trạng thái 19/10/2026:** Đã có khung backend **Java 21 + Spring Boot + PostgreSQL**, migration Flyway, quiz có phiên bản, quản trị, hồ sơ/yêu thích và luồng Holland → đề xuất ngành. Có **đăng ký/đăng nhập tài khoản–mật khẩu**, admin cục bộ và công tắc bật/tắt quiz khi tra cứu. Google login hoạt động khi cấu hình Client ID/Secret. Frontend hỗ trợ demo/API thật. **Excel hoãn sang đợt sau.** Đây là nền tảng phát triển, chưa phải bản phát hành production hoàn chỉnh.
 >
 > **Chạy và cấu hình:** [Hướng dẫn phát triển](docs/DEVELOPMENT.md) · [Phạm vi khung đã triển khai và các bước tiếp theo](docs/IMPLEMENTATION.md).
 >

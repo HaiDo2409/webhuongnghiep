@@ -94,7 +94,7 @@ const NEWS_ITEMS: NewsItem[] = [
 const CATEGORIES = ['Tất cả', 'Tuyển sinh', 'Nghề nghiệp', 'Hướng nghiệp', 'Học bổng', 'Video'];
 
 const categoryColors: Record<string, string> = {
-  'Tuyển sinh':  'bg-blue-100 text-blue-700 border-blue-200',
+  'Tuyển sinh':  'bg-secondary text-primary border-border',
   'Nghề nghiệp': 'bg-purple-100 text-purple-700 border-purple-200',
   'Hướng nghiệp':'bg-green-100 text-green-700 border-green-200',
   'Học bổng':    'bg-yellow-100 text-yellow-700 border-yellow-200',
@@ -112,11 +112,11 @@ function NewsCard({ item }: { item: NewsItem }) {
       <div className="flex items-start gap-4">
         {/* Icon */}
         <div className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center ${
-          item.isVideo ? 'bg-red-100' : 'bg-blue-100'
+          item.isVideo ? 'bg-red-100' : 'bg-secondary'
         }`}>
           {item.isVideo
             ? <Video className="h-5 w-5 text-red-600" />
-            : <Newspaper className="h-5 w-5 text-blue-600" />
+            : <Newspaper className="h-5 w-5 text-primary" />
           }
         </div>
 
@@ -133,7 +133,7 @@ function NewsCard({ item }: { item: NewsItem }) {
             </span>
           </div>
 
-          <h4 className="text-gray-900 font-semibold group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+          <h4 className="text-gray-900 font-semibold group-hover:text-primary transition-colors line-clamp-2 leading-snug">
             {item.title}
           </h4>
 
@@ -194,9 +194,9 @@ export function BanTinPage() {
   const filteredVideos = filtered.filter((i) => i.isVideo);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Page header */}
-      <div className="bg-blue-700 py-10 px-4 text-center">
+      <div className="legacy-page-header">
         <div className="max-w-3xl mx-auto space-y-2">
           <div className="inline-flex items-center gap-2 bg-white/20 border border-white/30 rounded-full px-4 py-2 text-white text-sm">
             <BookOpen className="h-4 w-4" /> Bản tin Hướng nghiệp
@@ -226,7 +226,7 @@ export function BanTinPage() {
         {/* Category filter + articles */}
         <div>
           <h2 className="text-gray-900 font-bold text-xl mb-4 flex items-center gap-2">
-            <Newspaper className="h-5 w-5 text-blue-600" /> Bài viết & Thông tin
+            <Newspaper className="h-5 w-5 text-primary" /> Bài viết & Thông tin
           </h2>
 
           {/* Filter pills */}
@@ -237,8 +237,8 @@ export function BanTinPage() {
                 onClick={() => setActiveCategory(cat)}
                 className={`px-4 py-1.5 rounded-full text-sm border transition-all ${
                   activeCategory === cat
-                    ? 'bg-blue-600 border-blue-600 text-white'
-                    : 'bg-white border-gray-300 text-gray-600 hover:border-blue-400 hover:text-blue-600'
+                    ? 'bg-primary border-primary text-white'
+                    : 'bg-white border-gray-300 text-gray-600 hover:border-blue-400 hover:text-primary'
                 }`}
               >
                 {cat}

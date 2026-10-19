@@ -58,4 +58,11 @@ class RecommendationTest {
         var calc=new CompatibilityCalculator();assertThat(calc.compare(Map.of("R",0.0),Map.of("R",100.0))).isNull();
         assertThat(calc.compare(Map.of("R",100.0),Map.of("R",100.0))).isEqualTo(100);
     }
+    @Test void optingOutDoesNotReadOrApplyAnyQuizResult() {
+        when(programs.list(false)).thenReturn(List.of(program("Ngành","I")));
+        var response=service.recommend(new RecommendationService.Request(2026,RecommendationService.Mode.POINTS,null,scores),new MockHttpSession());
+        assertThat(response.items().getFirst().compatibility()).isNull();
+        assertThat(response.items().getFirst().rawScore()).isEqualByComparingTo("25.5");
+        verifyNoInteractions(results,versions);
+    }
 }

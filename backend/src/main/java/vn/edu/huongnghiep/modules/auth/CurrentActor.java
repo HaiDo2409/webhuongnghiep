@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.core.userdetails.UserDetails;
+import java.util.UUID;
 import vn.edu.huongnghiep.infrastructure.persistence.*;
 import vn.edu.huongnghiep.shared.ApiException;
 
@@ -13,8 +15,13 @@ public class CurrentActor {
     public CurrentActor(UserRepository users) { this.users = users; }
     public UserEntity optional() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !(authentication.getPrincipal() instanceof OidcUser oidc)) return null;
-        var user = users.findByGoogleSubject(oidc.getSubject()).orElseThrow(() -> new ApiException(HttpStatus.UNAUTHORIZED, "Tài khoản không tồn tại."));
+        if (authentication == null || !authentication.isAuthenticated()) return null;
+        UserEntity user;
+        if(authentication.getPrincipal() instanceof OidcUser oidc) {
+            user=users.findByGoogleSubject(oidc.getSubject()).orElseThrow(() -> new ApiException(HttpStatus.UNAUTHORIZED,"Tài khoản không tồn tại."));
+        } else if(authentication.getPrincipal() instanceof UserDetails local) {
+            user=users.findById(UUID.fromString(local.getUsername())).orElseThrow(() -> new ApiException(HttpStatus.UNAUTHORIZED,"Tài khoản không tồn tại."));
+        } else return null;
         if (!user.active) throw new ApiException(HttpStatus.FORBIDDEN, "Tài khoản đã bị khóa.");
         return user;
     }

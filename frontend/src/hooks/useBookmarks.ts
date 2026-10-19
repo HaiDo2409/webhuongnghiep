@@ -34,7 +34,7 @@ function enqueue(key: string, work: () => Promise<void>) {
 
 export function useBookmarks() {
   const auth = useAuth();
-  const key = useBackend && auth?.isAuthenticated ? auth.user.username : 'guest';
+  const key = useBackend && auth?.isAuthenticated ? auth.user.id : 'guest';
   const bookmarks = useSyncExternalStore(subscribe, () => snapshot(key));
   useEffect(() => {
     if (key === 'guest') {
