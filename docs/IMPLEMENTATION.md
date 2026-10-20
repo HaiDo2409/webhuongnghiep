@@ -1,4 +1,4 @@
-# Phạm vi khung triển khai — 19/10/2026
+# Phạm vi khung triển khai — 20/10/2026
 
 ## Đã có mã và đã kiểm tra
 
@@ -67,7 +67,7 @@ Các repository hiện là interface Spring Data; service điều phối giao d�
 
 - Chỉ tính **tổng ba môn thang 30**. Chưa có chiến lược tính ưu tiên, hệ số, IELTS, HSA, TSA, điều kiện phụ theo từng trường/năm. Không công bố xác suất đỗ hoặc kết luận đủ điều kiện.
 - Admin quản lý “ngành trong chương trình tại trường” trước; danh mục ngành độc lập, cơ sở, đợt tuyển sinh và quan hệ nghề–ngành chuẩn hóa đầy đủ còn nằm trong kiến trúc mục tiêu.
-- Câu hỏi/hồ sơ/chương trình dùng JSONB có kiểm tra; ERD trong README là mô hình đích, không phải toàn bộ schema hiện tại. Thay đổi schema sẽ dùng migration mới.
+- Câu hỏi/hồ sơ/chương trình dùng JSONB có kiểm tra; ERD trong README mô tả các bảng và quan hệ hiện tại. Chuẩn hóa thêm danh mục trường/ngành thuộc bước sau; thay đổi schema sẽ dùng migration mới.
 - Bài khách gắn với phiên có thời hạn; chưa có autosave từng câu, resume nhiều thiết bị hoặc idempotency key bền vững cho các yêu cầu nộp đồng thời. Việc gửi lại cùng đáp án trong cùng phiên được dùng lại kết quả, nhưng chưa phải bảo đảm idempotency toàn hệ thống.
 - Bookmark đang lưu snapshot với mã tham chiếu; chuẩn hóa đích bằng khóa ngoại thuộc bước sau.
 - Chưa có giao diện quản lý người dùng/nhật ký đầy đủ, phân trang mọi danh mục, chính sách xóa tài khoản, quan sát vận hành hay triển khai production.
