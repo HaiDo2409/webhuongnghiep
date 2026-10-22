@@ -15,26 +15,25 @@ import vn.edu.huongnghiep.modules.auth.*;
 import vn.edu.huongnghiep.modules.admissions.*;
 import vn.edu.huongnghiep.shared.ApiException;
 
-@WebMvcTest(controllers={AuthController.class,ProgramController.class},properties={"app.frontend-origin=http://localhost:5173","app.google-client-id=","app.google-client-secret="})
+@WebMvcTest(controllers={AuthController.class,ProgramController.class})
 @Import(SecurityConfig.class)
 class ApiSecurityTest {
     @Autowired MockMvc mvc;
     @MockitoBean CurrentActor actor;
-    @MockitoBean GoogleUserService google;
     @MockitoBean LocalUserDetailsService localUsers;
     @MockitoBean ProgramService programs;
-    @Test void publicAuthConfigWorksWithoutGoogleCredentials() throws Exception {
-        mvc.perform(get("/api/auth/config")).andExpect(status().isOk()).andExpect(jsonPath("$.googleEnabled").value(false));
+    @Test void onlyPasswordAuthenticationIsAdvertised() throws Exception {
+        mvc.perform(get("/api/auth/config")).andExpect(status().isOk()).andExpect(jsonPath("$.passwordEnabled").value(true)).andExpect(jsonPath("$.googleEnabled").doesNotExist());
     }
     @Test void anonymousCannotReadAdminEndpoints() throws Exception {
         mvc.perform(get("/api/admin/programs")).andExpect(status().isUnauthorized());verifyNoInteractions(programs);
     }
     @Test void authenticatedStudentIsStillSubjectToServicePermissionChecks() throws Exception {
         when(programs.list(true)).thenThrow(new ApiException(org.springframework.http.HttpStatus.FORBIDDEN,"Không có quyền."));
-        mvc.perform(get("/api/admin/programs").with(oidcLogin())).andExpect(status().isForbidden());
+        mvc.perform(get("/api/admin/programs").with(user("student"))).andExpect(status().isForbidden());
     }
     @Test void mutatingRequestRequiresCSRFToken() throws Exception {
-        mvc.perform(post("/api/admin/programs").with(oidcLogin()).contentType("application/json").content("{}"))
+        mvc.perform(post("/api/admin/programs").with(user("student")).contentType("application/json").content("{}"))
             .andExpect(status().isForbidden());verifyNoInteractions(programs);
     }
     @Test void exposesCSRFFromSessionForSPA() throws Exception {

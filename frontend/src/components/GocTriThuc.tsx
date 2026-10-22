@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { SITE_NAME } from '@/lib/brand';
 import { BookOpen } from 'lucide-react';
 
 export const GocTriThuc = ({ className, withLogo }: { className?: string; withLogo?: boolean }) => {
@@ -11,7 +12,7 @@ export const GocTriThuc = ({ className, withLogo }: { className?: string; withLo
           className,
         )}
       >
-        GocTriThuc
+        {SITE_NAME}
       </span>
     </>
   );

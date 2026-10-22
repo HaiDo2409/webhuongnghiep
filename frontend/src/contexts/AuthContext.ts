@@ -4,7 +4,6 @@ import { createContext, useContext } from 'react';
 export type AuthState =
   | {
       isAuthenticated: false;
-      login: (provider: string) => void;
     }
   | {
       isAuthenticated: true;

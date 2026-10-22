@@ -12,4 +12,7 @@ import java.math.BigDecimal;
 public class CareerEntity {
     @Id public String id;
     @JdbcTypeCode(SqlTypes.JSON) public JsonNode data;
+    public String onetCode;
+    public boolean published;
+    @Version public long revision;
 }

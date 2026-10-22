@@ -20,7 +20,9 @@ class RecommendationTest {
     private final QuizVersionRepository versions=mock(QuizVersionRepository.class);
     private final RecommendationRunRepository runs=mock(RecommendationRunRepository.class);
     private final CurrentActor actor=mock(CurrentActor.class);
-    private final RecommendationService service=new RecommendationService(programs,results,versions,runs,mapper,actor);
+    private final BenchmarkHistoryService history=mock(BenchmarkHistoryService.class);
+    private final vn.edu.huongnghiep.modules.careers.CareerCatalogService careerCatalog=mock(vn.edu.huongnghiep.modules.careers.CareerCatalogService.class);
+    private final RecommendationService service=new RecommendationService(programs,results,versions,runs,mapper,actor,history,careerCatalog);
     private final Map<String,BigDecimal> scores=Map.of("toan",new BigDecimal("8.5"),"ly",new BigDecimal("8"),"hoa",new BigDecimal("9"));
     private ProgramService.ProgramDto program(String name,String dimension) {
         return new ProgramService.ProgramDto(UUID.randomUUID(),"Trường thử","TEST",name,"001",2026,
@@ -64,5 +66,18 @@ class RecommendationTest {
         assertThat(response.items().getFirst().compatibility()).isNull();
         assertThat(response.items().getFirst().rawScore()).isEqualByComparingTo("25.5");
         verifyNoInteractions(results,versions);
+    }
+    @Test void pagedRankingFetchesDetailsAndHistoryOnlyForTheSelectedPage() {
+        var candidates=new ArrayList<ProgramService.ProgramDto>();
+        for(int i=0;i<40;i++)candidates.add(program(String.format("Ngành %02d",i),"I"));
+        when(programs.recommendationCandidates(2026)).thenReturn(candidates);
+        var request=new RecommendationService.Request(2026,RecommendationService.Mode.POINTS,null,scores,null,
+            new RecommendationService.Page(15,15,null,false,null));
+        var response=service.recommend(request,new MockHttpSession());
+        assertThat(response.total()).isEqualTo(40);assertThat(response.offset()).isEqualTo(15);assertThat(response.hasMore()).isTrue();
+        assertThat(response.items()).hasSize(15);assertThat(response.items().getFirst().program().major()).isEqualTo("Ngành 15");
+        var ids=candidates.subList(15,30).stream().map(ProgramService.ProgramDto::id).toList();
+        verify(programs).recommendationDetails(ids);verify(history).historyFor(ids);verify(programs,never()).list(false);
+        verifyNoInteractions(runs);
     }
 }

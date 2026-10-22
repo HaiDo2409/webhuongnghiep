@@ -1,0 +1,41 @@
+{
+  "version": "vn-salary-2026-v1",
+  "year": 2026,
+  "region": "Hà Nội, Việt Nam",
+  "experience": "1–5 năm kinh nghiệm ở vị trí tham chiếu; không phải lương mới tốt nghiệp",
+  "sourceName": "Adecco Vietnam Salary Guide 2026",
+  "sourceUrl": "https://www.adecco.com/-/jssmedia/project/adecco/adeccovn/pdf/adecco-vietnam-salary-guide-2026.pdf",
+  "retrievedAt": "2026-10-22",
+  "method": "Ước tính của ứng dụng: đối chiếu nghề O*NET với vị trí gần tương đương trong báo cáo và dùng khoảng lương Hà Nội, nhóm kinh nghiệm 1–5 năm của vị trí đó. Chưa có khảo sát riêng cho từng nghề; không áp dụng cho mọi địa phương hoặc doanh nghiệp.",
+  "rules": [
+    {"role":"Software Engineer","page":48,"minMillion":35,"maxMillion":45,"codes":["15-1251.00","15-1252.00","15-1299.07"]},
+    {"role":"QA/QC Engineer (Software)","page":48,"minMillion":18,"maxMillion":40,"codes":["15-1253.00"]},
+    {"role":"System Engineer","page":48,"minMillion":20,"maxMillion":40,"codes":["15-1241.00","15-1299.01"]},
+    {"role":"Data Engineer","page":48,"minMillion":25,"maxMillion":50,"codes":["15-1242.00","15-1243.00","15-1243.01"]},
+    {"role":"Data Scientist","page":48,"minMillion":30,"maxMillion":70,"codes":["15-2051.00"]},
+    {"role":"Business Analyst","page":48,"minMillion":35,"maxMillion":45,"codes":["15-1211.00","15-2051.01"]},
+    {"role":"UI/UX Designer","page":48,"minMillion":20,"maxMillion":40,"codes":["15-1255.00"]},
+    {"role":"Product Owner/Project Manager (Software)","page":48,"minMillion":45,"maxMillion":80,"codes":["15-1299.09"]},
+    {"role":"IT support/Helpdesk","page":49,"minMillion":15,"maxMillion":35,"codes":["15-1231.00"]},
+    {"role":"IT Manager","page":49,"minMillion":40,"maxMillion":70,"codes":["11-3021.00"]},
+    {"role":"Electrical/Mechanical/Automation/Chemical Engineer","page":18,"minMillion":18,"maxMillion":30,"codes":["17-2041.00","17-2071.00","17-2072.00","17-2141.00","17-2141.02","17-2199.05","17-2199.08"]},
+    {"role":"Equipment/Production/Manufacturing Engineer","page":18,"minMillion":15,"maxMillion":30,"codes":["17-2112.00","17-2112.03"]},
+    {"role":"Hardware/Embedded/Firmware Engineer","page":18,"minMillion":25,"maxMillion":40,"codes":["17-2061.00"]},
+    {"role":"Financial Accountant","page":31,"minMillion":15,"maxMillion":30,"codes":["13-2011.00"]},
+    {"role":"Investment Analyst","page":27,"minMillion":25,"maxMillion":40,"codes":["13-2051.00"]},
+    {"role":"HR Executive","page":35,"minMillion":15,"maxMillion":23,"codes":["13-1071.00"]},
+    {"role":"HR Manager","page":35,"minMillion":50,"maxMillion":80,"codes":["11-3121.00"]},
+    {"role":"Training Manager","page":35,"minMillion":40,"maxMillion":60,"codes":["11-3131.00"]},
+    {"role":"C&B Manager","page":35,"minMillion":40,"maxMillion":60,"codes":["11-3111.00"]},
+    {"role":"Construction Manager","page":23,"minMillion":35,"maxMillion":45,"codes":["11-9021.00"]},
+    {
+      "role":"Chuyên viên R&D Thực phẩm & Đồ uống – APBEV",
+      "minMillion":14,"maxMillion":16,"codes":["19-1012.00"],
+      "region":"TP. Hồ Chí Minh, Việt Nam","experience":"3–4 năm kinh nghiệm",
+      "basis":"UNSPECIFIED",
+      "sourceName":"APBEV – tin tuyển dụng năm 2026 (đã hết hạn)",
+      "sourceUrl":"https://apbev.vn/nghe-nghiep/chuyen-vien-rd-thuc-pham-do-uong-hcm",
+      "method":"Ước tính tham khảo từ một tin tuyển dụng của APBEV, hạn 05/07/2026, không phải trung bình thị trường. Nguồn chưa nêu rõ lương trước hay sau thuế. Nghề nghiên cứu thực phẩm có phạm vi rộng hơn vị trí R&D đồ uống này."
+    }
+  ]
+}

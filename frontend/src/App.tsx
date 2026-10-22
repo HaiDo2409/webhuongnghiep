@@ -1,3 +1,4 @@
+import { SchoolDirectory } from '@/features/schools/SchoolDirectory';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MainLayout } from '@/layouts/MainLayout';
 import { LandingPage } from '@/pages';
@@ -23,8 +24,10 @@ import { useBackend } from '@/lib/runtime';
 import { BackendQuizPage } from '@/features/guidance/BackendQuizPage';
 import { BackendAdmissionsPage } from '@/features/guidance/BackendAdmissionsPage';
 import { ProfileDashboard } from '@/features/profile/ProfileDashboard';
+import { PasswordSettingsPage } from '@/features/profile/PasswordSettingsPage';
 import { QuizHistoryDetail } from '@/features/profile/QuizHistoryDetail';
 import { AdminPage } from '@/features/admin/AdminPage';
+import { CareerDirectory } from '@/features/careers/CareerDirectory';
 
 const EditorTestPage = lazy(() =>
   import('@/pages/editor-test').then((m) => ({ default: m.EditorTestPage })),
@@ -40,6 +43,7 @@ function App() {
               {/* ── Public (với MainLayout) ────────────────── */}
               <Route element={<MainLayout />}>
                 <Route path={ROUTES.HOME} element={<LandingPage />} />
+                <Route path="/nganh-nghe" element={<CareerDirectory />} /><Route path="/truong" element={<SchoolDirectory />} />
 
                 {/* ── Bản đồ Hướng Nghiệp ─────────────────── */}
                 <Route path={ROUTES.TRAC_NGHIEM} element={useBackend ? <BackendQuizPage /> : <TracNghiemPage />} />
@@ -72,6 +76,7 @@ function App() {
                 <Route element={<MainLayout />}>
                   <Route path={ROUTES.DASHBOARD} element={useBackend ? <ProfileDashboard /> : <Dashboard />} />
                   <Route path="/dashboard/results/:id" element={<QuizHistoryDetail />} />
+                  <Route path="/tai-khoan/doi-mat-khau" element={<PasswordSettingsPage />} />
                 </Route>
               </Route>
 

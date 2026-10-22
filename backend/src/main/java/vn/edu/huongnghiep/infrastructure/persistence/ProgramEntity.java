@@ -18,6 +18,10 @@ public class ProgramEntity {
     public int admissionYear;
     @JdbcTypeCode(SqlTypes.JSON) public JsonNode subjectGroups;
     @JdbcTypeCode(SqlTypes.JSON) public JsonNode hollandProfile;
+    @JdbcTypeCode(SqlTypes.JSON) public JsonNode benchmarkHistory=com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.arrayNode();
+    @JdbcTypeCode(SqlTypes.JSON) public JsonNode admissionDetails=com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+    public UUID majorId;
+    public UUID schoolId;
     public BigDecimal benchmark;
     public Integer benchmarkYear;
     public String sourceUrl;

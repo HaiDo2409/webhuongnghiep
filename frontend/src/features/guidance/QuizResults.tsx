@@ -6,6 +6,7 @@ import { guidance, setActiveResult, type QuizResult, type RecommendationItem } f
 import { HOLLAND_LABELS, type HollandType } from '@/pages/trac-nghiem/data/questions';
 import { MI_LABELS, type MIType } from '@/pages/trac-nghiem/data/mi-questions';
 import { SKILL_MAP } from '@/pages/ky-nang/data/skills';
+import { CareerRecommendations } from '@/features/careers/CareerRecommendations';
 
 const personality: Record<string, { name: string; description: string }> = {
   R: { name: 'Một người thích kiến tạo.', description: 'Bạn có xu hướng thích trải nghiệm, tự tay làm và nhìn thấy ý tưởng trở thành điều cụ thể.' },
@@ -35,11 +36,11 @@ export function QuizResults({ result, onReset, resetLabel = 'Khám phá lại' }
     if (result.type !== 'HOLLAND') return;
     let live = true;
     guidance.programs().then(programs => {
-      const year = Math.max(0, ...programs.map(p => p.admissionYear));
+      const year = programs.some(p=>p.admissionYear===new Date().getFullYear()) ? new Date().getFullYear() : Math.max(0,...programs.map(p => p.admissionYear));
       if (!year) return [];
-      return guidance.recommend(year, 'INTEREST', {}, result.id).then(response => {
+      return guidance.recommend(year, 'INTEREST', {}, result.id, undefined, {offset:0,limit:15,verifiedOnly:true}).then(response => {
         const seen = new Set<string>();
-        return response.items.filter(item => {
+        return response.items.filter(item => item.program.verified).filter(item => {
           const key = item.program.majorCode || item.program.major;
           if (seen.has(key)) return false;
           seen.add(key); return true;
@@ -63,6 +64,7 @@ export function QuizResults({ result, onReset, resetLabel = 'Khám phá lại' }
         {result.type === 'HOLLAND' ? <div className="holland-code" aria-label={`Mã Holland tham khảo ${result.topCodes.join('')}`}>{result.topCodes.map(code => <span key={code} title={dimensionName(code)}>{code}</span>)}</div> : <div className="result-tags">{result.topCodes.map(code => <span key={code}>{dimensionName(code)}</span>)}</div>}
       </section>
       <section className="bento-card profile-card"><p className="eyebrow">MỖI SẮC THÁI ĐỀU CÓ Ý NGHĨA</p><h2>Nhìn gần hơn một chút</h2><div className="profile-bars">{scores.map(([code, score]) => <div className="profile-bar-row" key={code} title={dimensionName(code)}><strong>{shortNames[code] ?? dimensionName(code)}</strong><div className="profile-bar-track" role="progressbar" aria-label={dimensionName(code)} aria-valuenow={score} aria-valuemin={0} aria-valuemax={100}><span style={{ width: `${score}%` }} /></div><span>{Math.round(score)}</span></div>)}</div><p className="profile-caption">Điểm chuẩn hóa 0–100 trong bài khám phá này.<br />Không phải thước đo giá trị hay giới hạn của bạn.</p></section>
+      {result.type==='HOLLAND'&&<CareerRecommendations quizId={result.id}/>}
       <section className="bento-card majors-card"><div className="bento-heading"><div><p className="eyebrow">THÊM VÀI CÁNH CỬA ĐỂ THỬ</p><h2>{result.type === 'HOLLAND' ? '3 ngành bạn có thể tìm hiểu' : 'Những hướng học để khám phá'}</h2></div><Link className="icon-button" to={result.type === 'HOLLAND' ? '/xet-tuyen' : '/ky-nang'} aria-label="Khám phá thêm"><ArrowUpRight size={17} /></Link></div>
         {result.type === 'HOLLAND' ? <>
           {loading && <p className="profile-caption" role="status">Đang ghép sở thích của bạn với các ngành học…</p>}

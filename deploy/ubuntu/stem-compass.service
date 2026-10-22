@@ -1,0 +1,27 @@
+[Unit]
+Description=STEM Compass Spring Boot API
+After=network-online.target postgresql.service
+Wants=network-online.target
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=stemapp
+Group=stemapp
+WorkingDirectory=/opt/stem-compass/current
+EnvironmentFile=/etc/stem-compass/app.env
+ExecStart=/usr/bin/java -Xms64m -Xmx320m -Xss512k -XX:MaxMetaspaceSize=160m -XX:ReservedCodeCacheSize=48m -XX:MaxDirectMemorySize=32m -XX:+UseSerialGC -XX:ActiveProcessorCount=1 -jar /opt/stem-compass/current/backend.jar
+Restart=on-failure
+RestartSec=10
+TimeoutStartSec=240
+TimeoutStopSec=45
+SuccessExitStatus=143
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+UMask=0077
+MemoryMax=700M
+
+[Install]
+WantedBy=multi-user.target

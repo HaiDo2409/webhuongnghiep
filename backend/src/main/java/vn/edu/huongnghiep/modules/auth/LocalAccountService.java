@@ -15,6 +15,8 @@ import vn.edu.huongnghiep.shared.*;
 public class LocalAccountService {
     public record Registration(@NotBlank @Pattern(regexp="[a-zA-Z0-9][a-zA-Z0-9_.-]{2,39}") String username,
         @NotBlank @Size(max=100) String displayName, @NotBlank @Size(min=8,max=72) String password) {}
+    public record PasswordChange(@NotBlank @Size(max=72) String currentPassword,
+        @NotBlank @Size(min=8,max=72) String newPassword,@NotBlank @Size(min=8,max=72) String confirmPassword) {}
     private final UserRepository users;
     private final PasswordEncoder encoder;
     private final AuditService audit;
@@ -29,6 +31,21 @@ public class LocalAccountService {
         var key=username.strip().toLowerCase(Locale.ROOT);
         if(users.findByLocalUsername(key).isPresent()) return; // Never promote, reset or overwrite an existing account.
         create(new Registration(username,"Quản trị viên",password),"ADMIN");
+    }
+    @Transactional
+    public void changePassword(UUID userId,PasswordChange request) {
+        var user=users.lockById(userId).orElseThrow(ApiException::missing);
+        if(!user.active)throw new ApiException(HttpStatus.FORBIDDEN,"Tài khoản đã bị khóa.");
+        if(user.localUsername==null || user.passwordHash==null || user.passwordHash.isBlank())
+            throw ApiException.invalid("Tài khoản này chưa có mật khẩu đăng nhập.");
+        if(request.currentPassword().getBytes(StandardCharsets.UTF_8).length>72 || !encoder.matches(request.currentPassword(),user.passwordHash))
+            throw ApiException.invalid("Mật khẩu hiện tại chưa đúng.");
+        if(request.newPassword().length()<8 || request.newPassword().isBlank() || request.newPassword().getBytes(StandardCharsets.UTF_8).length>72)
+            throw ApiException.invalid("Mật khẩu mới cần ít nhất 8 ký tự và tối đa 72 byte UTF-8.");
+        if(!request.newPassword().equals(request.confirmPassword()))throw ApiException.invalid("Mật khẩu xác nhận chưa khớp.");
+        if(encoder.matches(request.newPassword(),user.passwordHash))throw ApiException.invalid("Mật khẩu mới cần khác mật khẩu hiện tại.");
+        user.passwordHash=encoder.encode(request.newPassword());users.saveAndFlush(user);
+        audit.record(user.id,"PASSWORD_CHANGED",user.id);
     }
     private UUID create(Registration r,String role) {
         String key=r.username().strip().toLowerCase(Locale.ROOT);

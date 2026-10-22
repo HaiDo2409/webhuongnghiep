@@ -1,0 +1,475 @@
+[
+  {
+    "code": "LAP_TRINH",
+    "name": "Lập trình",
+    "keywords": [
+      "lap trinh",
+      "cong nghe thong tin",
+      "khoa hoc may tinh",
+      "phan mem",
+      "global ict"
+    ]
+  },
+  {
+    "code": "PHAN_MEM",
+    "name": "Phát triển phần mềm",
+    "keywords": [
+      "phan mem",
+      "cong nghe thong tin",
+      "khoa hoc may tinh"
+    ]
+  },
+  {
+    "code": "DU_LIEU",
+    "name": "Dữ liệu & phân tích",
+    "keywords": [
+      "du lieu",
+      "thong ke",
+      "he thong thong tin",
+      "toan tin",
+      "business analytics"
+    ]
+  },
+  {
+    "code": "AI",
+    "name": "Trí tuệ nhân tạo",
+    "keywords": [
+      "tri tue nhan tao",
+      "robot",
+      "khoa hoc may tinh"
+    ]
+  },
+  {
+    "code": "AN_NINH_MANG",
+    "name": "An ninh mạng",
+    "keywords": [
+      "an toan thong tin",
+      "an ninh mang",
+      "an toan khong gian so",
+      "mat ma",
+      "cyber security"
+    ]
+  },
+  {
+    "code": "MANG_HE_THONG",
+    "name": "Mạng & hệ thống máy tính",
+    "keywords": [
+      "mang may tinh",
+      "truyen thong du lieu",
+      "he thong thong tin",
+      "ky thuat may tinh"
+    ]
+  },
+  {
+    "code": "DIEN_TU",
+    "name": "Điện & điện tử",
+    "keywords": [
+      "dien tu",
+      "ky thuat dien",
+      "cong nghe dien",
+      "he thong dien"
+    ]
+  },
+  {
+    "code": "VIEN_THONG",
+    "name": "Viễn thông",
+    "keywords": [
+      "vien thong",
+      "truyen thong so",
+      "truyen thong da phuong tien so"
+    ]
+  },
+  {
+    "code": "TU_DONG_HOA",
+    "name": "Điều khiển & tự động hóa",
+    "keywords": [
+      "tu dong hoa",
+      "dieu khien",
+      "robot",
+      "co dien tu"
+    ]
+  },
+  {
+    "code": "CO_KHI",
+    "name": "Cơ khí & chế tạo",
+    "keywords": [
+      "co khi",
+      "che tao",
+      "co ky thuat",
+      "co dien tu"
+    ]
+  },
+  {
+    "code": "O_TO",
+    "name": "Ô tô & phương tiện",
+    "keywords": [
+      "o to",
+      "ky thuat tau",
+      "dong luc",
+      "dau may",
+      "hang hai"
+    ]
+  },
+  {
+    "code": "HANG_KHONG",
+    "name": "Hàng không & không gian",
+    "keywords": [
+      "hang khong",
+      "khong gian",
+      "vu tru"
+    ]
+  },
+  {
+    "code": "VAT_LIEU",
+    "name": "Vật liệu",
+    "keywords": [
+      "vat lieu",
+      "luyen kim",
+      "nano"
+    ]
+  },
+  {
+    "code": "HOA_HOC",
+    "name": "Hóa học & công nghệ hóa",
+    "keywords": [
+      "hoa hoc",
+      "ky thuat hoa",
+      "cong nghe hoa",
+      "hoa dau",
+      "hoa duoc"
+    ]
+  },
+  {
+    "code": "SINH_HOC",
+    "name": "Sinh học & công nghệ sinh học",
+    "keywords": [
+      "sinh hoc",
+      "sinh y",
+      "y sinh",
+      "vi sinh"
+    ]
+  },
+  {
+    "code": "THUC_PHAM",
+    "name": "Thực phẩm",
+    "keywords": [
+      "thuc pham",
+      "dinh duong"
+    ]
+  },
+  {
+    "code": "MOI_TRUONG",
+    "name": "Môi trường & tài nguyên",
+    "keywords": [
+      "moi truong",
+      "tai nguyen",
+      "khi hau",
+      "thuy van",
+      "bao ton",
+      "dia chat",
+      "khi tuong"
+    ]
+  },
+  {
+    "code": "NANG_LUONG",
+    "name": "Năng lượng",
+    "keywords": [
+      "nang luong",
+      "he thong dien",
+      "dien hat nhan"
+    ]
+  },
+  {
+    "code": "NONG_LAM",
+    "name": "Nông lâm & chăn nuôi",
+    "keywords": [
+      "nong nghiep",
+      "nong hoc",
+      "lam nghiep",
+      "chan nuoi",
+      "thuy san",
+      "thu y",
+      "nong lam"
+    ]
+  },
+  {
+    "code": "TOAN_THONG_KE",
+    "name": "Toán & thống kê",
+    "keywords": [
+      "toan hoc",
+      "toan ung dung",
+      "toan tin",
+      "thong ke",
+      "dinh phi",
+      "su pham toan"
+    ]
+  },
+  {
+    "code": "VAT_LY",
+    "name": "Vật lý",
+    "keywords": [
+      "vat ly",
+      "quang hoc",
+      "thien van"
+    ]
+  },
+  {
+    "code": "XAY_DUNG",
+    "name": "Xây dựng & hạ tầng",
+    "keywords": [
+      "xay dung",
+      "cong trinh",
+      "ky thuat giao thong",
+      "ky thuat cap thoat nuoc"
+    ]
+  },
+  {
+    "code": "KIEN_TRUC",
+    "name": "Kiến trúc & quy hoạch",
+    "keywords": [
+      "kien truc",
+      "quy hoach",
+      "do thi",
+      "dia chinh",
+      "trac dia"
+    ]
+  },
+  {
+    "code": "THIET_KE",
+    "name": "Thiết kế",
+    "keywords": [
+      "thiet ke",
+      "do hoa",
+      "my thuat",
+      "thoi trang"
+    ]
+  },
+  {
+    "code": "NGHE_THUAT",
+    "name": "Nghệ thuật",
+    "keywords": [
+      "nghe thuat",
+      "am nhac",
+      "dien anh",
+      "san khau",
+      "bieu dien",
+      "my thuat",
+      "thanh nhac"
+    ]
+  },
+  {
+    "code": "SU_PHAM",
+    "name": "Giáo dục & giảng dạy",
+    "keywords": [
+      "su pham",
+      "giao duc",
+      "giao vien",
+      "giang day"
+    ]
+  },
+  {
+    "code": "NGON_NGU",
+    "name": "Ngôn ngữ & dịch thuật",
+    "keywords": [
+      "ngon ngu",
+      "ngoai ngu",
+      "bien dich",
+      "phien dich",
+      "tieng anh",
+      "tieng phap",
+      "tieng trung",
+      "tieng nhat",
+      "tieng han"
+    ]
+  },
+  {
+    "code": "TRUYEN_THONG",
+    "name": "Báo chí & truyền thông",
+    "keywords": [
+      "bao chi",
+      "truyen thong",
+      "quan he cong chung",
+      "xuat ban",
+      "truyen hinh"
+    ]
+  },
+  {
+    "code": "MARKETING",
+    "name": "Marketing & thương mại số",
+    "keywords": [
+      "marketing",
+      "thuong mai dien tu",
+      "quang cao",
+      "kinh doanh so",
+      "thuong mai so"
+    ]
+  },
+  {
+    "code": "KINH_DOANH",
+    "name": "Kinh tế & kinh doanh",
+    "keywords": [
+      "kinh te",
+      "kinh doanh",
+      "thuong mai",
+      "bat dong san"
+    ]
+  },
+  {
+    "code": "QUAN_TRI",
+    "name": "Quản trị & điều hành",
+    "keywords": [
+      "quan tri",
+      "quan ly",
+      "dieu hanh"
+    ]
+  },
+  {
+    "code": "LOGISTICS",
+    "name": "Logistics & chuỗi cung ứng",
+    "keywords": [
+      "logistics",
+      "chuoi cung ung",
+      "van tai",
+      "kinh doanh quoc te"
+    ]
+  },
+  {
+    "code": "TAI_CHINH",
+    "name": "Tài chính & ngân hàng",
+    "keywords": [
+      "tai chinh",
+      "ngan hang",
+      "dau tu",
+      "dinh phi",
+      "bao hiem",
+      "tham dinh gia"
+    ]
+  },
+  {
+    "code": "KE_TOAN",
+    "name": "Kế toán & kiểm toán",
+    "keywords": [
+      "ke toan",
+      "kiem toan"
+    ]
+  },
+  {
+    "code": "PHAP_LUAT",
+    "name": "Pháp luật",
+    "keywords": [
+      "luat",
+      "tu phap",
+      "phap ly",
+      "dieu tra",
+      "an ninh quoc phong"
+    ]
+  },
+  {
+    "code": "TAM_LY",
+    "name": "Tâm lý & công tác xã hội",
+    "keywords": [
+      "tam ly",
+      "cong tac xa hoi",
+      "tham van",
+      "phuc hoi chuc nang"
+    ]
+  },
+  {
+    "code": "XA_HOI",
+    "name": "Xã hội & nhân văn",
+    "keywords": [
+      "xa hoi",
+      "nhan van",
+      "lich su",
+      "triet hoc",
+      "chinh tri",
+      "quan he quoc te",
+      "ngoai giao",
+      "van hoa",
+      "van hoc",
+      "dong phuong",
+      "quoc te hoc"
+    ]
+  },
+  {
+    "code": "Y_KHOA",
+    "name": "Y khoa & điều trị",
+    "keywords": [
+      "y khoa",
+      "phau thuat",
+      "bac si",
+      "rang",
+      "nhan khoa",
+      "y hoc co truyen",
+      "vat ly tri lieu"
+    ]
+  },
+  {
+    "code": "DIEU_DUONG",
+    "name": "Điều dưỡng & chăm sóc",
+    "keywords": [
+      "dieu duong",
+      "ho sinh",
+      "cham soc"
+    ]
+  },
+  {
+    "code": "DUOC",
+    "name": "Dược học",
+    "keywords": [
+      "duoc",
+      "bao che"
+    ]
+  },
+  {
+    "code": "Y_TE",
+    "name": "Y tế & xét nghiệm",
+    "keywords": [
+      "y te",
+      "xet nghiem",
+      "chan doan",
+      "y hoc du phong",
+      "ky thuat y",
+      "y sinh"
+    ]
+  },
+  {
+    "code": "DU_LICH",
+    "name": "Du lịch & khách sạn",
+    "keywords": [
+      "du lich",
+      "khach san",
+      "nha hang",
+      "lu hanh"
+    ]
+  },
+  {
+    "code": "NHAN_SU",
+    "name": "Nhân sự & lao động",
+    "keywords": [
+      "nhan luc",
+      "nhan su",
+      "lao dong"
+    ]
+  },
+  {
+    "code": "LUU_TRU",
+    "name": "Thông tin & lưu trữ",
+    "keywords": [
+      "luu tru",
+      "thu vien",
+      "bao tang",
+      "van thu",
+      "thong tin hoc"
+    ]
+  },
+  {
+    "code": "THE_THAO",
+    "name": "Thể thao",
+    "keywords": [
+      "the thao",
+      "the duc",
+      "huan luyen"
+    ]
+  }
+]

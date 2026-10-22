@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { SITE_NAME } from '@/lib/brand';
 import { useAuth } from '@/contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 
@@ -28,8 +29,8 @@ export const Dashboard = () => {
         {/* Header with logout button */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-white">GocTriThuc</h1>
-            <p className="text-sm text-slate-400">Đọc là "Góc Tri Thức"</p>
+            <h1 className="text-3xl font-bold text-white">{SITE_NAME}</h1>
+            <p className="text-sm text-slate-400">Khám phá bản thân, định hướng tương lai.</p>
           </div>
           <Button
             onClick={auth.logout}

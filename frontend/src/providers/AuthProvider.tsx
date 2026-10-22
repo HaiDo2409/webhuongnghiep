@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBackend } from '@/lib/runtime';
 
-const guest: AuthState = { isAuthenticated: false, login: provider => { window.location.href = `/oauth2/authorization/${provider}`; } };
+const guest: AuthState = { isAuthenticated: false };
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, setState] = useState<AuthState | null>(!useBackend && import.meta.env.MODE !== 'development' ? guest : null);
   const navigate = useNavigate();

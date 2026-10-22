@@ -5,12 +5,19 @@ import { Button } from '@/components/ui/button';
 import { errorMessage, type Program, type QuizVersion, type QuizType, type Question } from '@/services/guidance';
 import { HOLLAND_LABELS } from '@/pages/trac-nghiem/data/questions';
 import { MI_LABELS } from '@/pages/trac-nghiem/data/mi-questions';
+import { BenchmarkHistoryEditor } from './BenchmarkHistoryEditor';
+import { CareerImportPanel } from './CareerImportPanel';
+import { CatalogTagManager, TagPicker } from './CatalogTags';
+import { ProgramSchoolList } from './ProgramSchoolList';
+import { WorkbookPoints } from '../schools/SchoolDirectory';
+import { SchoolManager, type ManagedSchool } from './SchoolManager';
 
 const groups: Record<string, string[]> = { A00: ['toan', 'ly', 'hoa'], A01: ['toan', 'ly', 'anh'], A02: ['toan', 'ly', 'sinh'], B00: ['toan', 'hoa', 'sinh'], C00: ['van', 'su', 'dia'], D01: ['toan', 'van', 'anh'], D07: ['toan', 'hoa', 'anh'], D08: ['toan', 'sinh', 'anh'], D09: ['toan', 'su', 'anh'] };
 const blankProgram = (): Program => ({ id: '', school: '', shortName: '', major: '', majorCode: '', admissionYear: 2026, subjectGroups: [{ code: 'A00', subjects: groups.A00 }], hollandProfile: { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 }, benchmark: null, benchmarkYear: null, sourceUrl: '', verified: false, published: false, revision: 0 });
 
 export function AdminPage() {
-  const [tab, setTab] = useState<'programs' | 'quizzes'>('programs');
+  const [tab, setTab] = useState<'programs' | 'quizzes' | 'careers' | 'schools'>('programs');
+  const [schools,setSchools]=useState<ManagedSchool[]>([]);
   const [programs, setPrograms] = useState<Program[]>([]);
   const [quizzes, setQuizzes] = useState<QuizVersion[]>([]);
   const [program, setProgram] = useState<Program>(blankProgram);
@@ -22,15 +29,17 @@ export function AdminPage() {
   const [message, setMessage] = useState('');
   const [removedQuizzes, setRemovedQuizzes] = useState<QuizVersion[]>([]);
   const quizForm = useRef<HTMLFormElement>(null);
+  const programForm = useRef<HTMLFormElement>(null);
+  useEffect(()=>{if(program.id)programForm.current?.scrollIntoView({behavior:'smooth',block:'start'});},[program.id]);
   const quizTitle = useRef<HTMLInputElement>(null);
   async function load() {
-    const [p, q] = await Promise.all([api.get<Program[]>('/api/admin/programs'), api.get<QuizVersion[]>('/api/admin/quizzes')]);
-    setPrograms(p.data); setQuizzes(q.data);
+    const [p, q, s] = await Promise.all([api.get<Program[]>('/api/admin/programs'), api.get<QuizVersion[]>('/api/admin/quizzes'),api.get<ManagedSchool[]>('/api/admin/schools')]);
+    setPrograms(p.data); setQuizzes(q.data);setSchools(s.data);
   }
   useEffect(() => {
     let live = true;
-    if (useBackend) Promise.all([api.get<Program[]>('/api/admin/programs'), api.get<QuizVersion[]>('/api/admin/quizzes')])
-      .then(([p, q]) => { if (live) { setPrograms(p.data); setQuizzes(q.data); } })
+    if (useBackend) Promise.all([api.get<Program[]>('/api/admin/programs'), api.get<QuizVersion[]>('/api/admin/quizzes'),api.get<ManagedSchool[]>('/api/admin/schools')])
+      .then(([p, q, s]) => { if (live) { setPrograms(p.data); setQuizzes(q.data);setSchools(s.data); } })
       .catch(e => { if (live) setError(errorMessage(e)); });
     return () => { live = false; };
   }, []);
@@ -66,19 +75,21 @@ export function AdminPage() {
     {!useBackend && <p>Trang quản trị cần bật kết nối backend sau khi cài PostgreSQL.</p>}
     {error && <p role="alert" className="bg-red-50 text-red-700 p-4 rounded-xl">{error}</p>}
     {message && <p role="status" className="bg-green-50 text-green-700 p-4 rounded-xl">{message}</p>}
-    <div className="flex gap-3"><Button variant={tab === 'programs' ? 'default' : 'outline'} onClick={() => setTab('programs')}>Ngành và trường</Button><Button variant={tab === 'quizzes' ? 'default' : 'outline'} onClick={() => setTab('quizzes')}>Bộ trắc nghiệm</Button></div>
-    {tab === 'programs' ? <div className="grid lg:grid-cols-[1fr_2fr] gap-6">
-      <section className="space-y-2"><Button variant="outline" onClick={() => setProgram(blankProgram())}>Thêm chương trình</Button>
-        {programs.map(p => <button className={`block w-full text-left border rounded-xl p-3 ${p.id === program.id ? 'bg-secondary' : 'bg-white'}`} key={p.id} onClick={() => setProgram({ ...p, sourceUrl: p.sourceUrl ?? '' })}><strong>{p.major}</strong><p>{p.shortName} · {p.admissionYear} · {p.published ? 'Công khai' : 'Nháp'}</p></button>)}
-      </section>
-      <form className="bg-white border rounded-2xl p-6 space-y-4" onSubmit={e => {
+    <div className="flex gap-3 flex-wrap"><Button variant={tab === 'programs' ? 'default' : 'outline'} onClick={() => setTab('programs')}>Ngành và trường</Button><Button variant={tab === 'schools' ? 'default' : 'outline'} onClick={() => setTab('schools')}>Quản lý trường</Button><Button variant={tab === 'quizzes' ? 'default' : 'outline'} onClick={() => setTab('quizzes')}>Bộ trắc nghiệm</Button><Button variant={tab === "careers" ? "default" : "outline"} onClick={() => setTab("careers")}>Dữ liệu nghề & Excel</Button></div>
+    <CatalogTagManager />
+    {tab==='schools'?<SchoolManager onChanged={async()=>{await load();setProgram(blankProgram());}}/>:tab === 'careers' ? <CareerImportPanel /> : tab === 'programs' ? <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] items-start gap-6">
+      <ProgramSchoolList programs={programs} schools={schools} selectedId={program.id} onSelect={p=>setProgram({...p,sourceUrl:p.sourceUrl??''})} onNew={()=>setProgram(blankProgram())}/>
+      <div className="min-w-0 space-y-5"><form ref={programForm} className="bg-white border rounded-2xl p-6 space-y-4 min-w-0" onSubmit={e => {
         e.preventDefault(); void action(async () => {
           const response = program.id ? await api.put<Program>(`/api/admin/programs/${program.id}`, program) : await api.post<Program>('/api/admin/programs', program);
           setProgram(response.data);
         }, 'Đã lưu chương trình.');
       }}>
         <h2 className="text-xl font-semibold">{program.id ? 'Sửa chương trình' : 'Chương trình mới'}</h2>
-        <div className="grid sm:grid-cols-2 gap-4">{([['school', 'Tên trường'], ['shortName', 'Tên viết tắt'], ['major', 'Tên ngành'], ['majorCode', 'Mã ngành']] as const).map(([key, label]) => <label key={key}>{label}<input className={inputClass} required maxLength={key === 'majorCode' ? 30 : key === 'shortName' ? 100 : 255} value={program[key]} onChange={e => setProgram(p => ({ ...p, [key]: e.target.value }))} /></label>)}</div>
+        {program.admissionDetails?.workbook&&<WorkbookPoints data={program.admissionDetails.workbook}/>}
+        <label className="form-field">Trường đào tạo<select required value={program.schoolId??''} onChange={e=>{const s=schools.find(v=>v.id===e.target.value);if(s)setProgram(p=>({...p,schoolId:s.id,school:s.name,shortName:s.code}));}}><option value="">Chọn trường đã có hoặc thêm ở mục Quản lý trường</option>{schools.map(s=><option key={s.id} value={s.id}>{s.code} · {s.name}{s.active?'':' · Đang ẩn'}</option>)}</select></label>
+        {schools.find(s=>s.id===program.schoolId)?.active===false&&<p className="notice notice-info">Trường đang ẩn. Chương trình sẽ không xuất hiện công khai cho đến khi khôi phục trường.</p>}
+        <div className="grid sm:grid-cols-2 gap-4">{([['major', 'Tên ngành'], ['majorCode', 'Mã ngành']] as const).map(([key, label]) => <label key={key}>{label}<input className={inputClass} required maxLength={key === 'majorCode' ? 30 : 255} value={program[key]} onChange={e => setProgram(p => ({ ...p, [key]: e.target.value }))} /></label>)}</div>
         <label className="block">Năm tuyển sinh<input className={inputClass} type="number" required min={2000} max={2100} value={program.admissionYear} onChange={e => setProgram(p => ({ ...p, admissionYear: Number(e.target.value) }))} /></label>
         <fieldset><legend>Tổ hợp ba môn</legend><div className="flex flex-wrap gap-3">{Object.entries(groups).map(([code, subjects]) => <label key={code} className="flex gap-1"><input type="checkbox" checked={program.subjectGroups.some(g => g.code === code)} onChange={e => setProgram(p => ({ ...p, subjectGroups: e.target.checked ? [...p.subjectGroups, { code, subjects }] : p.subjectGroups.filter(g => g.code !== code) }))} />{code}</label>)}</div></fieldset>
         <fieldset><legend>Hồ sơ Holland của ngành (0–100, cần rà soát chuyên môn)</legend><div className="grid grid-cols-3 gap-3">{Object.entries(HOLLAND_LABELS).map(([key, info]) => <label key={key}>{key} · {info.name}<input className={inputClass} type="number" required min={0} max={100} value={program.hollandProfile[key] ?? 0} onChange={e => setProgram(p => ({ ...p, hollandProfile: { ...p.hollandProfile, [key]: Number(e.target.value) } }))} /></label>)}</div></fieldset>
@@ -88,6 +99,7 @@ export function AdminPage() {
         <label className="flex gap-2"><input type="checkbox" checked={program.published} onChange={e => setProgram(p => ({ ...p, published: e.target.checked }))} />Hiển thị công khai</label>
         <Button disabled={busy || !useBackend}>{busy ? 'Đang lưu…' : 'Lưu chương trình'}</Button>
       </form>
+      {program.id && <div className="space-y-5"><div className="soft-panel p-5"><TagPicker key={program.id} type="PROGRAM" targetId={program.id}/></div><BenchmarkHistoryEditor key={program.id} program={program} onSaved={revision => setProgram(old => ({ ...old, revision }))} /></div>}</div>
     </div> : <div className="space-y-5">
       <section className="bg-white border rounded-2xl p-5 space-y-3"><h2 className="text-xl font-semibold">Các phiên bản</h2>
         <p className="text-sm text-muted-foreground">Bấm Dùng bộ này để chọn phiên bản cho học sinh làm. Mỗi loại có một bộ đang sử dụng; bạn có thể chọn lại bộ cũ. Luôn giữ ít nhất một bộ Holland và một bộ Đa trí tuệ.</p>

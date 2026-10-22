@@ -22,6 +22,14 @@ export function BackendQuizPage() {
   const [error, setError] = useState('');
   const [reload, setReload] = useState(0);
   const heading = useRef<HTMLHeadingElement>(null);
+  const [elapsed, setElapsed] = useState(0);
+  const timerTotal = useRef(0);
+  useEffect(() => {
+    if (!started || result) return;
+    const begin = Date.now();
+    const interval = window.setInterval(() => setElapsed(timerTotal.current + Math.floor((Date.now() - begin) / 1000)), 1000);
+    return () => { window.clearInterval(interval); timerTotal.current += Math.floor((Date.now() - begin) / 1000); };
+  }, [started, result]);
   useEffect(() => {
     let live = true;
     guidance.quizzes().then(data => { if (live) { setQuizzes(data); setSelectedId(data.find(q => q.type === 'HOLLAND')?.id ?? data[0]?.id ?? ''); } })
@@ -30,6 +38,8 @@ export function BackendQuizPage() {
   }, [reload]);
   const quiz = quizzes.find(q => q.id === selectedId);
   const question = quiz?.questions[questionIndex];
+  const timeLeft = Math.max(0, Math.max(3, Math.ceil((quiz?.questions.length ?? 0) / 8)) * 60 - elapsed);
+  const timeLabel = `${Math.floor(timeLeft / 60).toString().padStart(2,'0')}:${(timeLeft % 60).toString().padStart(2,'0')}`;
   useEffect(() => { if (started && !result) heading.current?.focus({ preventScroll: true }); }, [questionIndex, started, result]);
   useEffect(() => {
     if (!started || result || !question || busy) return;
@@ -42,7 +52,7 @@ export function BackendQuizPage() {
     document.addEventListener('keydown', keyAnswer);
     return () => document.removeEventListener('keydown', keyAnswer);
   }, [started, result, question, busy]);
-  function reset() { setAnswers({}); setQuestionIndex(0); setStarted(false); setResult(null); setError(''); }
+  function reset() { timerTotal.current = 0; setElapsed(0); setAnswers({}); setQuestionIndex(0); setStarted(false); setResult(null); setError(''); }
   function retry() { setError(''); setLoading(true); setReload(v => v + 1); }
   async function submit() {
     if (!quiz || busy) return;
@@ -54,7 +64,7 @@ export function BackendQuizPage() {
   return <main className="quiz-page page-enter">
     {error && <div role="alert" className="notice notice-error mt-6"><span>{error}</span>{!quizzes.length && <button className="underline shrink-0" onClick={retry}>Thử lại</button>}</div>}
     {!started ? <>
-      <header className="quiz-intro"><p className="eyebrow"><span className="status-dot" />MỘT CHÚT THỜI GIAN CHO CHÍNH MÌNH</p><h1>Bạn có nhiều điều hay.<br /><span>Mình cùng khám phá nhé.</span></h1><p>Không có đáp án đúng hay sai. Chỉ có những điều giống bạn, và những điều chưa giống lắm.</p></header>
+      <header className="quiz-intro"><p className="eyebrow"><span className="status-dot" />KHÔNG GIAN KHÁM PHÁ BẢN THÂN</p><h1>Thấu hiểu chính mình.<br /><span>Khởi đầu mọi hướng đi.</span></h1><p>Không có đáp án đúng hay sai. Hãy chọn điều gần với bạn nhất, theo nhịp của riêng mình.</p></header>
       {loading && <div className="loading-panel" role="status"><span className="spinner" /><p>Đang chuẩn bị hành trình của bạn…</p></div>}
       {!loading && !error && !quizzes.length && <div className="empty-panel">Bộ câu hỏi đang được chuẩn bị. Bạn quay lại sau một chút nhé.</div>}
       <div className="quiz-type-grid" role="group" aria-label="Chọn bài khám phá">{quizzes.map(q => <button key={q.id} className={`quiz-type-card ${q.id === selectedId ? 'selected' : ''}`} aria-pressed={q.id === selectedId} onClick={() => { if (q.id !== selectedId) { reset(); setSelectedId(q.id); } }}>
@@ -64,7 +74,7 @@ export function BackendQuizPage() {
       </button>)}</div>
       {quiz && <div className="quiz-start"><button className="action-primary" onClick={() => setStarted(true)}>{Object.keys(answers).length ? 'Tiếp tục khám phá' : 'Bắt đầu khám phá'}<ArrowRight size={17} /></button><p className="micro-copy"><LockKeyhole size={12} />Bạn có thể khám phá trước, đăng nhập để lưu sau.</p></div>}
     </> : question && quiz && <section className="quiz-workspace">
-      <div className="quiz-progress-top"><button className="subtle-link" onClick={() => setStarted(false)} disabled={busy}><ArrowLeft size={13} />{quiz.title}</button><span><strong>{questionIndex + 1}</strong> / {quiz.questions.length}</span></div>
+      <div className="quiz-progress-top"><button className="subtle-link" onClick={() => setStarted(false)} disabled={busy}><ArrowLeft size={13} />{quiz.title}</button><span className="assessment-timer" title="Đồng hồ gợi ý; hết thời gian vẫn có thể tiếp tục, không tự nộp bài."><Clock3 size={15} />{timeLeft ? <>Gợi ý <strong>{timeLabel}</strong></> : 'Cứ tiếp tục theo nhịp của bạn'}</span><span><strong>{questionIndex + 1}</strong> / {quiz.questions.length}</span></div>
       <div className="quiz-progress" role="progressbar" aria-label="Tiến độ làm bài" aria-valuemin={0} aria-valuemax={quiz.questions.length} aria-valuenow={Object.keys(answers).length}><div style={{ width: `${Object.keys(answers).length / quiz.questions.length * 100}%` }} /></div>
       <div className="question-stage question-enter" key={question.id}><p className="eyebrow">{questionIndex < quiz.questions.length / 3 ? 'CỨ LÀ CHÍNH MÌNH NHÉ' : questionIndex < quiz.questions.length * 2 / 3 ? 'BẠN ĐANG HIỂU MÌNH HƠN MỘT CHÚT' : 'CHỈ CÒN MỘT VÀI BƯỚC NỮA THÔI'}</p>
         <h1 ref={heading} tabIndex={-1} className="question-heading">{question.text}</h1><p>Điều này giống bạn đến mức nào?</p>

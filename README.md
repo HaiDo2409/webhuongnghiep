@@ -1,4 +1,4 @@
-# Hướng nghiệp — Hiểu mình, mở tương lai
+# Bản đồ Hướng nghiệp — Hiểu mình, mở tương lai
 
 Website hướng nghiệp dành cho học sinh THPT Chuyên Biên Hòa, giúp bạn khám phá sở thích, tìm hiểu ngành học và bắt đầu xây dựng hướng đi cho mình.
 
@@ -12,13 +12,19 @@ Bạn không cần biết ngay mình sẽ trở thành ai. Hãy bắt đầu t�
 - **Theo dõi hành trình:** tạo tài khoản để lưu thông tin học tập, xem lại lịch sử trắc nghiệm và lưu những lựa chọn yêu thích.
 - **Khám phá thêm:** đọc nội dung hướng nghiệp, tìm tài nguyên và các bước học kỹ năng.
 
-Giao diện sáng, tối giản, sử dụng màu xanh ngọc và cam, phù hợp cả máy tính lẫn điện thoại.
+Giao diện Bản đồ Hướng nghiệp tối giản với Deep Blue và Neon Teal, phù hợp cả máy tính lẫn điện thoại. Trang chủ có bản đồ STEM tương tác; mục Ngành nghề hỗ trợ tìm kiếm, lọc lĩnh vực, khoảng lương tham khảo và kỹ năng.
+
+Danh mục mới có **378 nghề và 41 nhóm**, đọc từ PostgreSQL. Kỹ năng và hồ sơ sở thích được bổ sung từ O*NET 31.0; thông tin có đường dẫn nguồn. Bạn có thể chọn bài Holland để xem mức tương đồng sở thích của từng nghề và ưu tiên những nghề gần với mình hơn. Có thêm lương tham khảo cho **34 nghề**, đối chiếu nguồn Việt Nam năm 2026; mức suy từ vị trí tương đương ghi rõ **Ước tính**, khu vực và kinh nghiệm khi mở chi tiết. Nghề chưa có căn cứ phù hợp vẫn để đang bổ sung. [Nguồn và cách cập nhật lương](docs/SALARY_REFERENCES.md).
 
 ## Cách hoạt động
 
+Admin có mục **Quản lý trường** để thêm, sửa, ẩn và khôi phục trường. Chỉ xóa hẳn trường chưa có chương trình; trường đang có dữ liệu được ẩn để giữ điểm chuẩn và lịch sử. Khi thêm chương trình, chọn trường từ danh mục có sẵn.
+
+Nghề và chương trình đào tạo dùng chung bộ tag để gợi ý liên kết. Admin gắn tag và xem chương trình tự khớp; có thể loại trừ hoặc khôi phục gợi ý, không cần chọn ngành/chương trình thủ công. Mức khớp tag khác với độ phù hợp Holland của học sinh. [Cách quản lý tag](docs/TAG_MATCHING.md).
+
 ### 1. Khám phá bản thân
 
-Mở **Khám phá bản thân**, chọn một trong hai bài:
+Mở **Trắc nghiệm**, chọn một trong hai bài:
 
 | Bài trắc nghiệm | Giúp bạn tìm hiểu |
 |---|---|
@@ -31,7 +37,7 @@ Không có đáp án đúng hay sai. Kết quả là điểm khởi đầu để
 
 ### 2. Tìm ngành và trường
 
-Mở **Tìm ngành & trường**, nhập điểm các môn và năm dự tuyển. Nếu đã lưu thông tin học tập trong hồ sơ, website tự điền các thông tin đó để bạn không cần nhập lại.
+Mở **Tra điểm → Điểm thi THPT**, nhập điểm các môn và năm dự tuyển. Nếu đã lưu thông tin học tập trong hồ sơ, website tự điền các thông tin đó để bạn không cần nhập lại.
 
 Bạn có thể bật hoặc tắt **Dùng kết quả trắc nghiệm Holland**:
 
@@ -40,11 +46,17 @@ Bạn có thể bật hoặc tắt **Dùng kết quả trắc nghiệm Holland**
 
 Holland giúp thay đổi thứ tự gợi ý, không cộng thêm vào điểm môn học. Mỗi chương trình hiển thị thông tin trường/ngành, tổng điểm tổ hợp có thể tính được, mức tương đồng Holland khi có và mốc điểm tham khảo.
 
-**Lưu ý:** dữ liệu hiện tại phục vụ phát triển và tham khảo, chưa được xác minh đầy đủ. Website mới tính tổng ba môn thang 30, chưa áp dụng ưu tiên, hệ số hay quy đổi chứng chỉ; kết quả không phải dự báo trúng tuyển.
+Với năm **2026**, website tính tổng ba môn không hệ số và ưu tiên khu vực/đối tượng theo thông tin tự khai, có giảm ưu tiên từ 22,5/30. Khi admin đã bổ sung đủ ba năm điểm chuẩn có nguồn và xác nhận tương thích, website hiển thị mốc xu hướng theo trọng số **50%–30%–20%**, cùng ba mức **Thấp hơn / Gần / Cao hơn mốc**. Thiếu dữ liệu sẽ ghi rõ năm còn thiếu.
+
+Hai tab **Đánh giá năng lực** và **Xét tuyển kết hợp** đã tính điểm theo một số quy tắc **Ngoại thương 2026**: HSA, V-ACT, TSA cho nhóm chương trình được hỗ trợ; học bạ từng môn lớp 10–12 kết hợp IELTS Academic. Chọn đúng nhóm chương trình để xem công thức, điểm ưu tiên, từng bước tính và các điều kiện đã kiểm tra. Kết quả được lưu kèm phiên bản quy tắc khi đăng nhập.
+
+**Lưu ý:** danh mục ngành/trường còn có dữ liệu mẫu. Phần THPT phổ thông chưa áp dụng hệ số hoặc công thức riêng; các bộ tính Ngoại thương chưa tính điểm thưởng giải thưởng, chưa thẩm định hồ sơ và chưa đối chiếu lịch sử riêng từng mã ngành. Chưa hỗ trợ quy đổi riêng của Bách khoa, ĐH Công nghệ hoặc Kinh tế Quốc dân. Website không công bố xác suất đỗ hay thay thế kết quả xét tuyển của trường.
+
+Danh mục đã bổ sung **1.275 dòng chương trình tại 35 trường/cơ sở** từ file điểm chuẩn, với điểm THPT 2024–2026 và các kỳ thi ĐGNL khi có. Mở **Trường**, chọn trường rồi xem ngành, điểm chuẩn và công thức. Dữ liệu nguồn chưa mặc định xác minh; có thể bật bộ lọc chỉ xem nguồn đã kiểm tra. Công thức hoặc thang điểm chưa rõ được hiển thị để đối chiếu, chưa tự tính sai thành tổng ba môn. Mốc xu hướng chỉ tính khi đủ ba năm được xác nhận tương thích. [Phạm vi dữ liệu](docs/DATASET_35_SCHOOLS.md).
 
 ### 3. Lưu lại hành trình của bạn
 
-Chọn **Đăng nhập → Tạo tài khoản** để đăng ký bằng tài khoản và mật khẩu. Đăng nhập Google cũng được hỗ trợ khi người quản lý đã cấu hình dịch vụ.
+Chọn **Đăng nhập → Tạo tài khoản** để đăng ký bằng tài khoản và mật khẩu. Đổi mật khẩu tại **menu tài khoản ở góc phải → Đổi mật khẩu**; sau khi đổi, đăng nhập lại bằng mật khẩu mới.
 
 Trong **Hồ sơ**, bạn có thể:
 
@@ -57,13 +69,17 @@ Bạn có thể làm trắc nghiệm trước khi đăng nhập. Để giữ l�
 
 ### 4. Bắt đầu từ một kỹ năng nhỏ
 
-Mở **Lộ trình kỹ năng** để tìm các bước học và tài nguyên tham khảo. Bạn cũng có thể xem **Góc cảm hứng** hoặc lưu nghề/chương trình vào danh sách yêu thích để quay lại tìm hiểu sau.
+Từ trang chủ hoặc trang chi tiết nghề, mở **Lộ trình kỹ năng** để tìm các bước học và tài nguyên tham khảo. Bạn cũng có thể xem **Góc cảm hứng** hoặc lưu nghề/chương trình vào danh sách yêu thích để quay lại tìm hiểu sau.
 
 ### Dành cho quản trị viên
 
 Tài khoản admin có mục **Quản trị nội dung** để cập nhật chương trình tại các trường và quản lý bộ trắc nghiệm.
 
 Admin có thể tạo bộ câu hỏi từ mẫu, lưu bản nháp và bấm **Dùng bộ này** để chọn phiên bản cho học sinh làm. Mỗi loại có một bộ đang dùng; có thể chọn lại bộ cũ đã lưu trữ. Bộ câu hỏi được xóa bằng cơ chế xóa mềm, có hoàn tác và vẫn giữ nguyên lịch sử bài làm. Hệ thống giữ ít nhất một bộ Holland và một bộ Đa trí tuệ.
+
+Trong **Ngành và trường**, chọn một chương trình đã lưu rồi xuống **Lịch sử điểm chuẩn** để nhập điểm từng năm/tổ hợp và đường dẫn công bố. Chỉ bật xác nhận nguồn và khả năng so sánh sau khi đã kiểm tra. Đây là quản lý dữ liệu đầu vào; chức năng admin tự tạo công thức tính mới chưa triển khai.
+
+Mục **Dữ liệu nghề & Excel** cho phép tải mẫu chuẩn kèm quy tắc từng cột, xuất dữ liệu hiện tại để sửa và nhập lại. Hỗ trợ file nghề 7 cột ban đầu hoặc mẫu nhiều sheet liên kết nghề–ngành–chương trình–điểm chuẩn. Luồng nhập gồm **tải file → xem trước thêm/sửa/lỗi → xác nhận nhập**, có lịch sử và hoàn tác nếu chưa có cập nhật tiếp. Hướng dẫn đầy đủ tại [Quy tắc nhập Excel](docs/EXCEL_IMPORT.md).
 
 ## Cách chạy chương trình
 
